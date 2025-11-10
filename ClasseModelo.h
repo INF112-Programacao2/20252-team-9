@@ -28,7 +28,7 @@ class Classe{
     public:
         //Construtor(s)
         //Se a classe possui atributos com tipo de outra classe e eles sao atribuidos ao construtor, os parametros devem ser referencias(Necessario para interacao obter o endereço do objeto que já existe, ao invez da cópia gerado no parâmetro)
-        Classe(int number, std::string string, OutraClasse1 &composicao1, OutraClasse2 &composicao2);
+        Classe(int number, std::string string, bool ok, OutraClasse1 &composicao1, std::vector <OutraClasse2>* &composicao2);
 
         //Destrutor
         ~Classe();
@@ -44,13 +44,14 @@ class Classe{
         void setNumber(int number);
         void setString(std::string string);
         void setComposicao1(OutraClasse1 &composicao1);
+        void setComposicao2(std::vector <OutraClasse2>* &composicao2);
 
         //Metodos
         ///Abaixo ficariam os demais metodos
         //Devem conter virtual se forem metodos a serem reescritos em classes derivadas ou override se estiverem reescrevendo um metodo de uma super classe
         //Um coomentario adicional é bem vindo se for necessario para entender o que o metodo faz ou o que sao exatamente seus parametros
         //Uso das praticas citadas acima se a situacao for adequada
-        virtual std::string metodo(int number, OutraClasse1 &composicao1, std::vector <OutraClasse2> &composicao2);
+        virtual std::string metodo(int number, OutraClasse1 &composicao1, std::vector <OutraClasse2>* &composicao2);
         
 };
 
