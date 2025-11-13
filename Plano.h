@@ -13,6 +13,9 @@ class Plano{
         //Construtor
         Plano(std::string nome, double desconto);
 
+        //Destrutor
+        ~Plano();
+
         //Getters
         std::string getNome() const;
         double getDesconto() const;
