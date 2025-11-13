@@ -6,7 +6,7 @@
 #include <string>
 #include <vector>
 
-
+//Nao se deve usar o comando "using namespace std"
 
 class Classe{
     //Atributos
