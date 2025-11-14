@@ -1,0 +1,100 @@
+Entrega Parcial  
+
+(Trabalho Final INF 112) 
+(Grupo 9) 
+
+Nomes:  Bruno Alexander Pinto Sette (120562) 
+Icaro Avelar Fernandes (120551) 
+Joao Pedro Monteiro Nunes Silva (120552) 
+Eduardo Magesti Santiago (120568) 
+Ana Carolina Costa Pereira (106355) 
+
+Descrição: O projeto é de um sistema de gestão de uma clínica que realiza atendimento 
+médico, seja por consultas, exames ou cirurgias. É por meio dele que são feitos e 
+desmarcados os agendamentos dos procedimentos, esse sistema pode ser acessado por 
+pacientes, secretários da clínica e médicos que trabalham lá. 
+
+  
+User Stories: 
+1.  “Como um paciente da Clínica, eu quero visualizar e gerenciar todas as minhas consultas 
+(passadas e futuras) para acompanhar meu histórico e fazer ajustes na agenda, se necessário.” 
+Critérios:  
+-Exibir agendamentos passados e futuros 
+- Ordená-los pela data 
+- Quanto à agendamentos futuros, o paciente pode cancelá-los 
+  
+2.  ”Como paciente do consultório, quero agendar um exame de rotina, para acompanhar meu 
+estado de saúde.” 
+Critérios: 
+- Agendamento do atendimento 
+  - Visualização dos tipos de atendimento 
+  - Seleção do profissional para o atendimento  
+  - Seleção de dados adicionais para o agendamento (data, plano, observação...) 
+- Gestão de disponibilidade 
+- Validação da disponibilidade da data e horário 
+- Definir forma de pagamento 
+
+3.  “Como paciente do consultório, quero me cadastrar no sistema, para acessá-lo 
+posteriormente com mais facilidade.” 
+Critérios: 
+- Preenchimento dos dados  
+- Armazenamento dos dados 
+- Validação do formato dos dados 
+- Prevenção de duplicidade (CPF) 
+- Confirmação de cadastro 
+- Limpa tela 
+- Mensagem de sucesso  
+
+4.  “Como médico da clínica, eu quero conferir meus agendamentos (passados e pendentes) 
+para administrá-los.” 
+Critérios: 
+- Exibir agendamentos passados e futuros (Ver) 
+- Sobre os passados, pode adicionar feedbacks/diagnósticos  
+  - Sobre os futuros, pode cancelá-los 
+  
+5.  “Como secretária, gostaria de visualizar os horários da clínica, para administrá-los.” 
+Critérios:  
+-Exibir agendamentos passados e futuros 
+- Ordená-los pela data 
+- Quanto à agendamentos futuros, a secretária pode cancelá-los 
+  
+6.  “Como secretária, gostaria de alterar os serviços ofertados pela clínica, para melhor 
+atender os pacientes.” 
+Critérios: 
+- Exibir serviços  
+- Alterar atributos dos serviços já ofertados 
+- Adicionar ou excluir serviços 
+
+7.  “Como secretária, quero cadastrar um médico no sistema, para torná-lo funcionário da 
+clínica.” 
+Critérios: 
+- Preenchimento dos dados  
+- Armazenamento dos dados 
+- Validação do formato dos dados 
+- Prevenção de duplicidade (CRM e CPF) 
+  - Confirmação de cadastro 
+  - Limpa tela 
+  - Mensagem de sucesso 
+
+8.  “Como secretária, quero remover os dados de um médico do sistema, a fim de desligá-lo 
+da clínica.” 
+Critérios: 
+- Exibir os médicos da clínica com suas informações de identificação  
+  - Excluí-lo da clínica 
+  - Confirma se de fato quer excluir 
+  - Confirmação de exclusão 
+
+9.  “Como secretária da clínica, gostaria de fazer o agendamento de um paciente, 
+necessitando de sua confirmação, para que o médico possa acompanhar o estado de saúde do 
+paciente.” 
+Critérios:  
+- Criar requisição de agendamento 
+- Verificar disponibilidade da agenda do médico referido 
+- Armazena a requisição em uma notificação para o paciente 
+- Aguarda confirmação do paciente para efetivar o agendamento 
+
+
+ 
+ 
+ 
+ 
