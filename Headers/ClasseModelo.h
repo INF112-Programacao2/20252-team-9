@@ -36,11 +36,14 @@ class Classe{
         int getNumber() const;
         std::string getString() const;
         bool isOk() const;
+        OutraClasse1* getComposicao1() const;
+        std::vector <OutraClasse2>* getComposicao2() const;
 
         //Setters  
         //Devem conter o prefixo set e ser do tipo void e receber um parametro com mesmo nome do atributo a ser alterado(Usando o this dentro da sua implementacao para diferencia-los)
         void setNumber(int number);
         void setString(std::string string);
+        void setOk(bool ok);
         void setComposicao1(OutraClasse1 &composicao1);
         void setComposicao2(std::vector <OutraClasse2>* &composicao2);
 
