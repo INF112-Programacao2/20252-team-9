@@ -21,7 +21,7 @@ class Atendente : public Pessoa{
         std::string getMatricula() const;
 
         //Sets
-        void setMatricula();
+        void setMatricula(std::string matricula);
 
         //Metodos
         void VizualizaDados() override;
