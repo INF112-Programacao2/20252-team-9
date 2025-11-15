@@ -4,6 +4,7 @@
 #include "Medico.h"
 #include "Atendente.h"
 #include "Agendamento.h"
+#include "Servico.h"
 
 #include <string>
 #include <vector>
@@ -16,6 +17,7 @@ class Clinica{
         std::vector <Paciente>* pacientes; //Vector que contém todos pacientes da clínica
         std::vector <Medico>* medicos;  //Vector que contém todos os médicos da clínica
         std::vector <Agendamento>* agendamentos; //Vector que contém todos agendamentos da clínica
+        std::vector <Servico>* servicos;
         Atendente* atendente; //Clinica só irá possuir uma atendente
 
     public:
@@ -38,21 +40,25 @@ class Clinica{
         
         /*Métodos*/
 
-        //Controle dos pacientes(Recebe como parâmetro um objeto do tipo paciente, seja para adicionar ou remover)
-        void adicionarPaciente(Paciente* &paciente); 
-        void removerPaciente(Paciente* &Paciente);
+        //Controle dos pacientes(Recebe como parâmetro um objeto do tipo Paciente, seja para adicionar ou remover)
+        void adicionarPaciente(Paciente &paciente); 
+        void removerPaciente(Paciente &Paciente);
 
-        //Controle dos médicos(Recebe como parâmetro um objeto do tipo medico, seja para adicionar ou remover)
-        void adicionarMedico(Medico* &medico);
-        void removerMedico(Medico* &medico);
+        //Controle dos médicos(Recebe como parâmetro um objeto do tipo Medico, seja para adicionar ou remover)
+        void adicionarMedico(Medico &medico);
+        void removerMedico(Medico &medico);
 
-        //Controle dos agendamentos(Recebe como parâmetro um objeto do tipo agendamento, seja para adicionar ou remover)
-        void adicionarAgendamento(Agendamento* &agendamento);
-        void removerAgendamento(Agendamento* &agendamento);
+        //Controle dos agendamentos(Recebe como parâmetro um objeto do tipo Agendamento, seja para adicionar ou remover)
+        void adicionarAgendamento(Agendamento &agendamento);
+        void removerAgendamento(Agendamento &agendamento);
+
+        //Controle dos serviços(Recebe como parâmetro um objeto do tipo Servico, seja para adicionar ou remover)
+        void adicionarServico(Servico &servico);
+        void adicionarServico(Servico &servico);
 
         //Organizar clinica
         void organizarClinica(); //Faz a população da clínica atráves dos dados lidos de um determinado arquivo.
-                                 //Dados = Médicos, pacientes e agendamentos.
+                                 //Dados = Médicos, pacientes, agendamentos e servicos.
 
 };
 
