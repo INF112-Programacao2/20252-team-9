@@ -1,12 +1,12 @@
 #ifndef PROJETO_FINAL_INF_112_CLINICA_H
 #define PROJETO_FINAL_INF_112_CLINICA_H
+
 #include "Paciente.h"
 #include "Medico.h"
 #include "Atendente.h"
 #include "Agendamento.h"
 #include "Servico.h"
-
-#include <string>
+#include "Plano.h"
 #include <vector>
 
 class Clinica{
@@ -17,7 +17,8 @@ class Clinica{
         std::vector <Paciente>* pacientes; //Vector que contém todos pacientes da clínica
         std::vector <Medico>* medicos;  //Vector que contém todos os médicos da clínica
         std::vector <Agendamento>* agendamentos; //Vector que contém todos agendamentos da clínica
-        std::vector <Servico>* servicos;
+        std::vector <Servico>* servicos; //Vector que contém todos serviços ofertados pela clínica
+        std::vector <Plano>* planos; //Vector que contém todos convênios que a clínica tem contrato
         Atendente* atendente; //Clinica só irá possuir uma atendente
 
     public:
@@ -32,10 +33,12 @@ class Clinica{
         std::vector <Paciente>* getPacientes() const;
         std::vector <Medico>* getMedicos() const;
         std::vector <Agendamento>* getAgendamentos() const;
+        std::vector <Servico> getServicos() const;
+        std::vector <Plano> getPlanos() const;
         Atendente* getAtendente() const;
 
         //Setters
-        void setAtendente(Atendente* atendente); 
+        void setAtendente(Atendente &atendente); //Recebe como parametro um objeto do tipo atendente
         void setSaldo(double saldo);                                          
         
         /*Métodos*/
@@ -55,6 +58,10 @@ class Clinica{
         //Controle dos serviços(Recebe como parâmetro um objeto do tipo Servico, seja para adicionar ou remover)
         void adicionarServico(Servico &servico);
         void adicionarServico(Servico &servico);
+
+        //Controle dos planos(Recebe como parâmetro um objeto do tipo Plano, seja para adicionar ou remover)
+        void adicionarPlano(Plano &plano);
+        void removerPlano(Plano &plano);
 
         //Organizar clinica
         void organizarClinica(); //Faz a população da clínica atráves dos dados lidos de um determinado arquivo.
