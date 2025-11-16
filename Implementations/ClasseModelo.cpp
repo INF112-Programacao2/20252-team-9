@@ -2,7 +2,7 @@
 #include "Headers/ClasseModelo.h"
 
 //Construtor
-//Deve ser feito usando a inicializer list, essencial para poder fazer herenca e padronizar o projeto
+//Deve ser feito usando a inicializer list(Sempre que possivel), essencial para poder fazer herenca e padronizar o projeto
 //Obs: No caso da composicao1, que se recebe um objeto como parametro, passa-se seu endereço, já que o atributo é do tipo ponteiro
 Classe::Classe(int number, std::string string, bool ok, OutraClasse1 &composicao1, std::vector <OutraClasse2>* &composicao2) 
     :number(number), string(string), ok(ok), composicao1(&composicao1), composicao2(composicao2)
