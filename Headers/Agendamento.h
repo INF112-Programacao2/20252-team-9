@@ -19,7 +19,7 @@ class Agendamento{
 
     public:
 
-        Agendamento(std::string data, std::string horario, Paciente paciente, Medico medico, Servico servico);  //Construtor que instancia agendamento com todos os seus atributos
+        Agendamento(std::string data, std::string horario, Paciente &paciente, Medico &medico, Servico &servico);  //Construtor que instancia agendamento com todos os seus atributos
 
         ~Agendamento(); //Destrutor
 
@@ -33,9 +33,9 @@ class Agendamento{
         //Setters 
         void setData(std::string data);
         void setHorario(std::string horario);
-        void setPaciente(Paciente paciente);
-        void setMedico(Medico medico);
-        void setServico(Servico servico);
+        void setPaciente(Paciente &paciente);
+        void setMedico(Medico &medico);
+        void setServico(Servico &servico);
 
         void imprimir(); //Método que imprime todos os dados do agendamento
 };

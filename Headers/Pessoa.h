@@ -2,6 +2,7 @@
 #define PROJETO_FINAL_INF_112_PESSOA_H
 
 #include <string>
+#include "Clinica.h"
 
 class Pessoa{
 
@@ -34,7 +35,7 @@ class Pessoa{
                                        // e vai ser redefinida nas subclasses, com os dados
                                        // específicos de médico, atendente e cliente.
         //Impressão dos agendamentos:
-        virtual void VizualizaAgendamentos()=0; //Virtual pura, só vai ser implementada nas subclasses 
+        virtual void VizualizaAgendamentos(Clinica &clinica)=0; //Virtual pura, só vai ser implementada nas subclasses 
                                                 // porque além do comportamento diferir entre as classes, não
                                                 // existem um genérico.
 

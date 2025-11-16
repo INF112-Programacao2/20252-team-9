@@ -4,8 +4,7 @@
 #include <string>
 #include <vector>
 #include "Pessoa.h" 
-
-class Agendamentos{};
+#include "Agendamento.h"
 
 class Medico : public Pessoa {
 
@@ -13,7 +12,6 @@ class Medico : public Pessoa {
         std::string crm;
         std::string ocupacao;
         double saldo;
-        std::vector<Agendamentos*> agendamentos; 
 
     public:
         // Construtor e destrutor:
@@ -33,12 +31,12 @@ class Medico : public Pessoa {
         virtual void VizualizaDados() override; // Reescrita do método de pessoa, 
                                                 // imprime todos os dados de pessoa e também os dados especificos do médico 
 
-        virtual void VizualizaAgendamentos() override; // Reescrita do método de pessoa, 
+        virtual void VizualizaAgendamentos(Clinica &clinica) override; // Reescrita do método de pessoa, 
                                                        // imprime todos os agendamentos já realizados e os previstos para esse médico
 
-        void CancelarAgendamento(); // Cancela um agendamento 
+        void CancelarAgendamento(Clinica &clinica); // Cancela um agendamento 
         
-        void AdicionarFeedBack(); // Adiciona um comentário a um agendamento que já ocorreu  
+        void AdicionarFeedBack(Clinica &clinica); // Adiciona um comentário a um agendamento que já ocorreu  
 
 };
 

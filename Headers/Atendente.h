@@ -5,6 +5,7 @@
 //Includes
 #include <string>
 #include "Pessoa.h"
+#include "Clinica.h"
 
 
 class Atendente : public Pessoa{
@@ -27,12 +28,12 @@ class Atendente : public Pessoa{
         //Metodos
         void VizualizaDados() override;
         void VizualizaAgendamentos() override; // Metodos herdados de pessoa
-        void CadastrarMedico();
-        void DesligarMedico();
-        void MarcarAgendamento(); //Função que também pode ser executada pelo paciente
-        void ConsultaSaldoDaClinica();
-        void CriarServico();
-        void AlterarServico();
+        void CadastrarMedico(Clinica &clinica);
+        void DesligarMedico(Clinica &clinica);
+        void MarcarAgendamento(Clinica &clinica); //Função que também pode ser executada pelo paciente
+        void ConsultaSaldoDaClinica(Clinica &clinica);
+        void CriarServico(Clinica &clinica);
+        void AlterarServico(Clinica &clinica);
         
 };
 

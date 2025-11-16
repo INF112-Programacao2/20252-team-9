@@ -12,34 +12,37 @@
 class Clinica{
     //Atributos
     private:
+        std::string nome;
         double saldo;
 
-        std::vector <Paciente>* pacientes; //Vector que contém todos pacientes da clínica
-        std::vector <Medico>* medicos;  //Vector que contém todos os médicos da clínica
-        std::vector <Agendamento>* agendamentos; //Vector que contém todos agendamentos da clínica
-        std::vector <Servico>* servicos; //Vector que contém todos serviços ofertados pela clínica
-        std::vector <Plano>* planos; //Vector que contém todos convênios que a clínica tem contrato
+        std::vector <Paciente*> pacientes; //Vector que contém todos pacientes da clínica
+        std::vector <Medico*> medicos;  //Vector que contém todos os médicos da clínica
+        std::vector <Agendamento*> agendamentos; //Vector que contém todos agendamentos da clínica
+        std::vector <Servico*> servicos; //Vector que contém todos serviços ofertados pela clínica
+        std::vector <Plano*> planos; //Vector que contém todos convênios que a clínica tem contrato
         Atendente* atendente; //Clinica só irá possuir uma atendente
 
     public:
         //Construtor
-        Clinica();
+        Clinica(std::string nome);
 
         //Destrutor
         ~Clinica();
 
         //Getters
         double getSaldo() const;
-        std::vector <Paciente>* getPacientes() const;
-        std::vector <Medico>* getMedicos() const;
-        std::vector <Agendamento>* getAgendamentos() const;
-        std::vector <Servico> getServicos() const;
-        std::vector <Plano> getPlanos() const;
+        std::string getNome() const;
+        std::vector <Paciente*> getPacientes() const;
+        std::vector <Medico*> getMedicos() const;
+        std::vector <Agendamento*> getAgendamentos() const;
+        std::vector <Servico*> getServicos() const;
+        std::vector <Plano*> getPlanos() const;
         Atendente* getAtendente() const;
 
         //Setters
+        void setSaldo(double saldo); 
+        void setNome(std::string nome);                                         
         void setAtendente(Atendente &atendente); //Recebe como parametro um objeto do tipo atendente
-        void setSaldo(double saldo);                                          
         
         /*Métodos*/
 
@@ -65,7 +68,7 @@ class Clinica{
 
         //Organizar clinica
         void organizarClinica(); //Faz a população da clínica atráves dos dados lidos de um determinado arquivo.
-                                 //Dados = Médicos, pacientes, agendamentos e servicos.
+                                 //Dados = Médicos, pacientes, agendamentos, planos e servicos.
 
 };
 

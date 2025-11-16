@@ -4,8 +4,9 @@
 #include <string>
 #include <vector>
 #include "Pessoa.h"
+#include "Clinica.h"
 
-class Agendamentos{};
+class Agendamento{};
 class Plano{};
 
 class Paciente : public Pessoa{
@@ -20,26 +21,24 @@ class Paciente : public Pessoa{
                                 // "Eu tenho hipertiroidesmo, e faço uso do medicamento x",
                                 // "Tenho pressao alta" ou "Tenho SOP(Síndrome dos ovários poliscísticos)"
         
-        std::vector <Agendamentos*> agendamentos; //Vetor com todos os agendamentos relacionados a esse paciente
-        Plano plano;
+        Plano* plano;
 
     public:
         //Construtor e destrutor:
-        Paciente(std::string nome, std::string cpf, std::string senha, std::string telefone, std::string dataDeNascimento, char sexo);
+        Paciente(std::string nome, std::string cpf, std::string senha, std::string telefone, std::string dataDeNascimento, char sexo, std::string observacoes, Plano* plano);
         ~Paciente();
         
         //Gets
         std::string getDataDeNascimento() const;
         char getSexo() const;
         std::string getObservacoes() const;
-        std::vector<Agendamentos*> getAgendamentos() const;
         Plano getPlano();
         
         
         //Sets
-        void setObservacoes( std::string observacoes);
+        void setObservacoes(std::string observacoes);
         void setSexo(char sexo);
-        void setPlano( Plano plano);
+        void setPlano(Plano &plano);
         
         //Métodos
         //Impressão dos dados do usuário:
@@ -50,12 +49,12 @@ class Paciente : public Pessoa{
                                        // imprime também data de nascimento, sexo, as observações e plano de saúde
 
         //Impressão dos agendamentos:
-        void VizualizaAgendamentos(); //Reescrita do método de pessoa, imprime todos os agendamentos já
+        void VizualizaAgendamentos(Clinica &clinica) override; //Reescrita do método de pessoa, imprime todos os agendamentos já
                                       // realizados e os previstos para esse paciente.
         
-        void Agendar(); //Preenche os dados e cria um agendamento, e o adiciona no vetor agendamentos
+        void Agendar(Clinica &clinica); //Preenche os dados e cria um agendamento, e o adiciona no vetor agendamentos
 
-        void CancelarAgendamento(); // Cancela um agendamento 
+        void CancelarAgendamento(Clinica &clinica); // Cancela um agendamento 
 
 };
     
