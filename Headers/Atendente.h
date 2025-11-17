@@ -22,7 +22,7 @@ class Atendente : public Pessoa{
         std::string getMatricula() const;
 
         //Sets
-        void setMatricula(std::string matricula);
+        void setMatricula(std::string nova_matricula);
 
         
         //Metodos
