@@ -1,5 +1,6 @@
 {
     "files.associations": {
+        "stdexcept": "cpp",
         "array": "cpp",
         "atomic": "cpp",
         "bit": "cpp",
@@ -39,7 +40,6 @@
         "new": "cpp",
         "numbers": "cpp",
         "ostream": "cpp",
-        "stdexcept": "cpp",
         "streambuf": "cpp",
         "typeinfo": "cpp"
     }
