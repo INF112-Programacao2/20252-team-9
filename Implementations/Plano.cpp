@@ -1,6 +1,6 @@
 //Includes
-#include "Plano.h"
-#include "Utils.h"
+#include "../Headers/Plano.h"
+#include "../Headers/Utils.h"
 #include <stdexcept>
 
 //Construtor
