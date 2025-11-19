@@ -8,23 +8,24 @@
 #include "Servico.h"
 #include "Plano.h"
 #include <vector>
+#include <memory>
 
 class Clinica{
     //Atributos
     private:
-        std::string nome;
         double saldo;
+        std::string nome;
 
-        std::vector <Paciente*> pacientes; //Vector que contém todos pacientes da clínica
-        std::vector <Medico*> medicos;  //Vector que contém todos os médicos da clínica
-        std::vector <Agendamento*> agendamentos; //Vector que contém todos agendamentos da clínica
-        std::vector <Servico*> servicos; //Vector que contém todos serviços ofertados pela clínica
-        std::vector <Plano*> planos; //Vector que contém todos convênios que a clínica tem contrato
-        Atendente* atendente; //Clinica só irá possuir uma atendente
+        std::vector<std::unique_ptr<Paciente>> pacientes; //Vector que contém todos pacientes da clínica
+        std::vector<std::unique_ptr<Medico>> medicos;  //Vector que contém todos os médicos da clínica
+        std::vector<std::unique_ptr<Agendamento>> agendamentos; //Vector que contém todos agendamentos da clínica
+        std::vector<std::unique_ptr<Servico>> servicos; //Vector que contém todos serviços ofertados pela clínica
+        std::vector<std::unique_ptr<Plano>> planos; //Vector que contém todos convênios que a clínica tem contrato
+        std::unique_ptr<Atendente>& atendente; //Clinica só irá possuir uma atendente
 
     public:
         //Construtor
-        Clinica(std::string nome);
+        Clinica(std::string nome, std::unique_ptr<Atendente> atendente);
 
         //Destrutor
         ~Clinica();
@@ -32,12 +33,12 @@ class Clinica{
         //Getters
         double getSaldo() const;
         std::string getNome() const;
-        std::vector <Paciente*> getPacientes() const;
-        std::vector <Medico*> getMedicos() const;
-        std::vector <Agendamento*> getAgendamentos() const;
-        std::vector <Servico*> getServicos() const;
-        std::vector <Plano*> getPlanos() const;
-        Atendente* getAtendente() const;
+        std::vector<std::unique_ptr<Paciente>> getPacientes() const;
+        std::vector<std::unique_ptr<Medico>> getMedicos() const;
+        std::vector<std::unique_ptr<Agendamento>> getAgendamentos() const;
+        std::vector<std::unique_ptr<Servico>> getServicos() const;
+        std::vector<std::unique_ptr<Plano>> getPlanos() const;
+        std::unique_ptr<Atendente>& getAtendente() const;
 
         //Setters
         void setSaldo(double saldo); 
