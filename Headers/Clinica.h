@@ -21,11 +21,11 @@ class Clinica{
         std::vector<std::unique_ptr<Agendamento>> agendamentos; //Vector que contém todos agendamentos da clínica
         std::vector<std::unique_ptr<Servico>> servicos; //Vector que contém todos serviços ofertados pela clínica
         std::vector<std::unique_ptr<Plano>> planos; //Vector que contém todos convênios que a clínica tem contrato
-        std::unique_ptr<Atendente>& atendente; //Clinica só irá possuir uma atendente
+        Atendente* atendente; //Clinica só irá possuir uma atendente
 
     public:
         //Construtor
-        Clinica(std::string nome, std::unique_ptr<Atendente> atendente);
+        Clinica(std::string nome);
 
         //Destrutor
         ~Clinica();
@@ -38,7 +38,10 @@ class Clinica{
         std::vector<std::unique_ptr<Agendamento>> getAgendamentos() const;
         std::vector<std::unique_ptr<Servico>> getServicos() const;
         std::vector<std::unique_ptr<Plano>> getPlanos() const;
-        std::unique_ptr<Atendente>& getAtendente() const;
+        Atendente* getAtendente() const;
+
+        //OBS: Unique_prts não permitem cópia em nenhum contexto, inclusive no loop que forem fazer para percorrer esses vetores
+        //Por isso olhem na implementação como percorre esses vetores e como obtem as referencias desses ponteiros
 
         //Setters
         void setSaldo(double saldo); 
@@ -47,25 +50,33 @@ class Clinica{
         
         /*Métodos*/
 
+        //Exemplo de chamada para os métodos abaixo!
+        //Plano plano = Plano("UNIMED", 0.5);
+        //clinica.adicionarPlano(std::make_unique<Plano>(plano));
+        //OU
+        //Clinica.adicionarPlano(std::make_unique<Plano>("UNIMED", 0.5))
+        //Da segunda forma você evita criar um objeto na stack, por mais que provavelmente ele seja destruido logo após a chamada
+        //Para remover basta realmente só passar um ponteiro que contenha o endereço do objeto
+
         //Controle dos pacientes(Recebe como parâmetro um objeto do tipo Paciente, seja para adicionar ou remover)
-        void adicionarPaciente(Paciente &paciente); 
-        void removerPaciente(Paciente &Paciente);
+        void adicionarPaciente(std::unique_ptr<Paciente> paciente); 
+        void removerPaciente(Paciente* paciente);
 
         //Controle dos médicos(Recebe como parâmetro um objeto do tipo Medico, seja para adicionar ou remover)
-        void adicionarMedico(Medico &medico);
-        void removerMedico(Medico &medico);
+        void adicionarMedico(std::unique_ptr<Medico> medico);
+        void removerMedico(Medico* medico);
 
         //Controle dos agendamentos(Recebe como parâmetro um objeto do tipo Agendamento, seja para adicionar ou remover)
-        void adicionarAgendamento(Agendamento &agendamento);
-        void removerAgendamento(Agendamento &agendamento);
+        void adicionarAgendamento(std::unique_ptr<Agendamento> agendamento);
+        void removerAgendamento(Agendamento* agendamento);
 
         //Controle dos serviços(Recebe como parâmetro um objeto do tipo Servico, seja para adicionar ou remover)
-        void adicionarServico(Servico &servico);
-        void adicionarServico(Servico &servico);
+        void adicionarServico(std::unique_ptr<Servico> servico);
+        void removerServico(Servico* servico);
 
         //Controle dos planos(Recebe como parâmetro um objeto do tipo Plano, seja para adicionar ou remover)
-        void adicionarPlano(Plano &plano);
-        void removerPlano(Plano &plano);
+        void adicionarPlano(std::unique_ptr<Plano> plano);
+        void removerPlano(Plano* plano);
 
         //Organizar clinica
         void organizarClinica(); //Faz a população da clínica atráves dos dados lidos de um determinado arquivo.
