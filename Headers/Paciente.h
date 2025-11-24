@@ -6,10 +6,11 @@
 #include "Pessoa.h"
 #include "Clinica.h"
 
-class Agendamento{};
+//class Agendamento{};
 class Plano{};
+class Clinica {};
 
-class Paciente : public Pessoa{
+class Paciente : public Pessoa {
 
     private:
         std::string dataDeNascimento; 
