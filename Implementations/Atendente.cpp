@@ -45,15 +45,22 @@ void Atendente::VizualizaAgendamentos(Clinica &clinica){
     do{
         std::cout << "Você deseja visualizar os agendamentos de: \n (1)Paciente \n(2)Médico\n";
         std:: cin >> n;
-    } while(n != 1 || n != 2);
+
+        if(!std::cin){
+            std::cin.clear();
+            std::cin.ignore(1000,'\n');
+            n = 0;
+        }
+
+    } while(n != 1 && n != 2);
 
     if(n == 1){
         std::cout << "Lista dos Médicos que deseja ver os agendamentos: \n";
         const auto &listaMedicos = clinica.getMedicos();
-        int cont = 1;
+        int cont = 0;
         for(auto &med : listaMedicos) {
-            std::cout << "(" << cont << ")" << med->getNome() << " CRM: " << med->getCrm() << "\n";
             cont++;
+            std::cout << "(" << cont << ")" << med->getNome() << " CRM: " << med->getCrm() << "\n";
         }
 
         int escolha;
@@ -61,7 +68,14 @@ void Atendente::VizualizaAgendamentos(Clinica &clinica){
         do {
             std::cout << "Digite o identificador do Médico que deseja visualizar as consultas: ";
             std::cin >> escolha;
-        } while(escolha < 0 || escolha > cont);
+            
+            if(!std::cin) {
+                std::cin.clear();
+                std::cin.ignore(1000, '\n');
+                escolha = -1;
+            }
+
+        } while(escolha <= 0 || escolha > cont);
 
         listaMedicos[escolha-1]->VizualizaAgendamentos(clinica);
 
@@ -69,10 +83,10 @@ void Atendente::VizualizaAgendamentos(Clinica &clinica){
     else {
         std::cout << "Lista dos pacientes que deseja ver os agendamentos: \n";
         const auto &listaPacientes = clinica.getPacientes();
-        int cont = 1;
+        int cont = 0;
         for(auto &pac : listaPacientes){
-            std::cout << "(" << cont << ")" << pac->getNome() << " CPF: " << pac->getCpf() << "\n";
             cont++;
+            std::cout << "(" << cont << ")" << pac->getNome() << " CPF: " << pac->getCpf() << "\n";
         }
 
         int escolha;
@@ -80,7 +94,13 @@ void Atendente::VizualizaAgendamentos(Clinica &clinica){
         do {
             std::cout << "Digite o identificador do Paciente que deseja visualizar as consultas: ";
             std::cin >> escolha;
-        } while (escolha < 0 || escolha > cont);
+
+            if(!std::cin) {
+                std::cin.clear();
+                std::cin.ignore(1000, '\n');
+                escolha = -1;
+            }
+        } while (escolha <= 0 || escolha > cont);
 
         listaPacientes[escolha-1]->VizualizaAgendamentos(clinica);
 
