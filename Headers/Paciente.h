@@ -33,7 +33,7 @@ class Paciente : public Pessoa {
         std::string getDataDeNascimento() const;
         char getSexo() const;
         std::string getObservacoes() const;
-        Plano getPlano();
+        Plano* getPlano() const;
         
         
         //Sets
