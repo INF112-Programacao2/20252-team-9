@@ -107,3 +107,25 @@ void Atendente::VizualizaAgendamentos(Clinica &clinica){
     }
 
 }
+
+void Atendente::CadastrarMedico(Clinica &clinica) {
+    //Falta fazer o tratamento de erros ainda
+    std::string nome, cpf, senha, telefone, crm, ocupacao;
+    std::cout << "Nome: ";
+    getline(std::cin, nome);
+    std::cout << "CPF: ";
+    getline(std::cin, cpf);
+    std::cout << "Senha: ";
+    getline(std::cin, senha);
+    std::cout << "Telefone: ";
+    getline(std::cin, telefone);
+    std::cout << "CRM: ";
+    getline(std::cin, crm);
+    std::cout << "Ocupação: ";
+    getline(std::cin, ocupacao);
+
+    auto novo_medico = std::make_unique<Medico>(nome, cpf, senha, telefone, crm, ocupacao, 0);
+
+   clinica.adicionarMedico(std::move(novo_medico));
+
+}
