@@ -1,5 +1,6 @@
 //Includes
 #include "../Headers/Utils.h"
+#include <regex>
 
 bool stringVazia(const std::string &string){
     if(string.size() == 0)
@@ -36,5 +37,25 @@ bool somenteNumeros(const std::string& numero){
         }
     }
 
+    return true;
+}
+
+bool validaData(const std::string& data){
+    //Regex para validação da data
+    std::regex padrao("^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[012])/[0-9]{4}$");
+
+    if(!std::regex_match(data, padrao))
+        return false;
+
+    return true;
+}
+
+bool validaHorario(const std::string& horario){
+    //Regex para validacao do horario
+    std::regex padrao("^([01][0-9]|2[0-3]):[0-5][0-9]$");
+
+    if(!std::regex_match(horario, padrao))
+        return false;
+    
     return true;
 }
