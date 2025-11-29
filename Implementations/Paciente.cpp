@@ -1,6 +1,4 @@
 #include "../Headers/Paciente.h"
-#include "../Headers/Pessoa.h"
-#include "../Headers/Plano.h"
 #include "../Headers/Utils.h"
 #include <string>
 #include <iostream>
@@ -245,7 +243,7 @@ void Paciente :: VizualizaDados(){ // Sobreescrita do método da superclasse, al
     std::cout << "Observacoes: " << this->observacoes << std::endl;
     
     if(plano!=nullptr){
-        std::cout << "Plano: " << (this->plano)->getNome() << std::endl;
+        std::cout << "Plano: " << plano->getNome() << std::endl;
     }
     else{
         std::cout << "Esse paciente nao e cliente de nenhum plano" << std::endl;

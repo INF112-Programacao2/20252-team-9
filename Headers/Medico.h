@@ -15,7 +15,7 @@ class Medico : public Pessoa {
 
     public:
         // Construtor e destrutor:
-        Medico(std::string nome, std::string cpf, std::string senha, std::string telefone, std::string crm, std::string ocupacao, double saldo);
+        Medico(std::string nome, std::string cpf, std::string senha, std::string telefone, std::string crm, std::string ocupacao);
         ~Medico();
 
         // Gets

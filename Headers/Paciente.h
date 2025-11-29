@@ -5,10 +5,7 @@
 #include <vector>
 #include "Pessoa.h"
 #include "Clinica.h"
-
-//class Agendamento{};
-class Plano{};
-class Clinica {};
+#include "Plano.h"
 
 class Paciente : public Pessoa {
 

@@ -2,6 +2,9 @@
 #include "../Headers/Clinica.h"
 #include "../Headers/Utils.h"
 #include <stdexcept>
+#include <fstream>
+#include <cstdlib>
+#include <iostream>
 
 //Construtor
 Clinica::Clinica(std::string nome)
@@ -19,11 +22,11 @@ Clinica::~Clinica(){}
 //Getters
 double Clinica::getSaldo() const {return saldo;}
 std::string Clinica::getNome() const {return nome;}
-std::vector<std::unique_ptr<Paciente>> Clinica::getPacientes() const {return pacientes;}
-std::vector<std::unique_ptr<Medico>> Clinica::getMedicos() const {return medicos;}
-std::vector<std::unique_ptr<Agendamento>> Clinica::getAgendamentos() const {return agendamentos;}
-std::vector<std::unique_ptr<Servico>> Clinica::getServicos() const {return servicos;}
-std::vector<std::unique_ptr<Plano>> Clinica::getPlanos() const {return planos;}
+const std::vector<std::unique_ptr<Paciente>>& Clinica::getPacientes() const {return pacientes;}
+const std::vector<std::unique_ptr<Medico>>& Clinica::getMedicos() const {return medicos;}
+const std::vector<std::unique_ptr<Agendamento>>& Clinica::getAgendamentos() const {return agendamentos;}
+const std::vector<std::unique_ptr<Servico>>& Clinica::getServicos() const {return servicos;}
+const std::vector<std::unique_ptr<Plano>>& Clinica::getPlanos() const {return planos;}
 Atendente* Clinica::getAtendente() const {return atendente;}
 
 //Setters
@@ -138,6 +141,12 @@ void Clinica::removerServico(Servico* servico){
             break;
         }
     }
+
+    //Remove tambem os agendamentos associados a ele
+    for(int i=0; i<agendamentos.size(); i++){
+        if(agendamentos[i].get()->getServico() == servico)
+            agendamentos.erase(agendamentos.begin() + i);
+    }
 }
 
 //Controle dos planos
@@ -159,3 +168,169 @@ void Clinica::removerPlano(Plano* plano){
         }
     }
 }
+
+//Populacao da clinica
+void Clinica::popularClinica(std::string arquivo){
+    if(stringVazia(arquivo))
+        throw std::invalid_argument("Nome do arquivo inválido");
+
+    std::ifstream fin(arquivo);
+    if(!fin.is_open())
+        throw std::runtime_error("Nao foi possivel abrir o arquivo de populacao");
+
+    //População dos planos
+    int numPlanos;
+    fin >> numPlanos;
+    fin.ignore();
+
+    for(int i=0; i<numPlanos; i++){
+        //Dados do plano
+        std::string nome;
+        double desconto;
+
+        //Entrada de cada dado
+        getline(fin, nome);
+        fin >> desconto;
+        fin.ignore();
+
+        //Armazena no vetor da clínica
+        try{
+            this->adicionarPlano(std::make_unique<Plano>(nome, desconto));
+        }
+        catch(std::invalid_argument &e){
+            std::cout << "Nao foi possivel popular o plano " << i+1 << "\nErro:" << e.what() << std::endl;
+        }
+    }
+
+    //População dos servicos
+    int numServicos;
+    fin >> numServicos;
+    fin.ignore();
+
+    for(int i=0; i<numServicos; i++){
+        //Dados do servico
+        std::string nome, id, duracao, tipo;
+        double valor;
+
+        //Entrada dos dados
+        getline(fin, nome);
+        getline(fin, id);
+        fin >> valor;
+        fin.ignore();
+        getline(fin, duracao);
+        getline(fin, tipo);
+
+        //Armazena no vetor da clínica
+        try{
+            this->adicionarServico(std::make_unique<Servico>(nome, id, valor, duracao, tipo));
+        }
+        catch(std::invalid_argument &e){
+            std::cout << "Nao foi possivel popular o servico " << i+1 << "\nErro:" << e.what() << std::endl;
+        }
+    }
+
+    //População dos médicos
+    int numMedicos;
+    fin >> numMedicos;
+    fin.ignore();
+
+    for(int i=0; i<numMedicos; i++){
+        //Dados do medico
+        std::string nome, cpf, senha, telefone, crm, ocupacao;
+
+        //Entrada dos dados
+        getline(fin, nome);
+        getline(fin, cpf);
+        getline(fin, senha);
+        getline(fin, telefone);
+        getline(fin, crm);
+        getline(fin, ocupacao);
+
+        //Armazena no vetor da clínica
+        try{
+            this->adicionarMedico(std::make_unique<Medico>(nome, cpf, senha, telefone, crm, ocupacao));
+        }
+        catch(std::invalid_argument &e){
+            std::cout << "Nao foi possivel popular o medico " << i+1 << "\nErro:" << e.what() << std::endl;
+        }
+    }
+
+    //População dos pacientes
+    int numPacientes;
+    fin >> numPacientes;
+    fin.ignore();
+
+    for(int i=0; i<numPacientes; i++){
+        //Dados do paciente
+        std::string nome, cpf, senha, telefone, dataDeNascimento, observacoes;
+        char sexo;
+
+        //O plano é escolhido de forma aleatória dentro dos que já foram populados anteriormente
+        Plano *plano = nullptr;
+
+        if(!planos.empty()){
+            int index = std::rand()%planos.size();
+            plano = planos[index].get();
+        }
+
+        //Entrada dos dados
+        getline(fin, nome);
+        getline(fin, cpf);
+        getline(fin, senha);
+        getline(fin, telefone);
+        getline(fin, dataDeNascimento);
+        fin >> sexo;
+        fin.ignore();
+        getline(fin, observacoes);
+
+        //Armazenamento no vetor da clinica
+        try{
+            this->adicionarPaciente(std::make_unique<Paciente>(nome, cpf, senha, telefone, dataDeNascimento, sexo, observacoes, plano));
+        }
+        catch(std::invalid_argument &e){
+             std::cout << "Nao foi possivel popular o paciente " << i+1 << "\nErro:" << e.what() << std::endl;
+        }
+    }
+
+    //População dos agendamentos(Versão inicial, não valida ainda se o servico sorteado é compatível com o médico sorteado)
+    int numAgendamentos;
+    fin >> numAgendamentos;
+    fin.ignore();
+
+    for(int i=0; i<numAgendamentos; i++){
+        //Dados do agendamento
+        std::string data, horario;
+
+        //Sorteio do servico, médico e paciente
+        Servico* servico = nullptr;
+        if(!servicos.empty()){
+            int index = std::rand()%servicos.size();
+            servico = servicos[index].get();
+        }
+        
+        Medico* medico = nullptr;
+        if(!medicos.empty()){
+            int index = std::rand()%medicos.size();
+            medico = medicos[index].get();
+        }
+
+        Paciente* paciente = nullptr;
+        if(!pacientes.empty()){
+            int index = std::rand()%pacientes.size();
+            paciente = pacientes[index].get();
+        }
+
+        //Entrada dos dados
+        getline(fin, data);
+        getline(fin, horario);
+
+        //Armazenamento no vetor da clínica
+        try{
+            this->adicionarAgendamento(std::make_unique<Agendamento>(data, horario, *paciente, *medico, *servico));
+        }
+        catch(std::invalid_argument &e){
+             std::cout << "Nao foi possivel popular o agendamento " << i+1 << "\nErro:" << e.what() << std::endl;
+        }
+    }
+}
+

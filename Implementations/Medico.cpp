@@ -4,9 +4,10 @@
 
 //Construtor
 Medico::Medico(std::string nome, std::string cpf, std::string senha, std::string telefone, 
-               std::string crm, std::string ocupacao, double saldo)
-    : Pessoa(nome, cpf, senha, telefone), crm(crm), ocupacao(ocupacao), saldo(saldo) {
-}
+               std::string crm, std::string ocupacao)
+    : Pessoa(nome, cpf, senha, telefone), crm(crm), ocupacao(ocupacao){
+        this->saldo = 0;
+    }
 
 //Destrutor
 Medico::~Medico() {

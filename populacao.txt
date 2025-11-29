@@ -1,0 +1,193 @@
+4
+UNIMED
+0.2
+BRADESCO SAUDE
+0.15
+AMIL
+0.1
+SULAMERICA
+0.25
+8
+Limpeza e Raspagem
+ODO001
+250.00
+45 min
+Preventivo
+Restauracao de Resina
+ODO002
+180.00
+30 min
+Restaurador
+Tratamento de Canal
+ODO003
+800.00
+90 min
+Endodontia
+Extracao de Dente Siso
+ODO004
+450.00
+60 min
+Cirurgico
+Clareamento a Laser
+ODO005
+1200.00
+60 min
+Estetico
+Manutencao de Aparelho
+ODO006
+100.00
+20 min
+Ortodontia
+Implante Dentario Titanio
+ODO007
+2500.00
+120 min
+Cirurgico
+Raio-X Panoramico
+ODO008
+150.00
+10 min
+Diagnostico
+6
+Marcos Oliveira
+123.456.789-00
+senha123
+(31) 98888-1111
+CRO/MG 12345
+Clinico Geral
+Dra. Fernanda Lima
+234.567.890-11
+endodonto2024
+(31) 97777-2222
+CRO/MG 67890
+Endodontia
+Roberto Santos
+345.678.901-22
+cirurgia_top
+(31) 96666-3333
+CRO/MG 11223
+Cirurgiao Bucomaxilo
+Paulo Mendes
+456.789.012-33
+orto_paulo
+(31) 95555-4444
+CRO/MG 44556
+Ortodontia
+Juliana Costa
+567.890.123-44
+estetica_ju
+(31) 94444-5555
+CRO/MG 99887
+Dentista Estetica
+Ana Pereira
+678.901.234-55
+ana_dentista
+(31) 93333-6666
+CRO/MG 77665
+Clinico Geral
+12
+Carlos Silva
+111.222.333-44
+carlos123
+(31) 99999-1010
+15/05/1980
+M
+Diabetico tipo 2, usa insulina.
+Mariana Souza
+222.333.444-55
+mari_souza
+(31) 98888-2020
+22/09/1995
+F
+Alergica a Penicilina.
+Joao Pedro Alves
+333.444.555-66
+joao_pedro
+(31) 97777-3030
+10/01/2010
+M
+Uso de aparelho ortodontico.
+Fernanda Lima
+444.555.666-77
+fer_lima
+(31) 96666-4040
+05/11/1954
+F
+Hipertensa, uso de Losartana.
+Lucas Mendes
+555.666.777-88
+lucas_m
+(31) 95555-5050
+30/03/1990
+M
+Nenhuma observacao relevante.
+Beatriz Rocha
+666.777.888-99
+bia_rocha
+(31) 94444-6060
+12/12/2000
+F
+Ansiedade, sensivel a agulhas.
+Roberto Campos
+777.888.999-00
+beto_campos
+(31) 93333-7070
+18/07/1975
+M
+Historico de gastrite.
+Juliana Costa
+888.999.000-11
+ju_costa
+(31) 92222-8080
+25/02/1988
+F
+Gestante (3 meses).
+Ricardo Oliveira
+999.000.111-22
+rick_oli
+(31) 91111-9090
+14/06/1960
+M
+Uso de marcapasso cardiaco.
+Camila Martins
+000.111.222-33
+camila_m
+(31) 90000-0101
+09/09/1999
+F
+Nenhuma observacao relevante.
+Gustavo Santos
+121.232.343-55
+guga_santos
+(31) 98989-1212
+01/04/2015
+M
+Autismo leve, requer paciencia no atendimento.
+Patricia Dias
+232.343.454-66
+paty_dias
+(31) 97878-2323
+20/10/1982
+F
+SOP (Sindrome dos ovarios policisticos).
+10
+25/11/2025
+08:00
+25/11/2025
+09:30
+25/11/2025
+14:00
+26/11/2025
+10:00
+26/11/2025
+16:30
+27/11/2025
+08:00
+27/11/2025
+11:00
+28/11/2025
+09:00
+28/11/2025
+15:00
+30/11/2025
+07:30

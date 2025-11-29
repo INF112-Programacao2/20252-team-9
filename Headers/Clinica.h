@@ -33,11 +33,11 @@ class Clinica{
         //Getters
         double getSaldo() const;
         std::string getNome() const;
-        std::vector<std::unique_ptr<Paciente>> getPacientes() const;
-        std::vector<std::unique_ptr<Medico>> getMedicos() const;
-        std::vector<std::unique_ptr<Agendamento>> getAgendamentos() const;
-        std::vector<std::unique_ptr<Servico>> getServicos() const;
-        std::vector<std::unique_ptr<Plano>> getPlanos() const;
+        const std::vector<std::unique_ptr<Paciente>>& getPacientes() const;
+        const std::vector<std::unique_ptr<Medico>>& getMedicos() const;
+        const std::vector<std::unique_ptr<Agendamento>>& getAgendamentos() const;
+        const std::vector<std::unique_ptr<Servico>>& getServicos() const;
+        const std::vector<std::unique_ptr<Plano>>& getPlanos() const;
         Atendente* getAtendente() const;
 
         //OBS: Unique_prts não permitem cópia em nenhum contexto, inclusive no loop que forem fazer para percorrer esses vetores
@@ -79,7 +79,7 @@ class Clinica{
         void removerPlano(Plano* plano);
 
         //Organizar clinica
-        void organizarClinica(); //Faz a população da clínica atráves dos dados lidos de um determinado arquivo.
+        void popularClinica(std::string arquivo); //Faz a população da clínica atráves dos dados lidos de um determinado arquivo.
                                  //Dados = Médicos, pacientes, agendamentos, planos e servicos.
 
 };

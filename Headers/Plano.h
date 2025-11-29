@@ -1,6 +1,6 @@
 #ifndef PROJETO_FINAL_INF_112_PLANO
 #define PROJETO_FINAL_INF_112_PLANO
-#include "string"
+#include <string>
 
 class Plano{
     //Atributos
