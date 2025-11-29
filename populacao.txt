@@ -9,45 +9,37 @@ SULAMERICA
 0.25
 8
 Limpeza e Raspagem
-ODO001
 250.00
-45 min
-Preventivo
+45
+Clinico Geral
 Restauracao de Resina
-ODO002
 180.00
-30 min
-Restaurador
+30
+Clinico Geral
 Tratamento de Canal
-ODO003
 800.00
-90 min
+90
 Endodontia
 Extracao de Dente Siso
-ODO004
 450.00
-60 min
-Cirurgico
+60
+Cirurgiao Bucomaxilo
 Clareamento a Laser
-ODO005
 1200.00
-60 min
-Estetico
+60
+Dentista Estetica
 Manutencao de Aparelho
-ODO006
 100.00
-20 min
+20
 Ortodontia
 Implante Dentario Titanio
-ODO007
 2500.00
-120 min
-Cirurgico
+120
+Cirurgiao Bucomaxilo
 Raio-X Panoramico
-ODO008
 150.00
-10 min
-Diagnostico
+10
+Clinico Geral
 6
 Marcos Oliveira
 123.456.789-00

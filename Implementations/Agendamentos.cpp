@@ -82,7 +82,7 @@ void Agendamento::setServico(Servico* servico){
 void Agendamento::imprimir() const{
     std::cout << "Data: " << data << " - Horario: " << horario << std::endl;
     std::cout << " | Valor: R$ " << std::fixed << std::setprecision(2) << servico->getValor();
-    std::cout << " | Duracao: " << servico->getDuracao() << std::endl;
+    std::cout << " | Duracao: " << servico->getDuracao() << " minutos" << std::endl;
     std::cout << "Paciente: " << paciente->getNome() << std::endl;
     std::cout << "Medico responsavel: " << medico->getNome() << std::endl;
 

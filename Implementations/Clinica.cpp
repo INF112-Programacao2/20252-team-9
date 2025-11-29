@@ -209,20 +209,19 @@ void Clinica::popularClinica(std::string arquivo){
 
     for(int i=0; i<numServicos; i++){
         //Dados do servico
-        std::string nome, id, duracao, tipo;
-        double valor;
+        std::string nome, ocupacaoRequerida;
+        double valor, duracao;
 
         //Entrada dos dados
         getline(fin, nome);
-        getline(fin, id);
         fin >> valor;
+        fin >> duracao;
         fin.ignore();
-        getline(fin, duracao);
-        getline(fin, tipo);
+        getline(fin, ocupacaoRequerida);
 
         //Armazena no vetor da clínica
         try{
-            this->adicionarServico(std::make_unique<Servico>(nome, id, valor, duracao, tipo));
+            this->adicionarServico(std::make_unique<Servico>(nome, valor, duracao, ocupacaoRequerida));
         }
         catch(std::invalid_argument &e){
             std::cout << "Nao foi possivel popular o servico " << i+1 << "\nErro:" << e.what() << std::endl;
