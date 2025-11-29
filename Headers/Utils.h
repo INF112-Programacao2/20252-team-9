@@ -16,10 +16,16 @@ bool somenteLetras(const std::string &palavra);
 //Função para checar se uma string só tem números(validação do nº de telefone
 bool somenteNumeros(const std::string& numero);
 
-//Função que valida data(Obrigando-as a seguir o modelo XX/XX/XXXX dentro dos devidos limites quanto a dia e data)
+//Função que valida data(Obrigando-a a seguir o modelo XX/XX/XXXX dentro dos devidos limites quanto a dia e data)
 bool validaData(const std::string& data);
 
-//Função que valida o horário de agendamento(Obrigando-os a seguir o modelo XX:XX dentro dos devidos limites de minutos e hora)
+//Função que valida o horário de agendamento(Obrigando-o a seguir o modelo XX:XX dentro dos devidos limites de minutos e hora)
 bool validaHorario(const std::string& horario);
+
+//Função que valida CPF(Obrigando-o a seguir o modelo XXX.XXX.XXX-XX)
+bool validaCpf(const std::string& cpf);
+
+//Função que valida telefone(Obrigando-o a seguir o modelo (XX) XXXX-XXXX ou (XX) XXXXX-XXXX)
+bool validaTelefone(const std::string& telefone);
 
 #endif

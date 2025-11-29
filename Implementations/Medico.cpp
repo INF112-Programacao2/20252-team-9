@@ -136,3 +136,4 @@ void Medico::AdicionarFeedBack(Clinica &clinica) {
         std::cout << "Agendamento nao encontrado." << std::endl;
     }
 }
+

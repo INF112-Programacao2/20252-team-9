@@ -1,54 +1,61 @@
 #include "../Headers/Pessoa.h"
+#include "../Headers/Utils.h"
 #include <string>
 #include <iostream>
 #include <stdexcept>
-#include <vector>
 
 //Construtor
-Pessoa :: Pessoa(std::string nome, std::string cpf, std::string senha, std::string telefone)
-: nome(nome), cpf(cpf), senha(senha), telefone(telefone){
+Pessoa::Pessoa(std::string nome, std::string cpf, std::string senha, std::string telefone){
+    if(stringVazia(nome))
+        throw std::invalid_argument("Nome para pessoa invalido");
+    this->nome = nome;
 
+    if(!validaCpf(cpf))
+        throw std::invalid_argument("CPF para pessoa invalido, deve seguir o modelo XXX.XXX.XXX-XX");
+    this->cpf = cpf;
+
+    if(stringVazia(senha))
+        throw std::invalid_argument("Senha para pessoa invalida");
+    this->senha = senha;
+    
+    if(!validaTelefone(telefone))
+        throw std::invalid_argument("Telefone para pessoa invalido, deve seguir o modelo (XX) XXXX-XXXX ou (XX) XXXXX-XXXX");
+    this->telefone = telefone;
 }
 
 //Destrutor
-Pessoa :: ~Pessoa(){}
+Pessoa::~Pessoa(){}
         
 //Gets
-std::string Pessoa :: getNome() const{
-    return nome;
-}
-
-std::string Pessoa :: getCpf() const{
-    return cpf;
-}
-
-std::string Pessoa :: getSenha() const{
-    return senha;
-}
-std::string Pessoa :: getTelefone() const{
-    return telefone;
-}
-        
+std::string Pessoa::getNome() const {return nome;}
+std::string Pessoa::getCpf() const {return cpf;}
+std::string Pessoa::getSenha() const {return senha;}
+std::string Pessoa::getTelefone() const {return telefone;}
 
 //Sets
 void Pessoa :: setNome( std::string nome){
+    if(stringVazia(nome))
+        throw std::invalid_argument("Nome para pessoa invalido");
     this->nome = nome;
 }
 
 void Pessoa :: setSenha(std::string senha){
+    if(stringVazia(senha))
+        throw std::invalid_argument("Senha para pessoa invalida");
     this->senha = senha;
 }
 
 void Pessoa :: setTelefone(std::string telefone){
+    if(!validaTelefone(telefone))
+        throw std::invalid_argument("Telefone para pessoa invalido, deve seguir o modelo (XX) XXXX-XXXX ou (XX) XXXXX-XXXX");
     this->telefone = telefone;
 }
         
 //Métodos
 //Impressão dos dados do usuário:
 void Pessoa :: VizualizaDados(){ // Versão genérica com só os dados de pessoa 
-    std::cout << "---------------- Impressao de Dados ---------------\n\n";
+    std::cout << "---------------- Impressao de Dados ---------------\n";
     std::cout << "Nome: " << nome << std ::endl;
     std::cout << "CPF: " << cpf <<std::endl;
-    std::cout << "Contato: " << telefone <<std::endl;
-
+    std::cout << "Telefone: " << telefone <<std::endl;
 }

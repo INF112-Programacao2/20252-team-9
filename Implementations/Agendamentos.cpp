@@ -44,13 +44,13 @@ Servico* Agendamento::getServico() const {return servico;}
 //Setters
 void Agendamento::setData(std::string data){
     if(!validaData(data))
-        throw std::invalid_argument("Data de agendamento invalida");
+        throw std::invalid_argument("Data de agendamento invalida, deve seguir o modelo XX/XX/XXXX");
     this->data = data;
 }
 
 void Agendamento::setHorario(std::string horario){
     if(!validaHorario(horario))
-        throw std::invalid_argument("Horario de agendamento invalido");
+        throw std::invalid_argument("Horario de agendamento invalido, deve seguir o modelo XX:XX");
     this->horario = horario;
 }
 

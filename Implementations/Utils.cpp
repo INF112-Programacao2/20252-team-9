@@ -59,3 +59,23 @@ bool validaHorario(const std::string& horario){
     
     return true;
 }
+
+bool validaCpf(const std::string& cpf){
+    //Regex para validacao do cpf
+    std::regex padrao(R"(^\d{3}\.\d{3}\.\d{3}-\d{2}$)");
+
+    if(!std::regex_match(cpf, padrao))
+        return false;
+    
+    return true;
+}
+
+bool validaTelefone(const std::string& telefone){
+    //Regex para validacao do cpf
+    std::regex padrao(R"(^\(\d{2}\) \d{4,5}-\d{4}$)");
+
+    if(!std::regex_match(telefone, padrao))
+        return false;
+    
+    return true;
+}
