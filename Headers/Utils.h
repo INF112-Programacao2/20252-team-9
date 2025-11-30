@@ -45,5 +45,7 @@ double lerDouble(const std::string& mensagem, double min, double max);
 //Retorna 1 se data1 > data2
 int comparaData(const std::string& data1, const std::string& data2);
 
+//Função para achar os horarios disponiveis para um agendamento em uma determinada data
+std::vector<std::string> buscaHorarioValido(const std::string& data);
 
 #endif
