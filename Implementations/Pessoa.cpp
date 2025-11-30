@@ -1,5 +1,6 @@
 #include "../Headers/Pessoa.h"
 #include "../Headers/Utils.h"
+#include "../Headers/Clinica.h"
 #include <string>
 #include <iostream>
 #include <stdexcept>

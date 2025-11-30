@@ -1,5 +1,6 @@
 #include "../Headers/Atendente.h"
 #include "../Headers/Utils.h"
+#include "../Headers/Clinica.h"
 #include <stdexcept>
 #include <iostream>
 #include <vector>
@@ -241,7 +242,7 @@ void Atendente::DesligarMedico(Clinica* clinica){
 
     //Imprime a lista de medicos
     int lastIndex = 1;
-    for(int i=0; i<medicos.size(); i++){
+    for(long unsigned int i=0; i<medicos.size(); i++){
         std::cout << i+1 << ". Nome: " << medicos[i].get()->getNome() << " | CRM: " << medicos[i].get()->getCrm() << " | Ocupacao: " << medicos[i].get()->getOcupacao() << std::endl;
         lastIndex++;
     }

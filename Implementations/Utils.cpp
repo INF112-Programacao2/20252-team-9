@@ -109,7 +109,7 @@ int lerInteiro(const std::string& mensagem, int min, int max){
 
         //Varre a entrada vendo se tem algo que nao faz parte de um numero inteiro para validar a string
         bool stringOk = true;
-        for(int i=0; i<entrada.size(); i++){
+        for(long unsigned int i=0; i<entrada.size(); i++){
             if(!isdigit((unsigned char)entrada[i])){
                 stringOk = false;
                 break;
@@ -155,7 +155,7 @@ double lerDouble(const std::string& mensagem, double min, double max){
        //Valida a string em si
         bool stringOk = true;
         int numPontos = 0;
-        for(int i=0; i<entrada.size(); i++){
+        for(long unsigned int i=0; i<entrada.size(); i++){
             unsigned char c = entrada[i];
             if(isdigit(c)){
                 continue;
@@ -197,7 +197,7 @@ double lerDouble(const std::string& mensagem, double min, double max){
     return numero;
 }
 
-int comparaData(const std::string& data1, std::string& data2){
+int comparaData(const std::string& data1, const std::string& data2){
     if(!validaData(data1) || !validaData(data2))
         throw std::invalid_argument("Datas devem estar no formato XX/XX/XX para serem comparadas");
 
@@ -227,15 +227,10 @@ int comparaData(const std::string& data1, std::string& data2){
     return 0;
 }
 
-std::vector<std::string> buscaHorarioValido(const std::string& data, Clinica *clinica){
-    if(!validaData(data)){
-        std::cout << "Data de agendamento invalida, deve seguir o modelo XX/XX/XXXX\n";
-        return;
-    }
-
+std::vector<std::string> buscaHorarioValido(const std::string& data, Clinica* clinica){
     std::vector<std::string> horariosValidos;
 
-    for(int i = 0, j = 8; j < 18; i += 30){
+    for(long unsigned int i = 0, j = 8; j < 18; i += 30){
         if(i % 60 == 0 && i != 0){
             i = 0;
             j++;
@@ -253,7 +248,7 @@ std::vector<std::string> buscaHorarioValido(const std::string& data, Clinica *cl
 
         bool valido = true;
 
-        for(int k = 0; k < clinica->getAgendamentos().size(); k++){
+        for(long unsigned int k = 0; k < clinica->getAgendamentos().size(); k++){
             std::string horarioAgendamento;
             horarioAgendamento = clinica->getAgendamentos()[k]->getHorario();
 
