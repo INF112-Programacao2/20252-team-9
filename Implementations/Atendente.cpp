@@ -109,24 +109,75 @@ void Atendente::VizualizaAgendamentos(Clinica* clinica){
 }
 
 void Atendente::CadastrarMedico(Clinica* clinica) {
-    //Falta fazer o tratamento de erros ainda
     std::string nome, cpf, senha, telefone, crm, ocupacao;
-    std::cout << "Nome: ";
-    getline(std::cin, nome);
-    std::cout << "CPF: ";
-    getline(std::cin, cpf);
-    std::cout << "Senha: ";
-    getline(std::cin, senha);
-    std::cout << "Telefone: ";
-    getline(std::cin, telefone);
-    std::cout << "CRM: ";
-    getline(std::cin, crm);
-    std::cout << "Ocupação: ";
-    getline(std::cin, ocupacao);
+    std::cout << "Preencha os dados para o novo medico da clinica:\n";
 
-    auto novo_medico = std::make_unique<Medico>(nome, cpf, senha, telefone, crm, ocupacao, 0);
+    while(true){
+        std::cout << "Nome do medico: ";
+        std::getline(std::cin, nome);
+        if(stringVazia(nome)){
+            std::cout << "Nome para criar medico invalido, nao pode ser vazio. Tente novamente\n";
+            continue;
+        }
+        break;
+    }
 
-   clinica->adicionarMedico(std::move(novo_medico));
+    while(true){
+        std::cout << "CPF do medico: ";
+        std::getline(std::cin, cpf);
+        if(!validaCpf(cpf)){
+            std::cout << "CPF invalido, deve seguir o modelo XXX.XXX.XXX-XX, tente novamente\n";
+            continue;
+        }
+        break;
+    }
+
+    while(true){
+        std::cout << "Senha do medico: ";
+        std::getline(std::cin, senha);
+        if(stringVazia(senha)){
+            std::cout << "Senha para criar medico invalido, nao pode ser vazia. Tente novamente\n";
+            continue;
+        }
+        break;
+    }
+
+    while(true){
+        std::cout << "Telefone do medico: ";
+        std::getline(std::cin, telefone);
+        if(!validaTelefone(telefone)){
+            std::cout << "Telefone invalido, deve seguir o modelo (XX) XXXX-XXXX ou (XX) XXXXX-XXXX, tente novamente\n";
+            continue;
+        }
+        break;
+    }
+
+    while(true){
+        std::cout << "Crm do medico: ";
+        std::getline(std::cin, crm);
+        if(!validaCrm(crm)){
+            std::cout << "Crm para criar medico invalido, tem de seguir o modelo SIGLA/UF NUMERO. Tente novamente\n";
+            continue;
+        }
+        break;
+    }
+
+    while(true){
+        std::cout << "Ocupacao do medico: ";
+        std::getline(std::cin, ocupacao);
+        if(stringVazia(ocupacao)){
+            std::cout << "Ocupacao para criar medico invalida, nao pode ser vazia. Tente novamente\n";
+            continue;
+        }
+        break;
+    }
+
+    try{
+        clinica->adicionarMedico(std::make_unique<Medico>(nome, cpf, senha, telefone, crm, ocupacao));
+    }
+    catch(std::invalid_argument &e){
+        std::cout << e.what() << std::endl;
+    }
 }
 
 void Atendente::DesligarMedico(Clinica* clinica){
