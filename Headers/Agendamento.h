@@ -1,7 +1,7 @@
 #ifndef PROJETO_FINAL_INF_112_AGENDAMENTO_H
 #define PROJETO_FINAL_INF_112_AGENDAMENTO_H
 
-#include "Agendamento.h"
+#include "Paciente.h"
 #include "Medico.h"
 #include "Servico.h"
 #include "Plano.h"
