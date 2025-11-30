@@ -137,7 +137,7 @@ void Medico::AdicionarFeedBack(Clinica* clinica) {
     std::string feedback;
 
     bool feedbackValido = false;
-    while(true){
+    while(!feedbackValido){
         getline(std::cin, feedback);
         if(!stringVazia(feedback)){
             std::cout << "Feedback invalido, ele nao pode ser vazio. Tente novamente.\n";
