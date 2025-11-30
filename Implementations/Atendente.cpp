@@ -269,6 +269,8 @@ void Atendente::AlterarServico(Clinica *clinica){
 
     int escolha_alterar = lerInteiro("", 1, 4);
 
+    std::cin.ignore(10000, '\n');
+
     if(escolha_alterar == 1)
     {
         std::string novo_nome;
@@ -277,10 +279,9 @@ void Atendente::AlterarServico(Clinica *clinica){
 
         while (true){
             getline(std::cin, novo_nome);
-            if(!stringVazia(novo_nome)){
+            if(!stringVazia(novo_nome))
                 break;
-            std::cout << "O nome não pode ser vazio, digite um nome válido: ";
-            }
+            std::cout << "O nome não pode ser vazio, digite um nome válido: "; 
         }
 
         servico_alterar->setNome(novo_nome);
@@ -300,7 +301,7 @@ void Atendente::AlterarServico(Clinica *clinica){
         servico_alterar->setDuracao(nova_duracao);
         std::cout << "Duração do serviço alterado com sucesso!\n";
     }
-    else if(escolha == 4)
+    else if(escolha_alterar == 4)
     {
         std::cout << "Digite a nova ocupação requerida: ";
         std::string nova_ocupcacao;
