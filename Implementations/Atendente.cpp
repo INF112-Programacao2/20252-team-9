@@ -108,6 +108,41 @@ void Atendente::VizualizaAgendamentos(Clinica* clinica){
 
 }
 
+void Atendente::CadastrarPaciente(Clinica* clinica){
+    std::string nome;
+    while (true){
+        std::cout << "Nome do paciente: ";
+        std::getline(std::cin, nome);
+        if(stringVazia(nome)){
+            std::cout << "O paciente deve ter algum nome.\n";
+            continue;
+        }
+        break;
+    }
+
+    std::string cpf;
+    while(true) {
+        std::cout << "Cpf do paciente: ";
+        getline(std::cin, cpf);
+        if(!validaCpf(cpf)){
+            std::cout << "CPF invalido, deve seguir o modelo XXX.XXX.XXX-XX, tente novamente\n";
+            continue;
+        }
+        break;
+    }
+
+    std::string senha;
+    while(true){
+        std::cout << "Senha do medico: ";
+        std::getline(std::cin, senha);
+        if(stringVazia(senha)){
+            std::cout << "Senha para criar medico invalido, nao pode ser vazia. Tente novamente\n";
+            continue;
+        }
+        break;
+    }
+}
+
 void Atendente::CadastrarMedico(Clinica* clinica) {
     std::string nome, cpf, senha, telefone, crm, ocupacao;
     std::cout << "Preencha os dados para o novo medico da clinica:\n";
