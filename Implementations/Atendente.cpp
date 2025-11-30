@@ -102,7 +102,7 @@ void Atendente::VizualizaAgendamentos(Clinica* clinica){
             }
         } while (escolha <= 0 || escolha > cont);
 
-        listaPacientes[escolha-1]->VizualizaAgendamentos(*clinica);
+        listaPacientes[escolha-1]->VizualizaAgendamentos(clinica);
 
     }
 
@@ -172,6 +172,21 @@ void Atendente::CadastrarMedico(Clinica* clinica) {
         break;
     }
 
+    for(auto &medicos : clinica->getMedicos())
+    {
+       if(medicos->getCpf() == cpf)
+       {
+        std::cout << "Não é possível criar um médico com um cpf já cadastrado.\n";
+        return;
+       }
+
+       if(medicos->getCrm() == crm)
+       {
+        std::cout << "Não é possível criar um médico com um crm já cadastrado.\n";
+        return;
+       }
+
+    }
     try{
         clinica->adicionarMedico(std::make_unique<Medico>(nome, cpf, senha, telefone, crm, ocupacao));
     }
