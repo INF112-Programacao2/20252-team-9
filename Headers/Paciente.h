@@ -52,10 +52,11 @@ class Paciente : public Pessoa {
         void VizualizaAgendamentos(Clinica *clinica) override; //Reescrita do método de pessoa, imprime todos os agendamentos já
                                       // realizados e os previstos para esse paciente.
         
-        void Agendar(Clinica &clinica); //Preenche os dados e cria um agendamento, e o adiciona no vetor agendamentos
+        void Agendar(Clinica *clinica); //Preenche os dados e cria um agendamento, e o adiciona no vetor agendamentos
 
-        void CancelarAgendamento(Clinica &clinica); // Cancela um agendamento 
+        void CancelarAgendamento(Clinica *clinica); // Cancela um agendamento 
 
 };
     
+
 #endif //PROJETO_FINAL_INF_112_PACIENTE_H
