@@ -337,55 +337,7 @@ void Paciente::Agendar(Clinica *clinica){
     }
 
     //Imprime horarios disponíveis
-    for(int i = 0, j = 8; j < 18; i += 30){
-        if(i % 60 == 0 && i != 0){
-            i = 0;
-            j++;
-        }
-
-        std::string horario = "";
-
-        if(j < 10) horario += std::to_string(0) + std::to_string(j);
-        else horario += std::to_string(j);
-
-        horario += ':';
-
-        if(i == 0) horario += std::to_string(0) + std::to_string(i);
-        else horario += std::to_string(i);
-
-        bool valido = true;
-
-        for(int k = 0; k < clinica->getAgendamentos().size(); k++){
-            std::string horarioAgendamento;
-            horarioAgendamento = clinica->getAgendamentos()[k]->getHorario();
-
-            if(horarioAgendamento == horario){
-                int duracao;
-                duracao = clinica->getAgendamentos()[k]->getServico()->getDuracao();;
-
-                duracao -= 30;
-
-                if(duracao % 30 != 0){
-                    duracao -= duracao % 30;
-                    duracao += 30;
-                }
-
-                int duracaoHoras = duracao / 60;
-                int duracaoMinutos = duracao - duracaoHoras*60;
-
-                i+= duracaoMinutos;
-                j+= duracaoHoras;
-
-                valido = false;
-
-                break;
-            }
-        }
-
-        if(valido){
-            std::cout << horario << std::endl;
-        }
-    }
+    
       
 }
 
