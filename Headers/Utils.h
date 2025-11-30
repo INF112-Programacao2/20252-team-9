@@ -6,6 +6,8 @@
 
 //Includes
 #include <string>
+#include <vector>
+class Clinica;
 
 //Função que retorna se é uma string vazia(Sem nenhum caracter/Vários espaços/ tabs etc...)
 bool stringVazia(const std::string& string);

@@ -61,7 +61,7 @@ void Clinica::removerPaciente(Paciente* paciente){
     if(!paciente)
         throw std::invalid_argument("Ponteiros de objetos vazios sao invalidos");
 
-    for(int i=0; i<pacientes.size(); i++){
+    for(long unsigned int i=0; i<pacientes.size(); i++){
         if(pacientes[i].get() == paciente){
             pacientes.erase(pacientes.begin() + i);
             break;
@@ -69,7 +69,7 @@ void Clinica::removerPaciente(Paciente* paciente){
     }
 
     //Remove tambem os agendamentos associados a ele
-    for(int i=0; i<agendamentos.size(); i++){
+    for(long unsigned int i=0; i<agendamentos.size(); i++){
         if(agendamentos[i].get()->getPaciente() == paciente){
             agendamentos.erase(agendamentos.begin() + i);
         }
@@ -88,7 +88,7 @@ void Clinica::removerMedico(Medico* medico){
     if(!medico)
         throw std::invalid_argument("Ponteiros de objetos vazios sao invalidos");
 
-    for(int i=0; i<medicos.size(); i++){
+    for(long unsigned int i=0; i<medicos.size(); i++){
         if(medicos[i].get() == medico){
             medicos.erase(medicos.begin() + i);
             break;
@@ -96,7 +96,7 @@ void Clinica::removerMedico(Medico* medico){
     }
 
     //Remove tambem os agendamentos associados a ele
-    for(int i=0; i<agendamentos.size(); i++){
+    for(long unsigned int i=0; i<agendamentos.size(); i++){
         if(agendamentos[i].get()->getMedico() == medico){
             agendamentos.erase(agendamentos.begin() + i);
         }
@@ -115,7 +115,7 @@ void Clinica::removerAgendamento(Agendamento* agendamento){
     if(!agendamento)
         throw std::invalid_argument("Ponteiros de objetos vazios sao invalidos");
 
-    for(int i=0; i<agendamentos.size(); i++){
+    for(long unsigned int i=0; i<agendamentos.size(); i++){
         if(agendamentos[i].get() == agendamento){
             agendamentos.erase(agendamentos.begin() + i);
             break;
@@ -135,7 +135,7 @@ void Clinica::removerServico(Servico* servico){
     if(!servico)
         throw std::invalid_argument("Ponteiros de objetos vazios sao invalidos");
 
-    for(int i=0; i<servicos.size(); i++){
+    for(long unsigned int i=0; i<servicos.size(); i++){
         if(servicos[i].get() == servico){
             servicos.erase(servicos.begin() + i);
             break;
@@ -143,7 +143,7 @@ void Clinica::removerServico(Servico* servico){
     }
 
     //Remove tambem os agendamentos associados a ele
-    for(int i=0; i<agendamentos.size(); i++){
+    for(long unsigned int i=0; i<agendamentos.size(); i++){
         if(agendamentos[i].get()->getServico() == servico)
             agendamentos.erase(agendamentos.begin() + i);
     }
@@ -161,7 +161,7 @@ void Clinica::removerPlano(Plano* plano){
     if(!plano)
         throw std::invalid_argument("Ponteiros de objetos vazios sao invalidos");
 
-    for(int i=0; i<planos.size(); i++){
+    for(long unsigned int i=0; i<planos.size(); i++){
         if(planos[i].get() == plano){
             planos.erase(planos.begin() + i);
             break;
@@ -325,7 +325,7 @@ void Clinica::popularClinica(std::string arquivo){
 
         //Armazenamento no vetor da clínica
         try{
-            this->adicionarAgendamento(std::make_unique<Agendamento>(data, horario, *paciente, *medico, *servico));
+            this->adicionarAgendamento(std::make_unique<Agendamento>(data, horario, paciente, medico, servico));
         }
         catch(std::invalid_argument &e){
              std::cout << "Nao foi possivel popular o agendamento " << i+1 << "\nErro:" << e.what() << std::endl;

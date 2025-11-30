@@ -5,7 +5,7 @@
 //Includes
 #include <string>
 #include "Pessoa.h"
-#include "Clinica.h"
+class Clinica;
 
 
 class Atendente : public Pessoa{

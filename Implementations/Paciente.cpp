@@ -1,5 +1,6 @@
 #include "../Headers/Paciente.h"
 #include "../Headers/Utils.h"
+#include "../Headers/Clinica.h"
 #include <string>
 #include <iostream>
 #include <stdexcept>
@@ -222,14 +223,14 @@ void Paciente :: AlteraDados(Clinica* clinica){ //Abre um menu, em que o pacient
         case 6:// Mudança de plano de saúde
         {
             std::cout << "Escolha o seu novo plano\n";
-            std::vector<std::unique_ptr<Plano>> planos = clinica->getPlanos();
+            const std::vector<std::unique_ptr<Plano>>& planos = clinica->getPlanos();
 
             if(planos.size() == 0){
                 std::cout << "A clinica ainda nao possui parceria com nenhum convenio. Tente novamente mais tarde\n";
                 break;
             }
             
-            for(int i=0; i<planos.size(); i++)
+            for(long unsigned int i=0; i<planos.size(); i++)
                 std::cout << i+1 << ". " << planos[i].get()->getNome() << std::endl;
 
             int escolha = lerInteiro("Digite a opcao de plano desejada: ", 1, planos.size());
@@ -276,7 +277,7 @@ void Paciente::VizualizaAgendamentos(Clinica *clinica){
     const std::vector<std::unique_ptr<Agendamento>>& agendamentos = clinica->getAgendamentos();
     
     int indexVisual = 1;
-    for(int i=0; i<agendamentos.size(); i++){
+    for(long unsigned int i=0; i<agendamentos.size(); i++){
         if(agendamentos[i].get()->getPaciente()->getCpf() == this->cpf){
             std::cout << indexVisual << ".: ";
             indexVisual++;
@@ -295,14 +296,14 @@ void Paciente::Agendar(Clinica *clinica){
     std::cout << "Vamos comecar o agendamento:\n";
     std::cout << "Primeiro escolha qual servico voce deseja agendar:\n";
 
-    std::vector<std::unique_ptr<Servico>> servicos = clinica->getServicos();
+    const std::vector<std::unique_ptr<Servico>>& servicos = clinica->getServicos();
 
     if(servicos.empty()){
         std::cout << "Infelizmente ainda nao ofertamnos nenhum servico na clinica. Tente novamente depois\n";
         return;
     }
 
-    for(int i=0; i<servicos.size(); i++){
+    for(long unsigned int i=0; i<servicos.size(); i++){
         std::cout << i+1 << ". " << servicos[i].get()->getNome() << std::endl;
     }
     int escolhaServico = lerInteiro("Digite o numero do servico: ", 1, servicos.size());
@@ -310,8 +311,8 @@ void Paciente::Agendar(Clinica *clinica){
     std::cout << "Agora escolha o medico:\n";
     int indexVisual = 1;
     std::vector<int> indexMedicosValidos;
-    std::vector<std::unique_ptr<Medico>> medicos = clinica->getMedicos();
-    for(int i=0; i<medicos.size(); i++){
+    const std::vector<std::unique_ptr<Medico>>& medicos = clinica->getMedicos();
+    for(long unsigned int i=0; i<medicos.size(); i++){
         if(servicos[escolhaServico].get()->getOcupacaoRequerida() == medicos[i].get()->getOcupacao()){
             std::cout << indexVisual << ". Dr(a) " << medicos[i].get()->getNome() << std::endl;
             indexMedicosValidos.push_back(i);
@@ -326,6 +327,7 @@ void Paciente::Agendar(Clinica *clinica){
     int escolhaMedico = lerInteiro("Digite o numero do medico: ", 1, indexMedicosValidos.size());
     
     std::string data;
+    std::vector<std::string> horarios;
     while(true){
         std::cout << "Digite uma data para o agendamento: ";
         getline(std::cin, data);
@@ -333,19 +335,26 @@ void Paciente::Agendar(Clinica *clinica){
             std::cout << "Data de agendamento invalida, deve seguir o modelo XX/XX/XXXX\n";
             continue;
         }
+        if(horarios.empty()){
+            horarios = buscaHorarioValido(data, clinica);
+            std::cout << "Nao ha nenhum horario disponivel nessa data. Tente novamente\n";
+            continue;
+        }
         break;
     }
 
     //Imprime horarios disponíveis
     std::cout << "Horarios disponiveis\n";
-    std::vector<std::string> horarios = buscaHorarioValido(data, clinica);
-    for(int i=0; i<horarios.size(); i++)
-        std::cout << i+1 << ". " << horarios[i];
+    for(long unsigned int i=0; i<horarios.size(); i++)
+        std::cout << i+1 << ". " << horarios[i] << std::endl;
 
-    int escolhaHorario = lerInteiro("Digite o numero do horario que voce deseja: ", 1, horarios.size());
+    int escolhaHorario = lerInteiro("Digite o horario desejado: ", 1, horarios.size());
+
+    Medico* medico = medicos[indexMedicosValidos[escolhaMedico-1]].get();
+    Servico* servico = servicos[escolhaServico-1].get();
 
     try{
-        clinica->adicionarAgendamento(std::make_unique<Agendamento>(data, horarios[escolhaHorario-1], (this), medicos[indexMedicosValidos[escolhaMedico-1]], servicos[escolhaServico-1]));
+        clinica->adicionarAgendamento(std::make_unique<Agendamento>(data, horarios[escolhaHorario-1], (this) , medico, servico));
         std::cout << "Agendamento realizado com sucesso.\n";
     }
     catch(std::invalid_argument &e){
@@ -361,7 +370,7 @@ void Paciente::CancelarAgendamento(Clinica *clinica){
     int indexVisual=1;
     std::vector<int> agendamentosValidos;
 
-    for(int i=0; i<agendamentos.size(); i++){
+    for(long unsigned int i=0; i<agendamentos.size(); i++){
         if(agendamentos[i].get()->getPaciente()->getCpf() == this->cpf && !agendamentos[i].get()->isConcluido()){
             std::cout << indexVisual << ".: ";
             indexVisual++;

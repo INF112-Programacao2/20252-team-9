@@ -2,7 +2,8 @@
 #define PROJETO_FINAL_INF_112_PESSOA_H
 
 #include <string>
-#include "Clinica.h"
+
+class Clinica;
 
 class Pessoa{
     protected:

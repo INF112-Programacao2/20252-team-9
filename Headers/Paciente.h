@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 #include "Pessoa.h"
-#include "Clinica.h"
+class Clinica;
 #include "Plano.h"
 
 class Paciente : public Pessoa {
