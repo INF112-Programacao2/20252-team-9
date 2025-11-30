@@ -77,7 +77,7 @@ void Atendente::VizualizaAgendamentos(Clinica &clinica){
 
         } while(escolha <= 0 || escolha > cont);
 
-        listaMedicos[escolha-1]->VizualizaAgendamentos(clinica);
+        listaMedicos[escolha-1]->VizualizaAgendamentos(&clinica);
 
     }
     else {

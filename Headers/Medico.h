@@ -2,9 +2,7 @@
 #define PROJETO_FINAL_INF_112_MEDICO_H
 
 #include <string>
-#include <vector>
 #include "Pessoa.h" 
-#include "Agendamento.h"
 
 class Medico : public Pessoa {
     //Atributos
@@ -32,13 +30,12 @@ class Medico : public Pessoa {
         virtual void VizualizaDados() override; // Reescrita do método de pessoa, 
                                                 // imprime todos os dados de pessoa e também os dados especificos do médico 
 
-        virtual void VizualizaAgendamentos(Clinica &clinica) override; // Reescrita do método de pessoa, 
+        virtual void VizualizaAgendamentos(Clinica* clinica) override; // Reescrita do método de pessoa, 
                                                        // imprime todos os agendamentos já realizados e os previstos para esse médico
 
-        void CancelarAgendamento(Clinica &clinica); // Cancela um agendamento 
+        void CancelarAgendamento(Clinica* clinica); // Cancela um agendamento 
         
-        void AdicionarFeedBack(Clinica &clinica); // Adiciona um comentário a um agendamento que já ocorreu  
-
+        void AdicionarFeedBack(Clinica* clinica); // Adiciona um comentário a um agendamento que já ocorreu  
 };
 
 #endif //PROJETO_FINAL_INF_112_MEDICO_H
