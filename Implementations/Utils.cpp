@@ -1,5 +1,6 @@
 //Includes
 #include "../Headers/Utils.h"
+#include "../Headers/Clinica.h"
 #include <regex>
 #include <iostream>
 
@@ -116,7 +117,7 @@ int lerInteiro(const std::string& mensagem, int min, int max){
         }
 
         if(!stringOk){
-            std::cout << "A entrada deve ser um numero inteiro. Tente novamente\n";
+            std::cout << "A entrada deve ser um numero inteiro positivo. Tente novamente\n";
             continue;
         }
 
@@ -171,7 +172,7 @@ double lerDouble(const std::string& mensagem, double min, double max){
         }
 
         if(!stringOk){
-            std::cout << "A entrada deve ser no formato double, deve conter apenas numeros e ponto/virgula. Tente novamente\n";
+            std::cout << "A entrada deve ser no formato double, deve conter apenas numero positivo e ponto/virgula. Tente novamente\n";
             continue;
         }   
 
@@ -224,4 +225,25 @@ int comparaData(const std::string& data1, std::string& data2){
     }
 
     return 0;
+}
+
+std::vector<std::string> buscaHorarioValido(const std::string& data, Clinica *clinica){
+    if(!validaData(data)){
+        std::cout << "Data de agendamento invalida, deve seguir o modelo XX/XX/XXXX\n";
+        return;
+    }
+    int inicioExpediente = 8 * 60; //8 horas
+    int fimExpediente = 18 * 60; //18 horas
+
+    std::vector<int> indexAgendamentosValidos;
+    std::vector<std::unique_ptr<Agendamento>> agendamentos = clinica->getAgendamentos();
+    for(int i=0; i<agendamentos.size(); i++){
+        if(agendamentos[i].get()->getData() == data)
+            indexAgendamentosValidos.push_back(i);
+    }
+
+    if(indexAgendamentosValidos.empty()){
+        
+    }
+
 }

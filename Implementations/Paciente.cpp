@@ -3,47 +3,52 @@
 #include <string>
 #include <iostream>
 #include <stdexcept>
-#include <cctype>
-#include <vector>
+#include <memory>
 
+Paciente::Paciente(std::string nome, std::string cpf, std::string senha, std::string telefone, std::string dataDeNascimento, char sexo, std::string observacoes, Plano* plano)
+    :Pessoa(nome, cpf, senha, telefone){
+        if(!validaData(dataDeNascimento))
+            throw std::invalid_argument("Data de nascimento invalida\n");
+        this->dataDeNascimento = dataDeNascimento;
 
+        if(sexo != 'F' && sexo != 'M')
+            throw std::invalid_argument("Sexo invalido, deve ser fornecido apenas um caractere maisculo, M para homem ou F para mulher)");
+        this->sexo = sexo;
 
-Paciente :: Paciente(std::string nome, std::string cpf, std::string senha, std::string telefone, std::string dataDeNascimento, char sexo, std::string observacoes, Plano* plano)
-    : Pessoa(nome, cpf, senha, telefone), dataDeNascimento(dataDeNascimento), sexo(sexo), observacoes(observacoes), plano(plano) {}
+        if(stringVazia(observacoes))
+            throw std::invalid_argument("Observacao para paciente invalida, nao pode ser vazia");
+        this->observacoes = observacoes;
 
-Paciente :: ~Paciente(){}
+        if(plano == nullptr)
+            throw std::invalid_argument("Ponteiro para plano nao pode ser vazio");
+        this->plano = plano;
+    }
+
+Paciente::~Paciente(){}
         
 //Gets
-std::string Paciente :: getDataDeNascimento() const{
-    return dataDeNascimento;
-}
-
-char Paciente :: getSexo() const{
-    return sexo;
-}
-
-std::string Paciente :: getObservacoes() const{
-    return observacoes;
-}
-
-Plano* Paciente :: getPlano() const{
-    return plano;
-}
-        
+std::string Paciente::getDataDeNascimento() const {return dataDeNascimento;}
+char Paciente::getSexo() const {return sexo;}
+std::string Paciente::getObservacoes() const {return observacoes;}
+Plano* Paciente::getPlano() const {return plano;}
         
 //Sets
-void Paciente :: setObservacoes(std::string observacoes){
-    (this->observacoes) = observacoes;
-
+void Paciente::setObservacoes(std::string observacoes){
+    if(stringVazia(observacoes))
+            throw std::invalid_argument("Observacao para paciente invalida, nao pode ser vazia");
+    this->observacoes = observacoes;
 }
 
-void Paciente :: setSexo(char sexo){
-    (this->sexo)=sexo;
-
+void Paciente::setSexo(char sexo){
+    if(sexo != 'F' && sexo != 'M')
+            throw std::invalid_argument("Sexo invalido, deve ser fornecido apenas um caractere maisculo, M para homem ou F para mulher)");
+        this->sexo = sexo;
 }
 
-void Paciente :: setPlano(Plano &plano){
-    (this->plano)=&plano;
+void Paciente::setPlano(Plano *plano){
+    if(plano == nullptr)
+        throw std::invalid_argument("Ponteiro para plano nao pode ser vazio");
+    this->plano = plano;
 }
         
 
@@ -251,13 +256,110 @@ void Paciente :: VizualizaDados(){ // Sobreescrita do método da superclasse, al
 }
 
                                     
-//Impressão dos agendamentos:
-void Paciente :: VizualizaAgendamentos(Clinica &clinica){ //Reescrita do método de pessoa, imprime todos os agendamentos já
-                                                          // realizados e os previstos para esse paciente.
+//Impressão dos agendamentos do paciente
+void Paciente::VizualizaAgendamentos(Clinica *clinica){ 
+    std::cout << "\n<==========MEUS AGENDAMENTOS==========>\n" << this->getNome() << std::endl;
     
+    bool encontrou = false;
+    const std::vector<std::unique_ptr<Agendamento>>& agendamentos = clinica->getAgendamentos();
+    
+    int indexVisual = 1;
+    for(int i=0; i<agendamentos.size(); i++){
+        if(agendamentos[i].get()->getPaciente()->getCpf() == this->cpf){
+            std::cout << indexVisual << ".: ";
+            indexVisual++;
+            agendamentos[i].get()->imprimirResumido();
+            encontrou = true;
+        }
+    }
 
-                                                        
+    if(!encontrou)
+        std::cout << "Voce nao possui nenhum agendamento\n";                
 }
-void Paciente :: Agendar(Clinica &clinica){} //Preenche os dados e cria um agendamento, e o adiciona no vetor agendamentos
 
-void Paciente :: CancelarAgendamento(Clinica &clinica){} // Cancela um agendamento 
+//Agenda
+void Paciente::Agendar(Clinica *clinica){
+    std::cout << "<====================\n";
+    std::cout << "Vamos comecar o agendamento:\n";
+    std::cout << "Primeiro escolha qual servico voce deseja agendar:\n";
+
+    std::vector<std::unique_ptr<Servico>> servicos = clinica->getServicos();
+
+    if(servicos.empty()){
+        std::cout << "Infelizmente ainda nao ofertamnos nenhum servico na clinica. Tente novamente depois\n";
+        return;
+    }
+
+    for(int i=0; i<servicos.size(); i++){
+        std::cout << i+1 << ". " << servicos[i].get()->getNome() << std::endl;
+    }
+    int escolhaServico = lerInteiro("Digite o numero do servico: ", 1, servicos.size());
+
+    std::cout << "Agora escolha o medico:\n";
+    int indexVisual = 1;
+    std::vector<int> indexMedicosValidos;
+    std::vector<std::unique_ptr<Medico>> medicos = clinica->getMedicos();
+    for(int i=0; i<medicos.size(); i++){
+        if(servicos[escolhaServico].get()->getOcupacaoRequerida() == medicos[i].get()->getOcupacao()){
+            std::cout << indexVisual << ". Dr(a) " << medicos[i].get()->getNome() << std::endl;
+            indexMedicosValidos.push_back(i);
+            indexVisual++;
+        }
+    }   
+
+    if(indexMedicosValidos.empty()){
+        std::cout << "Infelizmente nao ha nenhum medico no momento que realiza esse servico. Tente novamente depois\n";
+        return;
+    }
+    int escolhaMedico = lerInteiro("Digite o numero do medico: ", 1, indexMedicosValidos.size());
+    
+    std::string data;
+    while(true){
+        std::cout << "Digite uma data para o agendamento: ";
+        getline(std::cin, data);
+        if(!validaData(data)){
+            std::cout << "Data de agendamento invalida, deve seguir o modelo XX/XX/XXXX\n";
+            continue;
+        }
+        break;
+    }
+
+
+
+};
+
+//Cancelar agendamento
+void Paciente::CancelarAgendamento(Clinica *clinica){
+   std::cout << "\n<==========AGENDAMENTOS PENDENTES==========>\n" << this->getNome() << std::endl;
+
+    const std::vector<std::unique_ptr<Agendamento>>& agendamentos = clinica->getAgendamentos();
+    int indexVisual=1;
+    std::vector<int> agendamentosValidos;
+
+    for(int i=0; i<agendamentos.size(); i++){
+        if(agendamentos[i].get()->getPaciente()->getCpf() == this->cpf && !agendamentos[i].get()->isConcluido()){
+            std::cout << indexVisual << ".: ";
+            indexVisual++;
+            agendamentos[i].get()->imprimirResumido();
+            agendamentosValidos.push_back(i);
+        }
+    }
+
+    if(agendamentosValidos.empty()){
+        std::cout << "Voce nao possui nenhum agendamento\n";
+        return;
+    }
+
+    std::cout << "\n<====================>\n";
+    int escolha = lerInteiro("Digite o numero do agendamento que deseja excluir: ", 1, indexVisual);
+
+    //Acha e exclui o agaendamento escolhido
+    try{
+        Agendamento* ptr = agendamentos[agendamentosValidos[escolha-1]].get();
+        clinica->removerAgendamento(ptr);
+        std::cout << "Agendamento excluido com sucesso\n";
+    }
+    catch(std::invalid_argument &e){
+        std::cout << e.what() << std::endl;
+    }
+}
