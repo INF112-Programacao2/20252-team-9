@@ -102,7 +102,7 @@ void Atendente::VizualizaAgendamentos(Clinica* clinica){
             }
         } while (escolha <= 0 || escolha > cont);
 
-        listaPacientes[escolha-1]->VizualizaAgendamentos(*clinica);
+        listaPacientes[escolha-1]->VizualizaAgendamentos(clinica);
 
     }
 
@@ -172,6 +172,21 @@ void Atendente::CadastrarMedico(Clinica* clinica) {
         break;
     }
 
+    for(auto &medicos : clinica->getMedicos())
+    {
+       if(medicos->getCpf() == cpf)
+       {
+        std::cout << "Não é possível criar um médico com um cpf já cadastrado.\n";
+        return;
+       }
+
+       if(medicos->getCrm() == crm)
+       {
+        std::cout << "Não é possível criar um médico com um crm já cadastrado.\n";
+        return;
+       }
+
+    }
     try{
         clinica->adicionarMedico(std::make_unique<Medico>(nome, cpf, senha, telefone, crm, ocupacao));
     }
@@ -284,22 +299,37 @@ void Atendente::AlterarServico(Clinica *clinica){
             std::cout << "O nome não pode ser vazio, digite um nome válido: "; 
         }
 
-        servico_alterar->setNome(novo_nome);
-        std::cout << "Nome do serviço alterado com sucesso!\n";
+        try {
+            servico_alterar->setNome(novo_nome);
+            std::cout << "Nome do serviço alterado com sucesso!\n";
+        }
+        catch(std::invalid_argument &e){
+            std::cout << e.what() << "\n";
+        }
 
 
     }
     else if(escolha_alterar == 2)
     {
         double novo_valor = lerDouble("Informe o novo valor do serviço: ", 0.0, 100000.0);
-        servico_alterar->setValor(novo_valor);
-        std::cout << "Valor do serviço alterado com sucesso!\n";
+        try{
+            servico_alterar->setValor(novo_valor);
+            std::cout << "Valor do serviço alterado com sucesso!\n";
+        }
+        catch(std::invalid_argument &e) {
+            std::cout << e.what() << "\n";
+        }
     }
     else if(escolha_alterar == 3)
     {
         int nova_duracao = lerInteiro("Informe a nova duração do serviço: ", 0, 10000);
-        servico_alterar->setDuracao(nova_duracao);
-        std::cout << "Duração do serviço alterado com sucesso!\n";
+        try{
+            servico_alterar->setDuracao(nova_duracao);
+            std::cout << "Duração do serviço alterado com sucesso!\n";
+        }
+        catch (std::invalid_argument &e){
+            std::cout << e.what() << "\n";
+        }
     }
     else if(escolha_alterar == 4)
     {
@@ -313,8 +343,13 @@ void Atendente::AlterarServico(Clinica *clinica){
             std::cout << "A nova ocupação não pode ser vazia, digite uma ocupação válida: ";
         }
 
-        servico_alterar->setOcupacaoRequerida(nova_ocupcacao);
-        std::cout << "Ocupação requerida do serviço alterado com sucesso!\n";
+        try {
+            servico_alterar->setOcupacaoRequerida(nova_ocupcacao);
+            std::cout << "Ocupação requerida do serviço alterado com sucesso!\n";
+        }
+        catch (std::invalid_argument &e){
+            std::cout << e.what() << "\n";
+        }
     }
 
 
