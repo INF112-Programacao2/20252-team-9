@@ -91,32 +91,42 @@ bool validaCrm(const std::string& crm){
     return true;
 }
 
-int lerInteiro(int min, int max){
+int lerInteiro(const std::string& mensagem, int min, int max){
     int numero=0;
     bool entradaValida = false;
 
     while(!entradaValida){
         std::string entrada;
+        std::cout << mensagem;
         getline(std::cin, entrada);
 
+        //Verifica se a entrada não é vazia
         if(stringVazia(entrada)){
             std::cout << "Entrada nao pode ser vazia. Tente novamente\n";
             continue;
         }
 
+        //Varre a entrada vendo se tem algo que nao faz parte de um numero inteiro para validar a string
+        bool stringOk = true;
         for(int i=0; i<entrada.size(); i++){
-            if(!isdigit(entrada[i])){
-                std::cout << "A entrada deve ser um numero inteiro. Tente novamente\n";
-                continue;
+            if(!isdigit((unsigned char)entrada[i])){
+                stringOk = false;
+                break;
             }
         }
 
+        if(!stringOk){
+            std::cout << "A entrada deve ser um numero inteiro. Tente novamente\n";
+            continue;
+        }
+
+        //Converte a string para numero inteiro e verifica se ela esta no intervalo correto passado por parametro
         try{
             numero = std::stoi(entrada);
             if(numero >= min && numero <= max)
                 entradaValida = true;
             else
-                std::cout << "Escolha invalida, escolha algo entre " << min << " e " << max << std::endl;
+                std::cout << "Numero invalido, escolha algo entre " << min << " e " << max << std::endl;
 
         }catch(std::exception &e){
             std::cout << "Ocorreu um erro ao validar a entrada. Tente novamente\n";
@@ -126,7 +136,67 @@ int lerInteiro(int min, int max){
     return numero;
 }
 
-int comparaData(std::string& data1, std::string& data2){
+double lerDouble(const std::string& mensagem, double min, double max){
+    double numero= 0.0;
+    bool entradaValida = false;
+
+    while(!entradaValida){
+        std::string entrada;
+        std::cout << mensagem;
+        getline(std::cin, entrada);
+
+        //Verifica se a entrada é vazia
+        if(stringVazia(entrada)){
+            std::cout << "Entrada nao pode ser vazia. Tente novamente\n";
+            continue;
+        }
+
+       //Valida a string em si
+        bool stringOk = true;
+        int numPontos = 0;
+        for(int i=0; i<entrada.size(); i++){
+            unsigned char c = entrada[i];
+            if(isdigit(c)){
+                continue;
+            }
+            else if(c == '.' || c == ','){
+                entrada[i] = '.';
+                numPontos++;
+            }
+            else{
+                //Se achou um digito que nao pertence a uma double, ele invalida a string
+                stringOk = false;
+                break; 
+            }
+        }
+
+        if(!stringOk){
+            std::cout << "A entrada deve ser no formato double, deve conter apenas numeros e ponto/virgula. Tente novamente\n";
+            continue;
+        }   
+
+        if(numPontos>1){
+            std::cout << "A entrada nao pode contar mais de um ponto/virgula. Tente novamente\n";
+            continue;
+        }
+
+        //Converte a variavel e verifica se ela esta dentro dos limites passados por parametro
+        try{
+            numero = std::stod(entrada);
+            if(numero >= min && numero <= max)
+                entradaValida = true;
+            else
+                std::cout << "Numero invalida, escolha algo entre " << min << " e " << max << std::endl;
+
+        }catch(std::exception &e){
+            std::cout << "Ocorreu um erro ao validar a entrada. Tente novamente\n";
+        }
+    }
+
+    return numero;
+}
+
+int comparaData(const std::string& data1, std::string& data2){
     if(!validaData(data1) || !validaData(data2))
         throw std::invalid_argument("Datas devem estar no formato XX/XX/XX para serem comparadas");
 
@@ -149,8 +219,9 @@ int comparaData(std::string& data1, std::string& data2){
         if(valor1>valor2) return 1;
         if(valor2<valor1) return -1;
 
-        return 0;
     }catch(std::exception &e){
         std::cout << "Ocorreu um erro ao converter as dadas durante a comparacao. Tente novamente\n";
     }
+
+    return 0;
 }

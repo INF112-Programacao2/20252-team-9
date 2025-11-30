@@ -96,8 +96,7 @@ void Medico::CancelarAgendamento(Clinica* clinica) {
     }
 
     std::cout << "\n<====================>\n";
-    std::cout << "Digite o numero do agendamento que deseja excluir: ";
-    int escolha = lerInteiro(1, indexVisual);
+    int escolha = lerInteiro("Digite o numero do agendamento que deseja excluir: ", 1, indexVisual);
 
     //Acha e exclui o agaendamento escolhido
     try{
@@ -133,13 +132,13 @@ void Medico::AdicionarFeedBack(Clinica* clinica) {
     
     std::cout << "\n<====================>\n";
     std::cout << "Digite o numero do agendamento que deseja dar feedback: ";
-    int escolha = lerInteiro(1, indexVisual);
+    int escolha = lerInteiro("Digite o numero do agendamento que deseja dar feedback: ", 1, indexVisual);
     std::string feedback;
 
     bool feedbackValido = false;
     while(!feedbackValido){
         getline(std::cin, feedback);
-        if(!stringVazia(feedback)){
+        if(stringVazia(feedback)){
             std::cout << "Feedback invalido, ele nao pode ser vazio. Tente novamente.\n";
             continue;
         }
