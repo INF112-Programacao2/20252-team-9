@@ -36,12 +36,14 @@ class Paciente : public Pessoa {
         //Sets
         void setObservacoes(std::string observacoes);
         void setSexo(char sexo);
-        void setPlano(Plano *plano);
+        void setPlano(Plano* plano);
         
         //Métodos
         //Impressão dos dados do usuário:
-        void AlteraDados(Clinica* clinica); //Abre um menu, em que o paciente seleciona usando números qual atributo 
-                            // ele deseja alterar, e o método chama o método set correspondente.
+        void AlteraDados(Clinica *clinica); //Abre um menu, em que o paciente seleciona usando números qual atributo 
+                                            // ele deseja alterar, e o método chama o método set correspondente.
+                                            //Refatoração: Adicionei o parâmetro clinica para ter acesso ao vetor de planos da clinica e
+                                            // informar quais são as opções na hora de alterar.
 
         void VizualizaDados() override; // Sobreescrita do método da superclasse, além dos dados de pessoa
                                        // imprime também data de nascimento, sexo, as observações e plano de saúde
@@ -50,9 +52,9 @@ class Paciente : public Pessoa {
         void VizualizaAgendamentos(Clinica *clinica) override; //Reescrita do método de pessoa, imprime todos os agendamentos já
                                       // realizados e os previstos para esse paciente.
         
-        void Agendar(Clinica *clinica); //Preenche os dados e cria um agendamento, e o adiciona no vetor agendamentos
+        void Agendar(Clinica &clinica); //Preenche os dados e cria um agendamento, e o adiciona no vetor agendamentos
 
-        void CancelarAgendamento(Clinica *clinica); // Cancela um agendamento 
+        void CancelarAgendamento(Clinica &clinica); // Cancela um agendamento 
 
 };
     
