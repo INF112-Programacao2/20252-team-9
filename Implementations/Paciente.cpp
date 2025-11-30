@@ -337,8 +337,20 @@ void Paciente::Agendar(Clinica *clinica){
     }
 
     //Imprime horarios disponíveis
-    
-      
+    std::cout << "Horarios disponiveis\n";
+    std::vector<std::string> horarios = buscaHorarioValido(data, clinica);
+    for(int i=0; i<horarios.size(); i++)
+        std::cout << i+1 << ". " << horarios[i];
+
+    int escolhaHorario = lerInteiro("Digite o numero do horario que voce deseja: ", 1, horarios.size());
+
+    try{
+        clinica->adicionarAgendamento(std::make_unique<Agendamento>(data, horarios[escolhaHorario-1], (this), medicos[indexMedicosValidos[escolhaMedico-1]], servicos[escolhaServico-1]));
+        std::cout << "Agendamento realizado com sucesso.\n";
+    }
+    catch(std::invalid_argument &e){
+        std::cout << e.what() << std::endl;
+    }
 }
 
 //Cancelar agendamento
