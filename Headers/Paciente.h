@@ -40,7 +40,7 @@ class Paciente : public Pessoa {
         
         //Métodos
         //Impressão dos dados do usuário:
-        void AlteraDados(); //Abre um menu, em que o paciente seleciona usando números qual atributo 
+        void AlteraDados(Clinica* clinica); //Abre um menu, em que o paciente seleciona usando números qual atributo 
                             // ele deseja alterar, e o método chama o método set correspondente.
 
         void VizualizaDados() override; // Sobreescrita do método da superclasse, além dos dados de pessoa

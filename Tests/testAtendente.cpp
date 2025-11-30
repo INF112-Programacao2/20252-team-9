@@ -6,4 +6,6 @@ int main(){
     std::cout << atendente.getNome() << " " << atendente.getCpf() << " " << atendente.getSenha() << " " 
               << atendente.getTelefone() << " " << atendente.getMatricula() << std::endl;
 
+    
+
 }

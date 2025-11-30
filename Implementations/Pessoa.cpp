@@ -6,7 +6,7 @@
 
 //Construtor
 Pessoa::Pessoa(std::string nome, std::string cpf, std::string senha, std::string telefone){
-    if(stringVazia(nome))
+    if(stringVazia(nome) || !somenteLetras(nome))
         throw std::invalid_argument("Nome para pessoa invalido");
     this->nome = nome;
 

@@ -21,7 +21,7 @@ bool stringVazia(const std::string &string){
 bool somenteLetras(const std::string &palavra){ 
 
     for( char c : palavra){ //Percorre o string caractere por caractere
-        if(!std::isalpha(static_cast<unsigned char>(c))){
+        if(!std::isalpha(static_cast<unsigned char>(c)) && c!=' '){
             return false;
         }
     }
@@ -243,7 +243,7 @@ std::vector<std::string> buscaHorarioValido(const std::string& data, Clinica *cl
     }
 
     if(indexAgendamentosValidos.empty()){
-        
+
     }
 
 }

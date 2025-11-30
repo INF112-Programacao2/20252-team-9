@@ -54,9 +54,8 @@ void Paciente::setPlano(Plano *plano){
 
 //Métodos
 //Impressão dos dados do usuário:
-void Paciente :: AlteraDados(){ //Abre um menu, em que o paciente seleciona usando números qual atributo 
+void Paciente :: AlteraDados(Clinica* clinica){ //Abre um menu, em que o paciente seleciona usando números qual atributo 
                             // ele deseja alterar, e o método chama o método set correspondente.
-    int escolha;
 
     //Impressão do menu:
     std::cout <<"\n------------------Menu de Ajuste dos Dados------------------"<<std::endl;
@@ -67,175 +66,188 @@ void Paciente :: AlteraDados(){ //Abre um menu, em que o paciente seleciona usan
     std::cout << "4 - Observações\n";
     std::cout << "5 - Sexo\n";
     std::cout << "6 - Plano de saude\n";
-    std::cout << "7 - Cancelar\n";
+    std::cout << "7 - Sair\n";
     
-    std::cout <<"\n Digite o numero de qual das opcoes voce deseja alterar:";
-    
-    try{ //Validação da entrada com tratamento de exceção
-
-        std::cin>> escolha; // Entrada do usuário
-        
-        //Se não esta listado no menu, lança a exceção argumento invalido
-        if(escolha!=1 && escolha!=2 && escolha!= 3 && escolha!=4 && escolha!=5 && escolha!=6 && escolha!=7){
-            throw std::invalid_argument("A opcao escolhida nao e valida, digite novamente:");
-        }
-
-    }catch(std::invalid_argument &e){ //Captura a exceção lançada, e fica em loop até que o usuario digite um valor válido
-        while(escolha!=1 && escolha!=2 && escolha!= 3 && escolha!=4 && escolha!=5 && escolha!=6 && escolha!=7){
-            std::cerr << e.what();
-            std::cin>> escolha;
-        }
-    }
+    int escolha = lerInteiro("Digite o numero de qual das opcoes voce deseja alterar:", 1, 7);
 
     //Switch case para a implementaão do menu
     switch (escolha)
     {
         case 1: //Troca de nome
         {
-            std::cout <<"Digite o novo nome do usuario:" <<std::endl;
             std::string novoNome;
             
-            try{ //Valida o novo nome
-                std::getline(std::cin, novoNome);
-                if(!somenteLetras(novoNome)){ //Se tiver algum caracter que não é letra, lança a exceção
-                    throw std::invalid_argument ("Seu nome nao pode conter numeros, nem caracteres especiais, Digite novamente:");
+            while(true){
+                std::cout <<"Digite o novo nome do usuario:" <<std::endl;
+                getline(std::cin, novoNome);
+                if(stringVazia(novoNome) || !somenteLetras(novoNome)){
+                    std::cout << "Nome nao pode ser vazio e deve conter somente letra. Tente novamente\n";
+                    continue;
                 }
-            }
-            catch(std::invalid_argument& e){ //Trata a entrada inválida
-                while(!somenteLetras(novoNome)){
-                    std::cerr<<e.what();
-                    std::getline(std::cin, novoNome);
-                }
-            }
-            catch(std::exception &e){//Erros + genéricos que pode acontecer quando o usuário insere a entrada. 
-                std::cout <<"Desculpe, ocorreu um erro no sistema, por favor tente novamente mais tarde.";
                 break;
             }
-            //Com o nome validado, chama o set para fazer a alteração
-            setNome(novoNome);
-            std::cout<<"Seu nome foi atualizado no sistema." <<std::endl;
-            break;
+
+            try{
+                this->setNome(novoNome);
+                std::cout << "Nome alterado com sucesso.\n";
+                break;
+            }
+            catch(std::invalid_argument &e) {
+                std::cout << e.what() << std::endl;
+            }
         }
 
         case 2: //Mudança de senha
         {
             std::cout <<"Para realizar a troca de senha, voce deve primeiro inserir a atual." <<std::endl;
             std::cout <<"Voce possui 3 chances, caso nao se lembre ou nao acerte em nenhuma das 3 tentativas, procure a atendente da clinica para redefinir seua senha de login" <<std::endl;
-            std::string s;
+            std::string senhaComparar;
             int tentativa=3;
-            std::cout<<"Digite sua senha atual:";
-            try{
-                std::getline(std::cin, s);
-                if (s!= senha){
-                    throw std::invalid_argument("Senha incorreta");
-                }
-            }
-            catch (std::exception &e){
-                while(tentativa>0 && s!=senha){
-                    tentativa--;
-                    std::cerr<<e.what() <<std::endl;
-                    std::cout<<"Voce possui " << tentativa <<" tentativas restante(s).\n Digite novamente:";
-                    std::cin>>s;
-                }
-            }
-            catch(std::exception &e){//Erro + genérico que pode acontecer quando o usuário insere a entrada. 
-                std::cout <<"Desculpe, ocorreu um erro no sistema, por favor tente novamente mais tarde.";
-                break;
-            }
             
-            if(tentativa==0 && s!=senha){
-                    std::cout <<"Voce esgotou suas tentativas, entao nao foi possivel alterar a senha. Por favor, procure a atendente da clinica para redefinir sua senha do sistema."<<std::endl;
+            while(tentativa>0){
+                std::cout<<"Digite sua senha atual:";
+                while(true){
+                    getline(std::cin, senhaComparar);
+                    if(stringVazia(senhaComparar)){
+                        std::cout << "Senha invalida, nao pode ser vazia. Tente novamente\n";
+                        continue;
+                    }
+                    break;
+                }
+
+                if(senhaComparar != this->senha){
+                    std::cout << "Senha incorreta. Tente novamente\n";
+                    tentativa--;    
+                }
+                else
+                    break;
+            }
+             
+            if(tentativa == 0){
+                std::cout << "Infelizmente suas tentativas se esgotaram, tente novamente mais tarde";
+                break;
             }
 
-            if(s==senha){
-                std::cout<<"Muito bem, agora informe por favor sua nova senha de login:" <<std::endl;
-                std::string novaSenha;
-                std::cin>>novaSenha;
-                //Vamos ter algum tipo de validação para a senha? Ex: mínimo 4 caracteres
-                setSenha(novaSenha);
-                std::cout<<"Sua senha foi alterada no sistema."<<std::endl;
+            std::cout << "Senha verificada corretamente\n";
+
+            std::string novaSenha;
+         
+            while(true){
+                std::cout << "Digite a nova senha: ";
+                getline(std::cin, novaSenha);
+                if(stringVazia(novaSenha)){
+                    std::cout << "Nova senha invalida, ela nao pode ser vazia. Tente novamente\n";
+                    continue;
+                }
                 break;
+            }
+      
+            try{
+                this->setSenha(novaSenha);
+                std::cout << "Senha alterada com sucesso";
+                break;
+            }
+            catch(std::invalid_argument &e){
+                std::cout << e.what() << std::endl;
             }
         }
      
         case 3: //Muda o telefone
         { 
             std::string novoTelefone;
-            std::cout<<"Digite o novo numero de telefone, incluindo o DDD e sem espaco ou "-" entre os números." <<std::endl;
-            std::cout <<"Exemplo de entrada: 31988123456 \n";
-            try{ //Analisa  a entrada para ver se está no formato válido
-                std::cin>> novoTelefone;
-                if(novoTelefone.length()!=11 ||!somenteNumeros(novoTelefone)){
-                    //Se não estiver, lança uma exceção
-                    throw std::invalid_argument("Formato invalido, certifique de que contenha apenas números e inclua o DDD\n");
+            while(true){
+                std::cout << "Digite a nova numero de telefone: ";
+                getline(std::cin, novoTelefone);
+                if(!validaTelefone(novoTelefone)){
+                    std::cout << "Numero de telefone invalido, deve seguir o formato (XX) XXXXX-XXXX ou (XX) XXXX-XXXX. Tente novamente\n";
+                    continue;
                 }
-            }
-            catch(std::invalid_argument &e){ //Captura a exceção e solicita uma nova entrada
-                while(novoTelefone.length()!=11 ||!somenteNumeros(novoTelefone)){
-                    std::cerr<<e.what();
-                    std::cout <<"Digite novamente:";
-                    std::cin>>novoTelefone;
-                }
-            }
-            catch(std::exception &e){//Trata algum erro + genérico que pode acontecer quando o usuário insere a entrada. 
-                std::cout <<"Desculpe, ocorreu um erro no sistema, por favor tente novamente mais tarde.";
                 break;
             }
-            //Depois que a entrada é validada, chama o setTelefone e faz a alteração
-            setTelefone(novoTelefone);
-            std::cout<<"Alteracao do numero de telefone concluida.\n";//Mensagem de confirmação
-            break;
+
+
+            try{
+                this->setTelefone(novoTelefone);
+                std::cout << "Telefone alterado com sucesso\n";
+                break;
+            }
+            catch(std::invalid_argument &e){
+                std::cout << e.what() << std::endl;
+            }
         }
 
         case 4: //Alterar as observações
         {
             std::string novaObservacao;
-            std::cout<<"Digite um paragrafo sucinto, com informacoes gostaria de colocar no bloco de observacoes, por exemplo: comorbidades, uso de medicamentos, etc..\n ";
-            try{
-                std::cin>>novaObservacao;
-            }
-            catch(std::exception &e){//Não tem nenhuma restrição específica para observações, esse tray/catch trata algum erro + genérico que pode acontecer quando o usuário insere a entrada. 
-                std::cout <<"Desculpe, ocorreu um erro no sistema, por favor tente novamente mais tarde.";
+            std::cout<<"Digite uma observacao que possa ser relevante aos mediscos(Ex: Alergias):" ;
+
+            while(true){
+                std::cout << "Digite a nova numero de telefone: ";
+                getline(std::cin, novaObservacao);
+                if(stringVazia(novaObservacao)){
+                    std::cout << "Observacao invalida, nao pode ser vazia. Tente novamente\n";
+                    continue;
+                }
                 break;
             }
-            setObservacoes(novaObservacao);
-            std::cout<<"Suas informacoes no campo de 'observacoes' foram alteradas\n";
-            break;
+
+            try{
+                this->setObservacoes(novaObservacao);
+                std::cout << "Observacao alterada com sucesso.\n";
+                break;
+            }
+            catch(std::invalid_argument &e){
+                std::cout << e.what() << std::endl;
+            }
         }
 
         case 5: //Altera Sexo
         {
-            std::cout <<"Digite uma das opções abaixo para fazer a alteração:"<<std::endl;
-            std::cout <<std::endl;
+            std::cout <<"Opcoes de sexo:\n";
             std::cout << "1 - Feminino\n";
             std::cout << "2 - Masculino\n";
-            std::cout << "3 - Outro ou prefiro nao dizer.\n";
-            int a;
-            while(true){
-                std::cin>>a;
-                if(a==1||a==2||a==3){
-                    break; //Sai do while
-                }
-                else{
-                    std::cout<<"Opcao invalida, por favor digite novamente.\n";
-                }
+
+            int escolha = lerInteiro("Digite a opcao do sexo que voce deseja: ", 1, 2);
+            char sexo = escolha == 1? 'F' : 'M';
+
+            try{
+                this->setSexo(sexo);
+                break;
             }
-            if(a==1){
-                setSexo('F');
+            catch(std::invalid_argument &e){
+                std::cout << e.what() << std::endl;
             }
-            if(a==2){
-                setSexo('M');
-            }
-            if(a==3){
-                setSexo('O');
-            }
-            std::cout<<"Alteracao concluida\n";//Mensagem de sucesso
-            break;
         }
 
         case 6:// Mudança de plano de saúde
         {
+            std::cout << "Escolha o seu novo plano\n";
+            std::vector<std::unique_ptr<Plano>> planos = clinica->getPlanos();
+
+            if(planos.size() == 0){
+                std::cout << "A clinica ainda nao possui parceria com nenhum convenio. Tente novamente mais tarde\n";
+                break;
+            }
             
+            for(int i=0; i<planos.size(); i++)
+                std::cout << i+1 << ". " << planos[i].get()->getNome() << std::endl;
+
+            int escolha = lerInteiro("Digite a opcao de plano desejada: ", 1, planos.size());
+            Plano* plano = planos[escolha-1].get();
+
+            try{
+                this->setPlano(plano);
+                std::cout << "Plano alterado com sucesso.";
+                break;
+;            }
+            catch(std::invalid_argument &e){
+                std::cout << e.what() << std::endl;
+            }
+        }
+
+        case 7:
+        {   
+            break;
         }
     }
 }
