@@ -3,6 +3,7 @@
 #include <stdexcept>
 #include <sstream>
 #include <iomanip>
+#include <iostream>
 
 int Servico::contadorId = 0;
 
@@ -61,6 +62,18 @@ void Servico::setOcupacaoRequerida(std::string ocupacaoRequerida){
         throw std::invalid_argument("Ocupacao requerida para o servico invalida");
     this->ocupacaoRequerida = ocupacaoRequerida;
 }
+
+//Metodos
+
+void Servico::visualizarDados(){
+    std::cout << "====Dados do Serviço===\n";
+    std::cout << "ID: " << this->getId() << std::endl;
+    std::cout << "Nome: " << this->getNome() << std::endl;
+    std::cout << "Valor: " << this->getValor() << std::endl;
+    std::cout << "Duração: " << this->getDuracao() << std::endl;
+    std::cout << "Ocupação Requerida: " << this->getOcupacaoRequerida() << std::endl;
+}
+
 
 //Metodo para gerar novo id para os servicos
 std::string Servico::gerarNovoId(){

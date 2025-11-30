@@ -32,6 +32,9 @@ class Servico {
         void setDuracao(int duracao);
         void setOcupacaoRequerida(std::string tipo);
 
+        //Metodos
+        void visualizarDados();
+
         //Metodo para gerar um novo id para o servico
         std::string gerarNovoId();
 };
