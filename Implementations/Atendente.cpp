@@ -40,7 +40,7 @@ void Atendente::VizualizaDados(){
     std::cout << "Matrícula: " << this->getMatricula() << "\n";
 }
 
-void Atendente::VizualizaAgendamentos(Clinica &clinica){
+void Atendente::VizualizaAgendamentos(Clinica *clinica){
     int n;
     do{
         std::cout << "Você deseja visualizar os agendamentos de: \n (1)Paciente \n(2)Médico\n";
@@ -56,7 +56,7 @@ void Atendente::VizualizaAgendamentos(Clinica &clinica){
 
     if(n == 1){
         std::cout << "Lista dos Médicos que deseja ver os agendamentos: \n";
-        const auto &listaMedicos = clinica.getMedicos();
+        const auto &listaMedicos = clinica->getMedicos();
         int cont = 0;
         for(auto &med : listaMedicos) {
             cont++;
@@ -77,12 +77,12 @@ void Atendente::VizualizaAgendamentos(Clinica &clinica){
 
         } while(escolha <= 0 || escolha > cont);
 
-        listaMedicos[escolha-1]->VizualizaAgendamentos(clinica);
+        listaMedicos[escolha-1]->VizualizaAgendamentos(*clinica);
 
     }
     else {
         std::cout << "Lista dos pacientes que deseja ver os agendamentos: \n";
-        const auto &listaPacientes = clinica.getPacientes();
+        const auto &listaPacientes = clinica->getPacientes();
         int cont = 0;
         for(auto &pac : listaPacientes){
             cont++;
@@ -102,7 +102,7 @@ void Atendente::VizualizaAgendamentos(Clinica &clinica){
             }
         } while (escolha <= 0 || escolha > cont);
 
-        listaPacientes[escolha-1]->VizualizaAgendamentos(clinica);
+        listaPacientes[escolha-1]->VizualizaAgendamentos(*clinica);
 
     }
 
@@ -128,4 +128,54 @@ void Atendente::CadastrarMedico(Clinica &clinica) {
 
    clinica.adicionarMedico(std::move(novo_medico));
 
+}
+
+void Atendente::DesligarMedico(Clinica &clinica){
+    std::cout << "Lista de Médicos trabalhando no momento:\n";
+
+    int cont = 0;
+    for (auto &med : clinica.getMedicos())
+    { 
+        cont++;
+        std::cout << "(" << cont << ")" << med->getNome() << " CRM: " << med->getCrm() << "\n";
+    }
+
+    int escolha;
+
+    do {
+            std::cout << "Digite o identificador do Paciente que deseja visualizar as consultas: ";
+            std::cin >> escolha;
+
+            if(!std::cin) {
+                std::cin.clear();
+                std::cin.ignore(1000, '\n');
+                escolha = -1;
+            }
+        } while (escolha <= 0 || escolha > cont);
+
+    clinica.removerMedico(clinica.getMedicos()[escolha-1].get());
+
+}
+
+
+
+
+void Atendente::CriarServico(Clinica &clinica){
+    //Falta o tratamento de erro
+    std::string nome, ocupacaoRequerida;
+    int duracao;
+    double valor;
+
+    std::cout << "Digite o nome do serviço: ";
+    getline(std::cin, nome);
+    std::cout << "Digite o valor do serviço: ";
+    std::cin >> valor;
+    std::cout << "Digite a duração do serviço: ";
+    std::cin >> duracao;
+    std::cout << "Digite a ocupação requerida(geralmente Médico): ";
+    getline(std::cin, ocupacaoRequerida);
+
+    auto novo_servico = std::make_unique<Servico>(nome, valor, duracao, ocupacaoRequerida);
+
+    clinica.adicionarServico(std::move(novo_servico));
 }
