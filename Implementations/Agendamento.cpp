@@ -4,6 +4,9 @@
 #include <iostream>
 #include <iomanip>
 
+//Define a data tida como referencia para saber se os agendamentos atuais já aconteceram ou não
+std::string Agendamento::dateReference = "02/11/2025";
+
 //Construtor
 Agendamento::Agendamento(std::string data, std::string horario, Paciente* paciente, Medico* medico, Servico* servico){
     //Feedback é vazio quando cria o agendamento
@@ -28,6 +31,12 @@ Agendamento::Agendamento(std::string data, std::string horario, Paciente* pacien
     if(servico == nullptr)
         throw std::invalid_argument("Ponteiro para servico no agendamento nao pode ser nulo");
     this->servico = servico;
+
+    //Compara a data do agendamento com a referencia para determinar se já ocorreu ou não
+    if(comparaData(data, dateReference) == -1)
+        this->concluido = true;
+    else
+        this->concluido = false;
 }
 
 //Destrutor
@@ -38,6 +47,7 @@ std::string Agendamento::getData() const {return data;}
 std::string Agendamento::getHorario() const {return horario;}
 std::string Agendamento::getFeedback() const {return feedback;}
 Paciente* Agendamento::getPaciente() const {return paciente;}
+bool Agendamento::isConcluido() const {return concluido;}
 Medico* Agendamento::getMedico() const {return medico;}
 Servico* Agendamento::getServico() const {return servico;}
 
@@ -78,8 +88,8 @@ void Agendamento::setServico(Servico* servico){
     this->servico = servico;
 }
 
-//Imprime os dados do agendamento
-void Agendamento::imprimir() const{
+//Imprime os dados do agendamento detalhadamente
+void Agendamento::imprimirDetalhado() const{
     std::cout << "Data: " << data << " - Horario: " << horario << std::endl;
     std::cout << " | Valor: R$ " << std::fixed << std::setprecision(2) << servico->getValor();
     std::cout << " | Duracao: " << servico->getDuracao() << " minutos" << std::endl;
@@ -92,4 +102,10 @@ void Agendamento::imprimir() const{
         std::cout << "Feedback: " << feedback << std::endl;
 
     std::cout << "\n----------------------------------------\n";
+}
+
+//Imprime os dados do agendamento resumidamente
+void Agendamento::imprimirResumido() const{
+    std::cout << "Data: " << data << " | Paciente: " << paciente->getNome() << " | Servico: " << servico;
+    std::cout << "| Duracao: " << servico->getDuracao() << " minutos\n";
 }

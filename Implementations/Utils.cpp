@@ -1,6 +1,7 @@
 //Includes
 #include "../Headers/Utils.h"
 #include <regex>
+#include <iostream>
 
 bool stringVazia(const std::string &string){
     if(string.size() == 0)
@@ -71,11 +72,156 @@ bool validaCpf(const std::string& cpf){
 }
 
 bool validaTelefone(const std::string& telefone){
-    //Regex para validacao do cpf
+    //Regex para validação do cpf
     std::regex padrao(R"(^\(\d{2}\) \d{4,5}-\d{4}$)");
 
     if(!std::regex_match(telefone, padrao))
         return false;
     
     return true;
+}
+
+bool validaCrm(const std::string& crm){
+    //Regex para valicadação do crm
+    std::regex padrao(R"(^(CRO|CRM)/[A-Z]{2} \d{4,6}$)");
+
+    if(!std::regex_match(crm, padrao))
+        return false;
+
+    return true;
+}
+
+int lerInteiro(const std::string& mensagem, int min, int max){
+    int numero=0;
+    bool entradaValida = false;
+
+    while(!entradaValida){
+        std::string entrada;
+        std::cout << mensagem;
+        getline(std::cin, entrada);
+
+        //Verifica se a entrada não é vazia
+        if(stringVazia(entrada)){
+            std::cout << "Entrada nao pode ser vazia. Tente novamente\n";
+            continue;
+        }
+
+        //Varre a entrada vendo se tem algo que nao faz parte de um numero inteiro para validar a string
+        bool stringOk = true;
+        for(int i=0; i<entrada.size(); i++){
+            if(!isdigit((unsigned char)entrada[i])){
+                stringOk = false;
+                break;
+            }
+        }
+
+        if(!stringOk){
+            std::cout << "A entrada deve ser um numero inteiro. Tente novamente\n";
+            continue;
+        }
+
+        //Converte a string para numero inteiro e verifica se ela esta no intervalo correto passado por parametro
+        try{
+            numero = std::stoi(entrada);
+            if(numero >= min && numero <= max)
+                entradaValida = true;
+            else
+                std::cout << "Numero invalido, escolha algo entre " << min << " e " << max << std::endl;
+
+        }catch(std::exception &e){
+            std::cout << "Ocorreu um erro ao validar a entrada. Tente novamente\n";
+        }
+    }
+
+    return numero;
+}
+
+double lerDouble(const std::string& mensagem, double min, double max){
+    double numero= 0.0;
+    bool entradaValida = false;
+
+    while(!entradaValida){
+        std::string entrada;
+        std::cout << mensagem;
+        getline(std::cin, entrada);
+
+        //Verifica se a entrada é vazia
+        if(stringVazia(entrada)){
+            std::cout << "Entrada nao pode ser vazia. Tente novamente\n";
+            continue;
+        }
+
+       //Valida a string em si
+        bool stringOk = true;
+        int numPontos = 0;
+        for(int i=0; i<entrada.size(); i++){
+            unsigned char c = entrada[i];
+            if(isdigit(c)){
+                continue;
+            }
+            else if(c == '.' || c == ','){
+                entrada[i] = '.';
+                numPontos++;
+            }
+            else{
+                //Se achou um digito que nao pertence a uma double, ele invalida a string
+                stringOk = false;
+                break; 
+            }
+        }
+
+        if(!stringOk){
+            std::cout << "A entrada deve ser no formato double, deve conter apenas numeros e ponto/virgula. Tente novamente\n";
+            continue;
+        }   
+
+        if(numPontos>1){
+            std::cout << "A entrada nao pode contar mais de um ponto/virgula. Tente novamente\n";
+            continue;
+        }
+
+        //Converte a variavel e verifica se ela esta dentro dos limites passados por parametro
+        try{
+            numero = std::stod(entrada);
+            if(numero >= min && numero <= max)
+                entradaValida = true;
+            else
+                std::cout << "Numero invalida, escolha algo entre " << min << " e " << max << std::endl;
+
+        }catch(std::exception &e){
+            std::cout << "Ocorreu um erro ao validar a entrada. Tente novamente\n";
+        }
+    }
+
+    return numero;
+}
+
+int comparaData(const std::string& data1, std::string& data2){
+    if(!validaData(data1) || !validaData(data2))
+        throw std::invalid_argument("Datas devem estar no formato XX/XX/XX para serem comparadas");
+
+    //Converte os anos, meses e dias em numeros e realiza comparacoes
+    try{
+        // Data 1
+        int dia1 = std::stoi(data1.substr(0, 2));
+        int mes1 = std::stoi(data1.substr(3, 2));
+        int ano1 = std::stoi(data1.substr(6, 4));
+
+        // Data 2
+        int dia2 = std::stoi(data2.substr(0, 2));
+        int mes2 = std::stoi(data2.substr(3, 2));
+        int ano2 = std::stoi(data2.substr(6, 4));
+        
+        //Forma matematica de transformar uma data DDMMAA para AAMMDD, bastando comparar os valores
+        long int valor1 = (ano1 * 10000) + (mes1 * 100) + dia1;
+        long int valor2 = (ano2 * 10000) + (mes2 * 100) + dia2;
+
+        if(valor1>valor2) return 1;
+        if(valor2<valor1) return -1;
+
+    }catch(std::exception &e){
+        std::cout << "Ocorreu um erro ao converter as dadas durante a comparacao. Tente novamente\n";
+    }
+
+    return 0;
 }

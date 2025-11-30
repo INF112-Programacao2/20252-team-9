@@ -28,12 +28,12 @@ class Atendente : public Pessoa{
         //Metodos
         void VizualizaDados() override;
         void VizualizaAgendamentos(Clinica* clinica) override; // Metodos herdados de pessoa
-        void CadastrarMedico(Clinica &clinica);
-        void DesligarMedico(Clinica &clinica);
-        void MarcarAgendamento(Clinica &clinica);
-        void ConsultaSaldoDaClinica(Clinica &clinica);
-        void CriarServico(Clinica &clinica);
-        void AlterarServico(Clinica &clinica);
+        void CadastrarMedico(Clinica* clinica);
+        void DesligarMedico(Clinica* clinica);
+        void MarcarAgendamento(Clinica* clinica); //Função que também pode ser executada pelo paciente
+        void ConsultaSaldoDaClinica(Clinica* clinica);
+        void CriarServico(Clinica* clinica);
+        void AlterarServico(Clinica* clinica);
         
 };
 

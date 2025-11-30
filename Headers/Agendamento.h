@@ -11,9 +11,11 @@
 class Agendamento{
     
     private:
+        static std::string dateReference;
         std::string data;
         std::string horario;
         std::string feedback;
+        bool concluido;
 
         Paciente *paciente;  //Ponteiro para o paciente do agendamento
         Medico *medico; //Ponteiro para o medico do agendamento
@@ -29,6 +31,7 @@ class Agendamento{
         std::string getData() const;
         std::string getHorario() const;
         std::string getFeedback() const;
+        bool isConcluido() const;
         Paciente* getPaciente() const;
         Medico* getMedico() const;
         Servico* getServico() const;
@@ -41,7 +44,8 @@ class Agendamento{
         void setMedico(Medico* medico);
         void setServico(Servico* servico);
 
-        void imprimir() const; //Método que imprime todos os dados do agendamento
+        void imprimirDetalhado() const; //Método que imprime todos os dados do agendamento detalhadamente
+        void imprimirResumido() const;  //Método que imprime todos os dados do agendamento resumidamente
 };
 
 #endif

@@ -28,4 +28,22 @@ bool validaCpf(const std::string& cpf);
 //Função que valida telefone(Obrigando-o a seguir o modelo (XX) XXXX-XXXX ou (XX) XXXXX-XXXX)
 bool validaTelefone(const std::string& telefone);
 
+//Função que valida CRM(Obrigando-o a seguir o modelo SIGLA/UF NUMERO)
+bool validaCrm(const std::string& crm);
+
+//Função que valida uma escolha de um inteiro dentro de um intervalo
+int lerInteiro(const std::string& mensagem, int min, int max);
+
+//Função que valida uma escolha de um double dentro de um intervalo
+//Tambem recebe a uma string, que se referem a mensagem que deve ficar repetindo nas tentativas de preenchimento
+//Ex: Valor(R$): 
+double lerDouble(const std::string& mensagem, double min, double max);
+
+//Função para comparar data
+//Retorna -1 se data1<data2
+//Retorna 0 se data1 == data2
+//Retorna 1 se data1 > data2
+int comparaData(const std::string& data1, const std::string& data2);
+
+
 #endif
