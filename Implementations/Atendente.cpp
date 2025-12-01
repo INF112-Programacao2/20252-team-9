@@ -114,7 +114,7 @@ void Atendente::CadastrarPaciente(Clinica* clinica){
     while (true){
         std::cout << "Nome do paciente: ";
         std::getline(std::cin, nome);
-        if(stringVazia(nome)){
+        if(stringVazia(nome) || !somenteLetras(nome)){
             std::cout << "O paciente deve ter algum nome.\n";
             continue;
         }
@@ -202,7 +202,7 @@ void Atendente::CadastrarMedico(Clinica* clinica) {
     while(true){
         std::cout << "Nome do medico: ";
         std::getline(std::cin, nome);
-        if(stringVazia(nome)){
+        if(stringVazia(nome) || !somenteLetras(nome)){
             std::cout << "Nome para criar medico invalido, nao pode ser vazio. Tente novamente\n";
             continue;
         }
@@ -252,7 +252,7 @@ void Atendente::CadastrarMedico(Clinica* clinica) {
     while(true){
         std::cout << "Ocupacao do medico: ";
         std::getline(std::cin, ocupacao);
-        if(stringVazia(ocupacao)){
+        if(stringVazia(ocupacao) || !somenteLetras(ocupacao)){
             std::cout << "Ocupacao para criar medico invalida, nao pode ser vazia. Tente novamente\n";
             continue;
         }
@@ -351,6 +351,12 @@ void Atendente::CriarServico(Clinica* clinica){
 }
 
 void Atendente::AlterarServico(Clinica *clinica){
+
+    if(clinica->getServicos().size() == 0){
+        std::cout << "Não há nenhum serviço para ser modificado.\n";
+        return;
+    }
+
     std::cout << "====Lista de Serviços===\n";
     int cont = 0;
     for (auto &serv : clinica->getServicos()) {
@@ -371,8 +377,6 @@ void Atendente::AlterarServico(Clinica *clinica){
     std::cout << "(4) Ocupação Requerida\n";
 
     int escolha_alterar = lerInteiro("", 1, 4);
-
-    std::cin.ignore(10000, '\n');
 
     if(escolha_alterar == 1)
     {

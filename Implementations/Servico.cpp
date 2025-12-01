@@ -69,8 +69,8 @@ void Servico::visualizarDados(){
     std::cout << "====Dados do Serviço===\n";
     std::cout << "ID: " << this->getId() << std::endl;
     std::cout << "Nome: " << this->getNome() << std::endl;
-    std::cout << "Valor: " << this->getValor() << std::endl;
-    std::cout << "Duração: " << this->getDuracao() << std::endl;
+    std::cout << "Valor(R$): " << this->getValor() << std::endl;
+    std::cout << "Duração(min): " << this->getDuracao() << std::endl;
     std::cout << "Ocupação Requerida: " << this->getOcupacaoRequerida() << std::endl;
 }
 

@@ -90,16 +90,16 @@ void Agendamento::setServico(Servico* servico){
 
 //Imprime os dados do agendamento detalhadamente
 void Agendamento::imprimirDetalhado() const{
-    std::cout << "Data: " << data << " - Horario: " << horario << std::endl;
+    std::cout << " | Data: " << data << " - Horario: " << horario << std::endl;
     std::cout << " | Valor: R$ " << std::fixed << std::setprecision(2) << servico->getValor();
     std::cout << " | Duracao: " << servico->getDuracao() << " minutos" << std::endl;
-    std::cout << "Paciente: " << paciente->getNome() << std::endl;
-    std::cout << "Medico responsavel: " << medico->getNome() << std::endl;
+    std::cout << " | Paciente: " << paciente->getNome() << std::endl;
+    std::cout << " | Medico responsavel: " << medico->getNome() << std::endl;
 
     if(feedback.empty())
-        std::cout << "Feedback: pendente\n";
+        std::cout << " | Feedback: pendente\n";
     else
-        std::cout << "Feedback: " << feedback << std::endl;
+        std::cout << " | Feedback: " << feedback << std::endl;
 
     std::cout << "\n----------------------------------------\n";
 }
