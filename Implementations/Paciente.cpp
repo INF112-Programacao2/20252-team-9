@@ -222,6 +222,7 @@ void Paciente :: AlteraDados(Clinica* clinica){ //Abre um menu, em que o pacient
             catch(std::invalid_argument &e){
                 std::cout << e.what() << std::endl;
             }
+            std::cout<<"Alteracao bem sucedida.\n";
             break;
         }
 
@@ -402,4 +403,5 @@ void Paciente::CancelarAgendamento(Clinica *clinica){
         std::cout << e.what() << std::endl;
     }
 }
+
 
