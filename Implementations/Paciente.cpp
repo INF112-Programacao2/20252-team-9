@@ -277,7 +277,7 @@ void Paciente :: VizualizaDados(){ // Sobreescrita do método da superclasse, al
                                     
 //Impressão dos agendamentos do paciente
 void Paciente::VizualizaAgendamentos(Clinica *clinica){ 
-    std::cout << "\n<==========MEUS AGENDAMENTOS==========>\n" << this->getNome() << std::endl;
+    std::cout << "\n<==========MEUS AGENDAMENTOS==========>\n" << std::endl;
     
     bool encontrou = false;
     const std::vector<std::unique_ptr<Agendamento>>& agendamentos = clinica->getAgendamentos();

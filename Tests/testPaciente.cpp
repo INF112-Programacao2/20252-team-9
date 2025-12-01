@@ -95,9 +95,8 @@ int main(){
     while(alterando){
         p1.AlteraDados(&clinica);
         std::cout << std::endl;
-        std::cout<<"Deseja continuar alterando?\n 0 - Nao\n 1-Sim\n"<<std::endl;
-        std::cin>>alterando;
-        std::cout << std::endl;
+        int escolha = lerInteiro("Deseja continuar alterando?\n1 -Sim\n2- Nao\n", 1, 2);
+        alterando = escolha == 1? true : false;
     }
     std::cout << std::endl;
 
