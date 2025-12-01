@@ -10,7 +10,8 @@ int main(){
     Atendente atendente("Marcia", "103.268.216-78", "123456", "(32) 99968-2006", "0001");
     atendente.VizualizaDados();
 
-    
+    clinica.popularClinica("../populacao.txt");
+
     std::string escolha;
     while(true){
         std::cout << "1 - Alterar serviço\n";
