@@ -331,9 +331,13 @@ void Paciente::Agendar(Clinica *clinica){
         return;
     }
     int escolhaMedico = lerInteiro("Digite o numero do medico: ", 1, indexMedicosValidos.size());
+
+    Servico* servico = servicos[escolhaServico-1].get();
+    Medico* medico = medicos[indexMedicosValidos[escolhaMedico-1]].get();
     
     std::string data;
     std::vector<std::string> horarios;
+
     while(true){
         std::cout << "Digite uma data para o agendamento: ";
         getline(std::cin, data);
@@ -341,8 +345,10 @@ void Paciente::Agendar(Clinica *clinica){
             std::cout << "Data de agendamento invalida, deve seguir o modelo XX/XX/XXXX\n";
             continue;
         }
+
+        horarios = buscaHorarioValido(data, clinica, servico->getDuracao(), medico->getCrm());
+
         if(horarios.empty()){
-            horarios = buscaHorarioValido(data, clinica);
             std::cout << "Nao ha nenhum horario disponivel nessa data. Tente novamente\n";
             continue;
         }
@@ -355,9 +361,7 @@ void Paciente::Agendar(Clinica *clinica){
         std::cout << i+1 << ". " << horarios[i] << std::endl;
 
     int escolhaHorario = lerInteiro("Digite o horario desejado: ", 1, horarios.size());
-
-    Medico* medico = medicos[indexMedicosValidos[escolhaMedico-1]].get();
-    Servico* servico = servicos[escolhaServico-1].get();
+    
 
     try{
         clinica->adicionarAgendamento(std::make_unique<Agendamento>(data, horarios[escolhaHorario-1], (this) , medico, servico));
