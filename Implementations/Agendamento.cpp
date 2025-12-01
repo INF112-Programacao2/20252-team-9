@@ -92,7 +92,7 @@ void Agendamento::setServico(Servico* servico){
 //Imprime os dados do agendamento detalhadamente
 void Agendamento::imprimirDetalhado() const{
     std::cout << "\n | Data: " << data << " - Horario: " << horario << std::endl;
-    std::cout << " | Valor: R$ " << std::fixed << std::setprecision(2) << servico->getValor();
+    std::cout << " | Valor: R$ " << std::fixed << std::setprecision(2) << servico->getValor() - servico->getValor() * paciente->getPlano()->getDesconto();
     std::cout << " | Duracao: " << servico->getDuracao() << " minutos" << std::endl;
     std::cout << " | Paciente: " << paciente->getNome() << std::endl;
     std::cout << " | Medico responsavel: " << medico->getNome() << std::endl;
@@ -108,5 +108,5 @@ void Agendamento::imprimirDetalhado() const{
 //Imprime os dados do agendamento resumidamente
 void Agendamento::imprimirResumido() const{
     std::cout << "Data: " << data << " | Paciente: " << paciente->getNome() << " | Servico: " << servico->getNome();
-    std::cout << " | Duracao: " << servico->getDuracao() << " minutos\n";
+    std::cout << " | Duracao: " << servico->getDuracao() << " minutos\n" << " | Valor (R$) : " << servico->getValor() - servico->getValor() * paciente->getPlano()->getDesconto();
 }

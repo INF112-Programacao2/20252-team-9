@@ -82,7 +82,11 @@ class Clinica{
         void popularClinica(std::string arquivo); //Faz a população da clínica atráves dos dados lidos de um determinado arquivo.
                                  //Dados = Médicos, pacientes, agendamentos, planos e servicos.
 
-        int validarPaciente(std::string cpf, std::string senha);    //Verifica se os dados da paciente que está tentando entrar na conta estão corretos.
+        int validarPaciente(std::string cpf, std::string senha);    //Verifica se os dados do paciente que está tentando entrar na conta estão corretos.
+
+        int validarMedico(std::string cpf, std::string senha);  //Verifica se os dados do medico que está tentando entrar na conta estão corretos.
+
+        int validarAtendente(std::string cpf, std::string senha); //Verifica se os dados do atendente que está tentando entrar na conta estão corretos.
 
 };
 

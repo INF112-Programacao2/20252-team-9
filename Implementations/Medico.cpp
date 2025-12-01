@@ -62,7 +62,7 @@ void Medico::VizualizaAgendamentos(Clinica*clinica) {
     const std::vector<std::unique_ptr<Agendamento>>& agendamentos = clinica->getAgendamentos();
     
     int indexVisual = 1;
-    for(int i=0; i<agendamentos.size(); i++){
+    for(long unsigned int i=0; i<agendamentos.size(); i++){
         if(agendamentos[i].get()->getMedico()->getCrm() == this->crm){
             std::cout << indexVisual << ".: ";
             indexVisual++;
@@ -118,7 +118,7 @@ void Medico::AdicionarFeedBack(Clinica* clinica) {
 
     int indexVisual=1;
     std::vector<int> agendamentosValidos;
-    for(int i=0; i<agendamentos.size(); i++){
+    for(long unsigned int i=0; i<agendamentos.size(); i++){
         if(agendamentos[i].get()->getMedico()->getCrm() == this->crm && agendamentos[i].get()->isConcluido() && agendamentos[i].get()->getFeedback() == ""){
             std::cout << indexVisual << ".: ";
             indexVisual++;

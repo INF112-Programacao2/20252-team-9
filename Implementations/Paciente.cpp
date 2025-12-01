@@ -16,8 +16,6 @@ Paciente::Paciente(std::string nome, std::string cpf, std::string senha, std::st
             throw std::invalid_argument("Sexo invalido, deve ser fornecido apenas um caractere maisculo, M para homem ou F para mulher)");
         this->sexo = sexo;
 
-        if(stringVazia(observacoes))
-            throw std::invalid_argument("Observacao para paciente invalida, nao pode ser vazia");
         this->observacoes = observacoes;
 
         if(plano == nullptr)
@@ -433,7 +431,7 @@ void Paciente::checarNotificacoes(Clinica* clinica){
     
     try{
         if(escolhaOpcao == 1){
-        clinica->adicionarAgendamento(std::make_unique<Agendamento>(notificacoes[escolhaOpcao-1]));
+        clinica->adicionarAgendamento(std::make_unique<Agendamento>(*notificacoes[escolhaOpcao-1]));
         delete notificacoes[escolhaAgendamento-1];
         notificacoes.erase(notificacoes.begin()+escolhaAgendamento-1);
         std::cout << "Agendamento realizado com sucesso\n";
