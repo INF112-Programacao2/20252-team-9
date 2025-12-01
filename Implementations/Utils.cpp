@@ -238,13 +238,42 @@ int comparaData(const std::string& data1, const std::string& data2){
     return 0;
 }
 
-std::vector<std::string> buscaHorarioValido(const std::string& data, Clinica* clinica){
+std::vector<std::string> buscaHorarioValido(const std::string& data, Clinica* clinica, int duracao, std::string crm){
+
     std::vector<std::string> horariosValidos;
+
+    std::vector<int> Agenda(20, 0);
+
+    //Preenche a agenda do dia
+    for(long unsigned int i = 0; i < clinica->getAgendamentos().size(); i++){
+        if(clinica->getAgendamentos()[i]->getData() != data) continue; //Se o dia do atendimento não for igual ao dia que o paciente deseja marcar, não compara
+        if(clinica->getAgendamentos()[i]->getMedico()->getCrm() != crm) continue;   //Se o medico não for o medico que o paciente deseja marcar, não compara 
+
+        int horas = std::stoi(clinica->getAgendamentos()[i]->getHorario().substr(0,2));
+        
+        horas -= 8;
+        horas *= 2;
+
+        int duracaoMarcado = clinica->getAgendamentos()[i]->getServico()->getDuracao();
+
+        if(duracaoMarcado % 30 != 0){
+            duracaoMarcado -= duracaoMarcado % 30;
+            duracaoMarcado += 30;
+        }
+
+        duracaoMarcado = duracaoMarcado / 30;
+
+        for(int j = horas; j < horas+duracaoMarcado; j++){
+            Agenda[j]++;
+        }
+    }
 
     for(long unsigned int i = 0, j = 8; j < 18; i += 30){
         if(i % 60 == 0 && i != 0){
             i = 0;
             j++;
+
+            if(j == 18) break;
         }
 
         std::string horario = "";
@@ -257,33 +286,28 @@ std::vector<std::string> buscaHorarioValido(const std::string& data, Clinica* cl
         if(i == 0) horario += std::to_string(0) + std::to_string(i);
         else horario += std::to_string(i);
 
-        bool valido = true;
+        int horas = std::stoi(horario.substr(0,2));
+        
+        horas -= 8;
+        horas *= 2;
 
-        for(long unsigned int k = 0; k < clinica->getAgendamentos().size(); k++){
-            std::string horarioAgendamento;
-            horarioAgendamento = clinica->getAgendamentos()[k]->getHorario();
+        if(horario.substr(3, 2) == "30") horas++;
 
-            if(horarioAgendamento == horario){
-                int duracao;
-                duracao = clinica->getAgendamentos()[k]->getServico()->getDuracao();;
+        if(duracao % 30 != 0){
+            duracao -= duracao % 30;
+            duracao += 30;
+        }
 
-                duracao -= 30;
+        duracao = duracao / 30;
 
-                if(duracao % 30 != 0){
-                    duracao -= duracao % 30;
-                    duracao += 30;
-                }
+        bool valido = false;
 
-                int duracaoHoras = duracao / 60;
-                int duracaoMinutos = duracao - duracaoHoras*60;
+        if(duracao + horas > 20) continue;
 
-                i+= duracaoMinutos;
-                j+= duracaoHoras;
-
-                valido = false;
-
-                break;
-            }
+        for(long unsigned int k = horas; k < duracao+horas; k++){
+            if(Agenda[k] == 1) break;
+            
+            if(k == (duracao+horas)-1) valido = true;
         }
 
         if(valido){
