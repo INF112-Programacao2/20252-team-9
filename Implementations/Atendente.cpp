@@ -109,6 +109,92 @@ void Atendente::VizualizaAgendamentos(Clinica* clinica){
 
 }
 
+void Atendente::CadastrarPaciente(Clinica* clinica){
+    std::string nome;
+    while (true){
+        std::cout << "Nome do paciente: ";
+        std::getline(std::cin, nome);
+        if(stringVazia(nome)){
+            std::cout << "O paciente deve ter algum nome.\n";
+            continue;
+        }
+        break;
+    }
+
+    std::string cpf;
+    while(true) {
+        std::cout << "Cpf do paciente: ";
+        getline(std::cin, cpf);
+        if(!validaCpf(cpf)){
+            std::cout << "CPF invalido, deve seguir o modelo XXX.XXX.XXX-XX, tente novamente\n";
+            continue;
+        }
+        break;
+    }
+
+    std::string senha;
+    while(true){
+        std::cout << "Senha do paciente: ";
+        std::getline(std::cin, senha);
+        if(stringVazia(senha)){
+            std::cout << "Senha para criar paciente invalida, nao pode ser vazia. Tente novamente\n";
+            continue;
+        }
+        break;
+    }
+
+    std::string telefone;
+    while(true){
+        std::cout << "Telefone do paciente (XX) XXXXX-XXXX: ";
+        std::getline(std::cin, telefone);
+        if(!validaTelefone(telefone)){
+            std::cout << "Telefone invalido, deve seguir o modelo (XX) XXXX-XXXX ou (XX) XXXXX-XXXX, tente novamente\n";
+            continue;
+        }
+        break;
+    }
+
+    std::string dataDeNascimento;
+    while (true){
+        std::cout << "Informe a data de nascimento do paciente: ";
+        getline(std::cin, dataDeNascimento);
+        if(!validaData(dataDeNascimento)){
+            std::cout << "Data inválida, deve seguir o modelo DD/MM/AAAA";
+            continue; 
+        }
+        break;
+    }
+
+
+    char sexo;
+    while(true) {
+        std::cout << "(M) Masculino\n(F) Feminino\nInforme o sexo do paciente: ";
+        if(sexo != 'M' || sexo != 'F'){
+            std::cout << "Sexo inválido, informe (F) ou (M)";
+            continue;
+        }
+        break;
+    }
+
+    std::string observacoes;
+    while(true) {
+        std::cout << "Informe observações importantes do paciente (Ex: Alergias, Comorbidades): ";
+    }
+
+    int cont = 0;
+    for(auto &plano : clinica->getPlanos()) {
+        cont ++;
+        std::cout << "(" << cont << ")" << plano.get()->getNome() << " Desconto(%): " << plano.get()->getDesconto()* 100 << "\n";
+    }
+
+    int escolha = lerInteiro("Escolha o plano do paciente: ", 1, cont);
+
+    Plano* plano_escolhido = clinica->getPlanos()[escolha - 1].get();
+
+    clinica->adicionarPaciente(std::make_unique<Paciente>(nome, cpf, senha, telefone, dataDeNascimento, sexo, observacoes, plano_escolhido));
+
+}
+
 void Atendente::CadastrarMedico(Clinica* clinica) {
     std::string nome, cpf, senha, telefone, crm, ocupacao;
     std::cout << "Preencha os dados para o novo medico da clinica:\n";
@@ -190,6 +276,7 @@ void Atendente::CadastrarMedico(Clinica* clinica) {
     }
     try{
         clinica->adicionarMedico(std::make_unique<Medico>(nome, cpf, senha, telefone, crm, ocupacao));
+        std::cout << "Médico adicionado com sucesso!\n";
     }
     catch(std::invalid_argument &e){
         std::cout << e.what() << std::endl;

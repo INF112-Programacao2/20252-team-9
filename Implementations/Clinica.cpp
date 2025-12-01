@@ -5,6 +5,7 @@
 #include <fstream>
 #include <cstdlib>
 #include <iostream>
+#include <limits>
 
 //Construtor
 Clinica::Clinica(std::string nome)
@@ -181,7 +182,7 @@ void Clinica::popularClinica(std::string arquivo){
     //População dos planos
     int numPlanos;
     fin >> numPlanos;
-    fin.ignore();
+    fin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
     for(int i=0; i<numPlanos; i++){
         //Dados do plano
@@ -191,7 +192,7 @@ void Clinica::popularClinica(std::string arquivo){
         //Entrada de cada dado
         getline(fin, nome);
         fin >> desconto;
-        fin.ignore();
+        fin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
         //Armazena no vetor da clínica
         try{
@@ -199,13 +200,14 @@ void Clinica::popularClinica(std::string arquivo){
         }
         catch(std::invalid_argument &e){
             std::cout << "Nao foi possivel popular o plano " << i+1 << "\nErro:" << e.what() << std::endl;
+            return;
         }
     }
 
     //População dos servicos
     int numServicos;
     fin >> numServicos;
-    fin.ignore();
+    fin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
     for(int i=0; i<numServicos; i++){
         //Dados do servico
@@ -216,7 +218,7 @@ void Clinica::popularClinica(std::string arquivo){
         getline(fin, nome);
         fin >> valor;
         fin >> duracao;
-        fin.ignore();
+        fin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         getline(fin, ocupacaoRequerida);
 
         //Armazena no vetor da clínica
@@ -231,7 +233,7 @@ void Clinica::popularClinica(std::string arquivo){
     //População dos médicos
     int numMedicos;
     fin >> numMedicos;
-    fin.ignore();
+    fin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
     for(int i=0; i<numMedicos; i++){
         //Dados do medico
@@ -257,7 +259,7 @@ void Clinica::popularClinica(std::string arquivo){
     //População dos pacientes
     int numPacientes;
     fin >> numPacientes;
-    fin.ignore();
+    fin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
     for(int i=0; i<numPacientes; i++){
         //Dados do paciente
@@ -279,7 +281,7 @@ void Clinica::popularClinica(std::string arquivo){
         getline(fin, telefone);
         getline(fin, dataDeNascimento);
         fin >> sexo;
-        fin.ignore();
+        fin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         getline(fin, observacoes);
 
         //Armazenamento no vetor da clinica
@@ -294,7 +296,7 @@ void Clinica::popularClinica(std::string arquivo){
     //População dos agendamentos(Versão inicial, não valida ainda se o servico sorteado é compatível com o médico sorteado)
     int numAgendamentos;
     fin >> numAgendamentos;
-    fin.ignore();
+    fin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
     for(int i=0; i<numAgendamentos; i++){
         //Dados do agendamento
