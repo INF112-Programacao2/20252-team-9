@@ -9,7 +9,7 @@ int main(){
     std::cout <<"Testando a classe Pacientes.\n";
 
     Clinica clinica("Salle's medic clinic");
-    clinica.popularClinica("../populacao.txt");
+    clinica.popularClinica("populacao.txt");
 
     
     Plano plano1("Nenhum", 0);

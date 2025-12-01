@@ -2,6 +2,7 @@
 #include "../Headers/Plano.h"
 #include "../Headers/Utils.h"
 #include <stdexcept>
+#include <iostream>
 
 //Construtor
 Plano::Plano(std::string nome, double desconto){

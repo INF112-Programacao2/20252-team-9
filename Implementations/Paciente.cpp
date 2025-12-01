@@ -79,7 +79,7 @@ void Paciente :: AlteraDados(Clinica* clinica){ //Abre um menu, em que o pacient
             std::string novoNome;
             
             while(true){
-                std::cout <<"Digite o novo nome do usuario:" <<std::endl;
+                std::cout <<"Digite o novo nome do usuario:";
                 getline(std::cin, novoNome);
                 if(stringVazia(novoNome) || !somenteLetras(novoNome)){
                     std::cout << "Nome nao pode ser vazio e deve conter somente letra. Tente novamente\n";
