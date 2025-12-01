@@ -23,6 +23,9 @@ class Plano{
         //Setters
         void setNome(std::string nome);
         void setDesconto(double desconto);
+
+        //Imprimir
+        void visualizarDados();
 };
 
 #endif

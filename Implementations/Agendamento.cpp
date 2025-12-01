@@ -106,6 +106,6 @@ void Agendamento::imprimirDetalhado() const{
 
 //Imprime os dados do agendamento resumidamente
 void Agendamento::imprimirResumido() const{
-    std::cout << "Data: " << data << " | Paciente: " << paciente->getNome() << " | Servico: " << servico;
-    std::cout << "| Duracao: " << servico->getDuracao() << " minutos\n";
+    std::cout << "Data: " << data << " | Paciente: " << paciente->getNome() << " | Servico: " << servico->getNome();
+    std::cout << " | Duracao: " << servico->getDuracao() << " minutos\n";
 }
