@@ -370,8 +370,14 @@ int Clinica::validarMedico(std::string cpf, std::string senha){
 }
 
 int Clinica::validarAtendente(std::string cpf, std::string senha){
-    if(atendente->getCpf() == cpf){
-        if(atendente->getSenha() == senha){
+
+    if(this->atendente == nullptr) {
+        std::cout << "Ainda não temos atendente.\n";
+        return -1;
+    }
+
+    if(this->atendente->getCpf() == cpf){
+        if(this->atendente->getSenha() == senha){
             //Caso entre aqui, o atendente entrou com cpf e senha correta no sistema
             return 1;   //Tudo correto
         }

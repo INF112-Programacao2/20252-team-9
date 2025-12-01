@@ -8,6 +8,9 @@ int main(){
     Clinica clinica("Xulio Medicina");
     clinica.popularClinica("populacao.txt");
 
+    Atendente atendente("Marcia", "103.268.216-78", "123456", "(32) 99968-2006", "0001");
+    clinica.setAtendente(atendente);
+
     unsigned int escolha;
     
     std::cout << "Você entrou na " << clinica.getNome() << "!\n";
@@ -15,10 +18,80 @@ int main(){
     enterParaContinuar();
     while (true){
         exibirMenuInicial();
-        escolha = lerInteiro("Digite o que deseja fazer: ", 1, 3);
+        escolha = lerInteiro("Digite o que deseja fazer: ", 1, 4);
 
         if(escolha == 1) {
+            std::cout << "\n<===========>\n";
+            std::cout << "Você deseja: \n";
+            std::cout << "1 - Cadastrar-se\n";
+            std::cout << "2 - Fazer login\n";
+            std::cout << "3 - Voltar\n";
+            std::cout << "\n<===========>\n";
+            int escolha = lerInteiro("Digite uma opção: ", 1, 3);
+            if(escolha == 1){
+                std::string nome, cpf, senha, telefone, dataDeNascimento, observacoes;
+                char sexo;
+                Plano* plano = nullptr;
+                if(dadosValidos(nome, cpf, senha, telefone, dataDeNascimento, sexo, observacoes, plano, &clinica)){
+                    clinica.adicionarPaciente(std::make_unique<Paciente>(nome, cpf, senha, telefone, dataDeNascimento, sexo, observacoes, plano));
+                    enterParaContinuar();
+                    continue;
+                }
+                else {
+                    limparTela();
+                    continue;
+                }
+            }
+            else if(escolha == 2){
+                bool tentouNovamente;
+                while (true) {
+                    std::string cpf, senha;
+                    bool acertou = true;
+                    exibirMenuLogin(cpf, senha, acertou);
+                    int sucesso_login = clinica.validarPaciente(cpf, senha);
+                    if(!acertou) {
+                        std::cout << "Cpf incorreto, deve ser no formato XXX.XXX.XXX-XX\n";
+                        tentouNovamente = tentarNovamente();
+                        if(tentouNovamente) {
+                            limparTela();
+                            continue;
+                        }
+                        else break;
+                    }
+                    else if(sucesso_login == 1){
+                        std::cout << "Login efetuado com sucesso!\n";
+                        enterParaContinuar();
+                        break;
+                    }
+                    else if (sucesso_login == 0) {
+                        std::cout << "A senha está incorreta.\n";
+                        tentouNovamente = tentarNovamente();
+                        if(tentouNovamente) {
+                            limparTela();
+                            continue;
+                        }
+                        else break;
+                    }
+                    else if(sucesso_login == -1) {
+                        std::cout << "O cpf não foi encontrado no sistema.\n";
+                        tentouNovamente = tentarNovamente();
+                        if(tentouNovamente) {
+                            limparTela();
+                            continue;
+                        }
+                        else break;
+                    }
+                }
 
+                if(!tentouNovamente) {
+                    limparTela();
+                    continue;
+                }
+            }
+            else {
+                limparTela();
+                continue;
+            }
         }
 
         else if(escolha == 2) {
@@ -31,8 +104,10 @@ int main(){
                 int sucesso_login = clinica.validarMedico(cpf, senha);
                 if(!acertou) {
                     std::cout << "Cpf incorreto, deve ser no formato XXX.XXX.XXX-XX\n";
-                    tentouNovamente = tentarNovamente();
-                    if(tentouNovamente) continue;
+                    if(tentouNovamente) {
+                        limparTela();
+                        continue;
+                    }
                     else break;
                 }
                 else if(sucesso_login == 1){
@@ -43,13 +118,19 @@ int main(){
                 else if (sucesso_login == 0) {
                     std::cout << "A senha está incorreta.\n";
                     tentouNovamente = tentarNovamente();
-                    if(tentouNovamente) continue;
+                    if(tentouNovamente) {
+                        limparTela();
+                        continue;
+                    }
                     else break;
                 }
                 else if(sucesso_login == -1) {
                     std::cout << "O cpf não foi encontrado no sistema.\n";
                     tentouNovamente = tentarNovamente();
-                    if(tentouNovamente) continue;
+                    if(tentouNovamente) {
+                        limparTela();
+                        continue;
+                    }
                     else break;
                 }
             }
@@ -61,11 +142,65 @@ int main(){
         }
 
         else if(escolha == 3) {
+            if(clinica.getAtendente() == nullptr) {
+                std::cout << "\nAinda não temos atendente.\n";
+                enterParaContinuar();
+                continue;
+            }
+            bool tentouNovamente;
+            while (true) {
+                std::string cpf, senha;
+                bool acertou = true;
+                exibirMenuLogin(cpf, senha, acertou);
+                int sucesso_login = clinica.validarAtendente(cpf, senha);
+                if(!acertou) {
+                    std::cout << "Cpf incorreto, deve ser no formato XXX.XXX.XXX-XX\n";
+                    tentouNovamente = tentarNovamente();
+                    if(tentouNovamente) {
+                        limparTela();
+                        continue;
+                    }
+                    else break;
+                }
+                else if(sucesso_login == 1){
+                    std::cout << "Login efetuado com sucesso!\n";
+                    enterParaContinuar();
+                    break;
+                }
+                else if (sucesso_login == 0) {
+                    std::cout << "A senha está incorreta.\n";
+                    tentouNovamente = tentarNovamente();
+                    if(tentouNovamente) {
+                        limparTela();
+                        continue;
+                    }
+                    else break;
+                }
+                else if(sucesso_login == -1) {
+                    std::cout << "O cpf não foi encontrado no sistema.\n";
+                    tentouNovamente = tentarNovamente();
+                    if(tentouNovamente) {
+                        limparTela();
+                        continue;
+                    }
+                    else break;
+                }
+            }
+
+            if(!tentouNovamente) {
+                limparTela();
+                continue;
+            }
 
         }
 
-    }
-    
+        else if(escolha == 4) break;
 
+        else continue;
+    }
+
+
+    std::cout << "Até mais!\n";
+    
     return 0;
 }

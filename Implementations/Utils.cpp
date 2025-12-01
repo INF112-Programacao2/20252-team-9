@@ -68,7 +68,7 @@ bool validaCpf(const std::string& cpf){
 
     if(!std::regex_match(cpf, padrao))
         return false;
-    
+        
     return true;
 }
 
