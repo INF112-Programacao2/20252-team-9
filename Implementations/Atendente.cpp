@@ -539,6 +539,7 @@ void Atendente::agendarParaPaciente(Clinica* clinica){
         Agendamento* agendamento = new Agendamento(data, horarios[escolhaHorario-1], paciente , medico, servico);
         std::vector<Agendamento*>& notificacoes = paciente->getNotificacoes();
         notificacoes.push_back(agendamento);
+        std::cout << "\nNotificação de agendamento enviada com sucesso!\n";
     }
     catch(std::invalid_argument &e){
         std::cout << e.what() << std::endl;

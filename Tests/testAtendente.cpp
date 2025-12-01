@@ -20,7 +20,8 @@ int main(){
         std::cout << "4 - Consultar saldo da clínica\n";
         std::cout << "5 - Criar serviço\n";
         std::cout << "6 - Desligar Médico\n";
-        std::cout << "7 - Sair\n";
+        std::cout << "7 - Marcar Agendamento\n";
+        std::cout << "8 - Sair\n";
         std::cout << "Digite o que deseja fazer: ";
         getline(std::cin, escolha);
 
@@ -48,7 +49,10 @@ int main(){
             atendente.DesligarMedico(&clinica);
             for(auto &med : clinica.getMedicos()) med.get()->VizualizaDados();
         }
-        else if(escolha == "7") break;
+        else if(escolha == "7") {
+            atendente.agendarParaPaciente(&clinica);
+        }
+        else if (escolha == "8") break;
         else continue;
         std::cout << "============\n";
     }

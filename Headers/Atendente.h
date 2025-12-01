@@ -31,7 +31,6 @@ class Atendente : public Pessoa{
         void CadastrarPaciente(Clinica *clinica);
         void CadastrarMedico(Clinica* clinica);
         void DesligarMedico(Clinica* clinica);
-        void MarcarAgendamento(Clinica* clinica); //Função que também pode ser executada pelo paciente
         void ConsultaSaldoDaClinica(Clinica* clinica);
         void CriarServico(Clinica* clinica);
         void AlterarServico(Clinica* clinica);

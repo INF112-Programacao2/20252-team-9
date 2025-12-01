@@ -10,6 +10,8 @@
 //Construtor
 Clinica::Clinica(std::string nome)
     :saldo{0}{
+        Plano plano_vazio("Nenhum", 0.0);
+        this->adicionarPlano(std::make_unique<Plano>(plano_vazio));
         if(stringVazia(nome))
         throw std::invalid_argument("Nome invalido");
 
@@ -337,7 +339,7 @@ void Clinica::popularClinica(std::string arquivo){
 
 int Clinica::validarPaciente(std::string cpf, std::string senha){
     //Inicialmente procura se o cpf está entre os cpfs cadastrados
-    for(int i = 0; i < pacientes.size(); i++){
+    for(long unsigned int i = 0; i < pacientes.size(); i++){
         if(pacientes[i]->getCpf() == cpf){  //Encontrou cpf da pessoa
             if(pacientes[i]->getSenha() == senha){
                 //Caso entre aqui, encontrou um paciente com cpf e senha correta no sistema
@@ -353,7 +355,7 @@ int Clinica::validarPaciente(std::string cpf, std::string senha){
 
 int Clinica::validarMedico(std::string cpf, std::string senha){
     //Inicialmente procura se o cpf está entre os cpfs cadastrados
-    for(int i = 0; i < medicos.size(); i++){
+    for(long unsigned int i = 0; i < medicos.size(); i++){
         if(medicos[i]->getCpf() == cpf){    //Encontrou cpf do medico
             if(medicos[i]->getSenha() == senha){
                 //Caso entre aqui, encontrou um medico com cpf e senha correta no sistema

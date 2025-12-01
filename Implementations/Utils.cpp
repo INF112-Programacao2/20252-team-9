@@ -304,7 +304,7 @@ std::vector<std::string> buscaHorarioValido(const std::string& data, Clinica* cl
 
         if(duracao + horas > 20) continue;
 
-        for(long unsigned int k = horas; k < duracao+horas; k++){
+        for(int k = horas; k < duracao+horas; k++){
             if(Agenda[k] == 1) break;
             
             if(k == (duracao+horas)-1) valido = true;

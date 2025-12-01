@@ -433,7 +433,7 @@ void Paciente::checarNotificacoes(Clinica* clinica){
     
     try{
         if(escolhaOpcao == 1){
-        clinica->adicionarAgendamento(std::make_unique<Agendamento>(notificacoes[escolhaOpcao-1]));
+        clinica->adicionarAgendamento(std::make_unique<Agendamento>(*notificacoes[escolhaOpcao-1]));
         delete notificacoes[escolhaAgendamento-1];
         notificacoes.erase(notificacoes.begin()+escolhaAgendamento-1);
         std::cout << "Agendamento realizado com sucesso\n";
