@@ -2,7 +2,6 @@
 #include "../Headers/Plano.h"
 #include "../Headers/Utils.h"
 #include <stdexcept>
-#include <iostream>
 
 //Construtor
 Plano::Plano(std::string nome, double desconto){
@@ -11,7 +10,7 @@ Plano::Plano(std::string nome, double desconto){
 
     this->nome = nome;
 
-    if(desconto<=0 || desconto>=1)
+    if(desconto<0 || desconto>=1)
         throw std::invalid_argument("Desconto invalido");
 
     this->desconto = desconto;   
@@ -37,8 +36,8 @@ void Plano::setDesconto(double desconto){
         throw std::invalid_argument("Desconto invalido");
 
     this->desconto = desconto;
-}
 
+}
 void Plano::visualizarDados(){
     std::cout << "---------------- Impressao de Dados ---------------\n";
     std::cout << "Nome: " << nome << std::endl;

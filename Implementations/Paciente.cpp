@@ -57,14 +57,14 @@ void Paciente::setPlano(Plano *plano){
 //Impressão dos dados do usuário:
 void Paciente :: AlteraDados(Clinica* clinica){ //Abre um menu, em que o paciente seleciona usando números qual atributo 
                             // ele deseja alterar, e o método chama o método set correspondente.
-
+    
     //Impressão do menu:
     std::cout <<"\n------------------Menu de Ajuste dos Dados------------------"<<std::endl;
     std::cout <<std::endl;
     std::cout << "1 - Nome\n";
     std::cout << "2 - Senha\n";
     std::cout << "3 - Telefone\n";
-    std::cout << "4 - Observações\n";
+    std::cout << "4 - Observacoes\n";
     std::cout << "5 - Sexo\n";
     std::cout << "6 - Plano de saude\n";
     std::cout << "7 - Sair\n";
@@ -96,6 +96,7 @@ void Paciente :: AlteraDados(Clinica* clinica){ //Abre um menu, em que o pacient
             catch(std::invalid_argument &e) {
                 std::cout << e.what() << std::endl;
             }
+            break;
         }
 
         case 2: //Mudança de senha
@@ -145,12 +146,13 @@ void Paciente :: AlteraDados(Clinica* clinica){ //Abre um menu, em que o pacient
       
             try{
                 this->setSenha(novaSenha);
-                std::cout << "Senha alterada com sucesso";
+                std::cout << "Senha alterada com sucesso\n";
                 break;
             }
             catch(std::invalid_argument &e){
                 std::cout << e.what() << std::endl;
             }
+            break;
         }
      
         case 3: //Muda o telefone
@@ -175,6 +177,7 @@ void Paciente :: AlteraDados(Clinica* clinica){ //Abre um menu, em que o pacient
             catch(std::invalid_argument &e){
                 std::cout << e.what() << std::endl;
             }
+            break;
         }
 
         case 4: //Alterar as observações
@@ -183,7 +186,7 @@ void Paciente :: AlteraDados(Clinica* clinica){ //Abre um menu, em que o pacient
             std::cout<<"Digite uma observacao que possa ser relevante aos mediscos(Ex: Alergias):" ;
 
             while(true){
-                std::cout << "Digite a nova numero de telefone: ";
+                std::cout << "Digite a nova observacao do paciente: ";
                 getline(std::cin, novaObservacao);
                 if(stringVazia(novaObservacao)){
                     std::cout << "Observacao invalida, nao pode ser vazia. Tente novamente\n";
@@ -200,6 +203,7 @@ void Paciente :: AlteraDados(Clinica* clinica){ //Abre um menu, em que o pacient
             catch(std::invalid_argument &e){
                 std::cout << e.what() << std::endl;
             }
+            break;
         }
 
         case 5: //Altera Sexo
@@ -208,8 +212,8 @@ void Paciente :: AlteraDados(Clinica* clinica){ //Abre um menu, em que o pacient
             std::cout << "1 - Feminino\n";
             std::cout << "2 - Masculino\n";
 
-            int escolha = lerInteiro("Digite a opcao do sexo que voce deseja: ", 1, 2);
-            char sexo = escolha == 1? 'F' : 'M';
+            int entrada = lerInteiro("Digite a opcao do sexo que voce deseja: ", 1, 2);
+            char sexo = entrada == 1? 'F' : 'M';
 
             try{
                 this->setSexo(sexo);
@@ -218,6 +222,8 @@ void Paciente :: AlteraDados(Clinica* clinica){ //Abre um menu, em que o pacient
             catch(std::invalid_argument &e){
                 std::cout << e.what() << std::endl;
             }
+            std::cout<<"Alteracao bem sucedida.\n";
+            break;
         }
 
         case 6:// Mudança de plano de saúde
@@ -233,8 +239,8 @@ void Paciente :: AlteraDados(Clinica* clinica){ //Abre um menu, em que o pacient
             for(long unsigned int i=0; i<planos.size(); i++)
                 std::cout << i+1 << ". " << planos[i].get()->getNome() << std::endl;
 
-            int escolha = lerInteiro("Digite a opcao de plano desejada: ", 1, planos.size());
-            Plano* plano = planos[escolha-1].get();
+            int entrada = lerInteiro("Digite a opcao de plano desejada: ", 1, planos.size());
+            Plano* plano = planos[entrada-1].get();
 
             try{
                 this->setPlano(plano);
@@ -244,13 +250,16 @@ void Paciente :: AlteraDados(Clinica* clinica){ //Abre um menu, em que o pacient
             catch(std::invalid_argument &e){
                 std::cout << e.what() << std::endl;
             }
+            break;
         }
 
         case 7:
         {   
+            std::cout<<"Saindo do menu de alteracoes."<<std::endl;
             break;
         }
     }
+
 }
 
 void Paciente :: VizualizaDados(){ // Sobreescrita do método da superclasse, além dos dados de pessoa
@@ -394,4 +403,5 @@ void Paciente::CancelarAgendamento(Clinica *clinica){
         std::cout << e.what() << std::endl;
     }
 }
+
 
