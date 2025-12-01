@@ -259,13 +259,10 @@ void Paciente :: VizualizaDados(){ // Sobreescrita do método da superclasse, al
     
     std::cout << "Data de nascimento: " << this->dataDeNascimento << std::endl;
     std::cout << "Observacoes: " << this->observacoes << std::endl;
+    std::cout << "Plano: " << plano->getNome() << std::endl; //Remoção da validação com nullptr,para diminuir a chance de bugs 
+                                                             //porque vamos ter um objeto "Nenhum" com desconto=0 
+                                                             //para os clientes sem plano.
     
-    if(plano!=nullptr){
-        std::cout << "Plano: " << plano->getNome() << std::endl;
-    }
-    else{
-        std::cout << "Esse paciente nao e cliente de nenhum plano" << std::endl;
-    }
 }
 
                                     
@@ -397,3 +394,4 @@ void Paciente::CancelarAgendamento(Clinica *clinica){
         std::cout << e.what() << std::endl;
     }
 }
+
