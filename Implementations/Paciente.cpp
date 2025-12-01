@@ -32,6 +32,7 @@ std::string Paciente::getDataDeNascimento() const {return dataDeNascimento;}
 char Paciente::getSexo() const {return sexo;}
 std::string Paciente::getObservacoes() const {return observacoes;}
 Plano* Paciente::getPlano() const {return plano;}
+std::vector<Agendamento*>& Paciente::getNotificacoes() {return notificacoes;}
         
 //Sets
 void Paciente::setObservacoes(std::string observacoes){
@@ -411,6 +412,41 @@ void Paciente::CancelarAgendamento(Clinica *clinica){
     catch(std::invalid_argument &e){
         std::cout << e.what() << std::endl;
     }
+}
+
+//Checar notificacoes
+void Paciente::checarNotificacoes(Clinica* clinica){
+    if(notificacoes.empty()){
+        std::cout << "Voce nao tem nenhuma notificacao ainda\n";
+        return;
+    }
+
+    std::cout << "\n<==========AGENDAMENTOS A CONFIRMAR==========>\n";
+    for(unsigned int i=0; i<notificacoes.size(); i++){
+        std::cout << i+1 << ". ";
+        notificacoes[i]->imprimirResumido();
+    }
+
+    int escolhaAgendamento = lerInteiro("Digite a notificacao que deseja tratar: ", 1, notificacoes.size());
+    std::cout << "Voce deseja confirmar ou cancelar esse agendamento?\n1.Confirmar\n2.Cancelar\n";
+    int escolhaOpcao = lerInteiro("Digite a escolha que voce deseja: ", 1, 2);
+    
+    try{
+        if(escolhaOpcao == 1){
+        clinica->adicionarAgendamento(std::make_unique<Agendamento>(notificacoes[escolhaOpcao-1]));
+        delete notificacoes[escolhaAgendamento-1];
+        notificacoes.erase(notificacoes.begin()+escolhaAgendamento-1);
+        std::cout << "Agendamento realizado com sucesso\n";
+    }
+    else{
+        delete notificacoes[escolhaAgendamento-1];
+        notificacoes.erase(notificacoes.begin()+escolhaAgendamento-1);
+        std::cout << "Agendamento cancelado com sucesso\n";
+    }
+    }catch(std::exception &e){
+        std::cout << e.what() << std::endl;
+    }
+
 }
 
 

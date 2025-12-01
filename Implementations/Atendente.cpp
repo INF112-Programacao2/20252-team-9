@@ -448,3 +448,99 @@ void Atendente::AlterarServico(Clinica *clinica){
     std::cout << "Novas Informações do Serviço: \n";
     servico_alterar->visualizarDados();
 }
+
+void Atendente::agendarParaPaciente(Clinica* clinica){
+    //Exibe todos os pacientes para que a atendente escolha qual
+    const std::vector<std::unique_ptr<Paciente>>& pacientes = clinica->getPacientes();
+
+    if(pacientes.empty()){
+        std::cout << "A clinica ainda nao possui nenhum paciente\n";
+        return;
+    }
+
+    for(long unsigned int i=0; i<pacientes.size(); i++){
+        std::cout << i+1 << ". Nome: " << pacientes[i].get()->getNome() << " | CPF: " << pacientes[i].get()->getCpf() << " | Telefone: " << pacientes[i].get()->getTelefone() << std::endl;
+    }
+    int escolhaPaciente = lerInteiro("Escolha o numero do paciente desejado: ", 1, pacientes.size());
+    Paciente* paciente = pacientes[escolhaPaciente-1].get();
+
+    //Agora pega os dados do agendamento em si
+    std::cout << "<====================\n";
+    std::cout << "Vamos comecar o agendamento:\n";
+    std::cout << "Primeiro escolha qual servico voce deseja agendar:\n";
+
+    const std::vector<std::unique_ptr<Servico>>& servicos = clinica->getServicos();
+
+    if(servicos.empty()){
+        std::cout << "Infelizmente ainda nao ofertamnos nenhum servico na clinica. Tente novamente depois\n";
+        return;
+    }
+
+    for(long unsigned int i=0; i<servicos.size(); i++){
+        std::cout << i+1 << ". " << servicos[i].get()->getNome() << std::endl;
+    }
+    int escolhaServico = lerInteiro("Digite o numero do servico: ", 1, servicos.size());
+
+    std::cout << "Agora escolha o medico:\n";
+    int indexVisual = 1;
+    std::vector<int> indexMedicosValidos;
+    const std::vector<std::unique_ptr<Medico>>& medicos = clinica->getMedicos();
+    for(long unsigned int i=0; i<medicos.size(); i++){
+        if(servicos[escolhaServico].get()->getOcupacaoRequerida() == medicos[i].get()->getOcupacao()){
+            std::cout << indexVisual << ". Dr(a) " << medicos[i].get()->getNome() << std::endl;
+            indexMedicosValidos.push_back(i);
+            indexVisual++;
+        }
+    }   
+
+    if(indexMedicosValidos.empty()){
+        std::cout << "Infelizmente nao ha nenhum medico no momento que realiza esse servico. Tente novamente depois\n";
+        return;
+    }
+    int escolhaMedico = lerInteiro("Digite o numero do medico: ", 1, indexMedicosValidos.size());
+
+    Servico* servico = servicos[escolhaServico-1].get();
+    Medico* medico = medicos[indexMedicosValidos[escolhaMedico-1]].get();
+    
+    std::string data;
+    std::vector<std::string> horarios;
+
+    while(true){
+        std::cout << "Digite uma data para o agendamento: ";
+        getline(std::cin, data);
+        if(!validaData(data)){
+            std::cout << "Data de agendamento invalida, deve seguir o modelo XX/XX/XXXX\n";
+            continue;
+        }
+
+        if(comparaData(data, Agendamento::getDateReference()) == -1){
+            std::cout << "Voce nao pode agendar em uma data do passado\n";
+            continue;
+        }
+
+        horarios = buscaHorarioValido(data, clinica, servico->getDuracao(), medico->getCrm());
+
+        if(horarios.empty()){
+            std::cout << "Nao ha nenhum horario disponivel nessa data. Tente novamente\n";
+            continue;
+        }
+        break;
+    }
+
+    //Imprime horarios disponíveis
+    std::cout << "Horarios disponiveis\n";
+    for(long unsigned int i=0; i<horarios.size(); i++)
+        std::cout << i+1 << ". " << horarios[i] << std::endl;
+
+    int escolhaHorario = lerInteiro("Digite o horario desejado: ", 1, horarios.size());
+
+    //Cria e adiciona o agendamento em si no vetor notificacoes do paciente
+    try{
+        Agendamento* agendamento = new Agendamento(data, horarios[escolhaHorario-1], paciente , medico, servico);
+        std::vector<Agendamento*>& notificacoes = paciente->getNotificacoes();
+        notificacoes.push_back(agendamento);
+    }
+    catch(std::invalid_argument &e){
+        std::cout << e.what() << std::endl;
+    }
+}

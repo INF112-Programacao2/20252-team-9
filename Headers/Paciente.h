@@ -5,6 +5,7 @@
 #include <vector>
 #include "Pessoa.h"
 class Clinica;
+class Agendamento;
 #include "Plano.h"
 
 class Paciente : public Pessoa {
@@ -20,6 +21,9 @@ class Paciente : public Pessoa {
                                 // "Tenho pressao alta" ou "Tenho SOP(Síndrome dos ovários poliscísticos)"
         
         Plano* plano;
+        std::vector<Agendamento*> notificacoes; //Vetor com os agendamentos que a atendente realizou para o paciente
+                                               //O agendamento só é removido quando o cliente confirma ou rejeita ele
+        
 
     public:
         //Construtor e destrutor:
@@ -31,6 +35,7 @@ class Paciente : public Pessoa {
         char getSexo() const;
         std::string getObservacoes() const;
         Plano* getPlano() const;
+        std::vector<Agendamento*>& getNotificacoes();
         
         
         //Sets
@@ -55,6 +60,8 @@ class Paciente : public Pessoa {
         void Agendar(Clinica *clinica); //Preenche os dados e cria um agendamento, e o adiciona no vetor agendamentos
 
         void CancelarAgendamento(Clinica *clinica); // Cancela um agendamento 
+
+        void checarNotificacoes(Clinica *clinica);
 
 };
     

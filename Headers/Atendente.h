@@ -35,6 +35,7 @@ class Atendente : public Pessoa{
         void ConsultaSaldoDaClinica(Clinica* clinica);
         void CriarServico(Clinica* clinica);
         void AlterarServico(Clinica* clinica);
+        void agendarParaPaciente(Clinica* clinica);
         
 };
 
