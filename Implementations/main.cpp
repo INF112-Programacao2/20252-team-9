@@ -104,6 +104,7 @@ int main(){
                 int sucesso_login = clinica.validarMedico(cpf, senha);
                 if(!acertou) {
                     std::cout << "Cpf incorreto, deve ser no formato XXX.XXX.XXX-XX\n";
+                    tentouNovamente = tentarNovamente();
                     if(tentouNovamente) {
                         limparTela();
                         continue;
