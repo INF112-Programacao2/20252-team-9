@@ -335,3 +335,18 @@ void Clinica::popularClinica(std::string arquivo){
     }
 }
 
+int Clinica::validarPaciente(std::string cpf, std::string senha){
+    //Inicialmente procura se o cpf está entre os cpfs cadastrados
+    for(int i = 0; i < pacientes.size(); i++){
+        if(pacientes[i]->getCpf() == cpf){  //Encontrou cpf da pessoa
+            if(pacientes[i]->getSenha() == senha){
+                //Caso entre aqui, encontrou um paciente com cpf e senha correta no sistema
+                return 1;   //Tudo correto
+            }
+            //Se chegou aqui, a senha informada é diferente da senha armazenada no sistema
+            return 0; //Usuario registrado mas senha incorreta 
+        }
+    }
+    //Se chegou aqui, não encontrou o usuario na base de dados
+    return -1;   //Usuario não cadastrada 
+}
