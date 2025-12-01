@@ -32,6 +32,8 @@ class Agendamento{
         std::string getHorario() const;
         std::string getFeedback() const;
         bool isConcluido() const;
+        static std::string getDateReference();
+
         Paciente* getPaciente() const;
         Medico* getMedico() const;
         Servico* getServico() const;

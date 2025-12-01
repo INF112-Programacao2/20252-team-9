@@ -46,6 +46,7 @@ Agendamento::~Agendamento(){}
 std::string Agendamento::getData() const {return data;}
 std::string Agendamento::getHorario() const {return horario;}
 std::string Agendamento::getFeedback() const {return feedback;}
+std::string Agendamento::getDateReference() {return dateReference;}
 Paciente* Agendamento::getPaciente() const {return paciente;}
 bool Agendamento::isConcluido() const {return concluido;}
 Medico* Agendamento::getMedico() const {return medico;}

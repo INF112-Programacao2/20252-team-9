@@ -346,6 +346,11 @@ void Paciente::Agendar(Clinica *clinica){
             continue;
         }
 
+        if(comparaData(data, Agendamento::getDateReference()) == -1){
+            std::cout << "Voce nao pode agendar em uma data do passado\n";
+            continue;
+        }
+
         horarios = buscaHorarioValido(data, clinica, servico->getDuracao(), medico->getCrm());
 
         if(horarios.empty()){
@@ -374,7 +379,7 @@ void Paciente::Agendar(Clinica *clinica){
 
 //Cancelar agendamento
 void Paciente::CancelarAgendamento(Clinica *clinica){
-   std::cout << "\n<==========AGENDAMENTOS PENDENTES==========>\n" << this->getNome() << std::endl;
+   std::cout << "\n<==========AGENDAMENTOS PENDENTES==========>\n" << std::endl;
 
     const std::vector<std::unique_ptr<Agendamento>>& agendamentos = clinica->getAgendamentos();
     int indexVisual=1;
