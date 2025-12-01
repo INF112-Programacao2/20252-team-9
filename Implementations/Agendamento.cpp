@@ -5,7 +5,7 @@
 #include <iomanip>
 
 //Define a data tida como referencia para saber se os agendamentos atuais já aconteceram ou não
-std::string Agendamento::dateReference = "02/11/2025";
+std::string Agendamento::dateReference = "02/12/2025";
 
 //Construtor
 Agendamento::Agendamento(std::string data, std::string horario, Paciente* paciente, Medico* medico, Servico* servico){
@@ -90,7 +90,7 @@ void Agendamento::setServico(Servico* servico){
 
 //Imprime os dados do agendamento detalhadamente
 void Agendamento::imprimirDetalhado() const{
-    std::cout << " | Data: " << data << " - Horario: " << horario << std::endl;
+    std::cout << "\n | Data: " << data << " - Horario: " << horario << std::endl;
     std::cout << " | Valor: R$ " << std::fixed << std::setprecision(2) << servico->getValor();
     std::cout << " | Duracao: " << servico->getDuracao() << " minutos" << std::endl;
     std::cout << " | Paciente: " << paciente->getNome() << std::endl;

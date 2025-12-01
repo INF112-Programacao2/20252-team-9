@@ -16,6 +16,8 @@ Medico::Medico(std::string nome, std::string cpf, std::string senha, std::string
         if(stringVazia(ocupacao))
             throw std::invalid_argument("Ocupacao para medico invalida");
         this->ocupacao = ocupacao;
+
+        this->saldo = 0;
     }
 
 //Destrutor
@@ -35,7 +37,7 @@ void Medico::setOcupacao(std::string ocupacao) {
 
 void Medico::setSaldo(double saldo) {
     if(saldo<0){
-        throw std::invalid_argument("Saldo do medico nao pode ser nulo");
+        throw std::invalid_argument("Saldo do medico nao pode ser nulo ou negativo");
     }
     this->saldo = saldo;
 }
@@ -54,7 +56,7 @@ void Medico::VizualizaDados() {
 
 //Itera sobre o banco de dados da clínica para achar agendamentos deste médico
 void Medico::VizualizaAgendamentos(Clinica*clinica) {
-    std::cout << "\n<==========MEUS AGENDAMENTOS==========>\n" << this->getNome() << std::endl;
+    std::cout << "\n<==========MEUS AGENDAMENTOS==========>\n" << std::endl;
     
     bool encontrou = false;
     const std::vector<std::unique_ptr<Agendamento>>& agendamentos = clinica->getAgendamentos();
@@ -75,13 +77,13 @@ void Medico::VizualizaAgendamentos(Clinica*clinica) {
 
 //Interage com usuário para cancelar agendamento específico
 void Medico::CancelarAgendamento(Clinica* clinica) {
-    std::cout << "\n<==========AGENDAMENTOS PENDENTES==========>\n" << this->getNome() << std::endl;
+    std::cout << "\n<==========AGENDAMENTOS PENDENTES==========>\n" << std::endl;
 
     const std::vector<std::unique_ptr<Agendamento>>& agendamentos = clinica->getAgendamentos();
     int indexVisual=1;
     std::vector<int> agendamentosValidos;
 
-    for(int i=0; i<agendamentos.size(); i++){
+    for(long unsigned int i=0; i<agendamentos.size(); i++){
         if(agendamentos[i].get()->getMedico()->getCrm() == this->crm && !agendamentos[i].get()->isConcluido()){
             std::cout << indexVisual << ".: ";
             indexVisual++;
@@ -111,13 +113,13 @@ void Medico::CancelarAgendamento(Clinica* clinica) {
 
 //Adiciona feedback
 void Medico::AdicionarFeedBack(Clinica* clinica) {
-    std::cout << "\n<==========FEEDBACKS PENDENTES==========>\n" << this->getNome() << std::endl;
+    std::cout << "\n<==========FEEDBACKS PENDENTES==========>\n" << std::endl;
     const std::vector<std::unique_ptr<Agendamento>>& agendamentos = clinica->getAgendamentos();
 
     int indexVisual=1;
     std::vector<int> agendamentosValidos;
     for(int i=0; i<agendamentos.size(); i++){
-        if(agendamentos[i].get()->getMedico()->getCrm() == this->crm && !agendamentos[i].get()->isConcluido()){
+        if(agendamentos[i].get()->getMedico()->getCrm() == this->crm && agendamentos[i].get()->isConcluido() && agendamentos[i].get()->getFeedback() == ""){
             std::cout << indexVisual << ".: ";
             indexVisual++;
             agendamentos[i].get()->imprimirResumido();
@@ -131,12 +133,12 @@ void Medico::AdicionarFeedBack(Clinica* clinica) {
     }
     
     std::cout << "\n<====================>\n";
-    std::cout << "Digite o numero do agendamento que deseja dar feedback: ";
     int escolha = lerInteiro("Digite o numero do agendamento que deseja dar feedback: ", 1, indexVisual);
     std::string feedback;
 
     bool feedbackValido = false;
     while(!feedbackValido){
+        std::cout << "Digite o feedback: ";
         getline(std::cin, feedback);
         if(stringVazia(feedback)){
             std::cout << "Feedback invalido, ele nao pode ser vazio. Tente novamente.\n";

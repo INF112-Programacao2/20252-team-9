@@ -32,9 +32,9 @@ int main(){
     std::cout << "\nGet dos agendamentos\n";
     const std::vector<std::unique_ptr<Agendamento>>& agendamentos = clinica.getAgendamentos();
     for(unsigned int i=0; i<agendamentos.size(); i++)
-        agendamentos[i].get()->imprimirResumido();
+        agendamentos[i].get()->imprimirDetalhado();
 
-
+    
     //Teste dos sets
     std::cout << "Teste dos saldos:\n";
     clinica.setNome("Centro ortopedico");

@@ -214,11 +214,22 @@ int comparaData(const std::string& data1, const std::string& data2){
         int ano2 = std::stoi(data2.substr(6, 4));
         
         //Forma matematica de transformar uma data DDMMAA para AAMMDD, bastando comparar os valores
-        long int valor1 = (ano1 * 10000) + (mes1 * 100) + dia1;
-        long int valor2 = (ano2 * 10000) + (mes2 * 100) + dia2;
-
-        if(valor1>valor2) return 1;
-        if(valor2<valor1) return -1;
+        if(ano1<ano2)
+            return -1;
+        else if(ano1>ano2)
+            return 1;
+        else if(ano1==ano2){
+            if(mes1<mes2)
+                return -1;
+            else if(mes1>mes2)
+                return 1;
+            else if(mes1==mes2){
+                if(dia1<dia2)
+                    return -1;
+                else if(dia1>dia2)
+                    return 1;
+            }
+        }
 
     }catch(std::exception &e){
         std::cout << "Ocorreu um erro ao converter as dadas durante a comparacao. Tente novamente\n";
