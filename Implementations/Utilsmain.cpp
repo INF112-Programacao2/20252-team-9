@@ -178,7 +178,10 @@ void exibirMenuAtendente(){
     std::cout << " 9.: Visualizar Agendamentos\n";
     std::cout << " 10.: Visualizar Médicos\n";
     std::cout << " 11.: Visualizar Pacientes\n";
-    std::cout << " 12.: Sair\n";
+    std::cout << " 12.: Visualizar Planos\n";
+    std::cout << " 13.: Adicionar Plano\n";
+    std::cout << " 14.: Remover Plano\n";
+    std::cout << " 15.: Sair\n";
     std::cout << "------------------------------------------------\n";
 }
 //Visualizar dados / alterar serviço / cadastrar medico / cadastrar paciente / consultar saldo da clinica / criar serviço / desligar medico / marcar agendamento / sair

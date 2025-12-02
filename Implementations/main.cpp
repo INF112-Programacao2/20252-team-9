@@ -309,7 +309,7 @@ int main(){
 
             while(true){
                 exibirMenuAtendente();
-                escolha = lerInteiro("Digite sua escolha: ", 1, 9);
+                escolha = lerInteiro("Digite sua escolha: ", 1, 15);
 
                 if(escolha == 1){
                     atendente.VizualizaDados();
@@ -367,6 +367,21 @@ int main(){
                     continue;
                 }
                 else if(escolha == 12){
+                    atendente.visualizarPlanos(&clinica);
+                    enterParaContinuar();
+                    continue;
+                }
+                else if(escolha == 13){
+                    atendente.adicionarPlanos(&clinica);
+                    enterParaContinuar();
+                    continue;
+                }
+                else if(escolha == 14){
+                    atendente.removerPlano(&clinica);
+                    enterParaContinuar();
+                    continue;
+                }
+                else if(escolha == 15){
                     limparTela();
                     break;
                 }

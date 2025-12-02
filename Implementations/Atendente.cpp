@@ -772,3 +772,115 @@ void Atendente::visualizarPacientes(Clinica* clinica){
     for(long unsigned int i = 0; i < clinica->getPacientes().size(); i++)
         clinica->getPacientes()[i].get()->VizualizaDados();
 }
+
+void Atendente::visualizarPlanos(Clinica *clinica){
+    limparTela();
+    std::cout << "================================================\n";
+    std::cout << "                      PLANOS                    \n";
+    std::cout << "================================================\n";
+    int cont = 0;
+    for(auto &plano : clinica->getPlanos()){
+        cont++;
+        if(plano.get()->getNome() == "Nenhum") continue;
+        std::cout << cont-1 << ".: ";
+        plano.get()->visualizarDados();
+    }
+
+    if(clinica->getPlanos().size() == 1){
+        std::cout << "\nNão há nenhum plano disponível. Tente novamente mais tarde\n";
+        return;
+    }
+
+    return;
+}
+
+void Atendente::removerPlano(Clinica* clinica){
+    int cont = 0;
+    limparTela();
+    std::cout << "================================================\n";
+    std::cout << "                      PLANOS                    \n";
+    std::cout << "================================================\n";
+    for(auto &plano : clinica->getPlanos()){
+        cont++;
+        if(plano->getNome() == "Nenhum") continue;
+
+        std::cout << cont-1 << ".: ";
+        plano.get()->visualizarDados();
+    }
+    if(clinica->getPlanos().size() == 1){
+        std::cout << "\nNão há nenhum plano disponivel. Tente mais tarde\n";
+        return;
+    }
+    
+    std::cout << cont << ".: Voltar\n";
+
+    int escolha = lerInteiro("\nDigite sua escolha: ", 1, cont+1);
+
+    
+
+    if(escolha == cont){
+        std::cout << "\nVoltando para o menu\n";
+        return;
+    }
+
+    Plano* plano_removido = clinica->getPlanos()[escolha].get();
+
+    try{
+        if(escolha == cont){
+            std::cout << "\nVoltando para o menu\n";
+            return;
+        }
+
+        clinica->removerPlano(plano_removido);
+        std::cout << "\nPlano removido com sucesso!\n";
+    }
+    catch(std::invalid_argument &e){
+        std::cout << e.what() << std::endl;
+    }
+}
+
+void Atendente::adicionarPlanos(Clinica* clinica){
+    limparTela();
+
+    std::string nome;
+    while(true){
+        std::cout << "================================================\n";
+        std::cout << "                     PLANOS                     \n";
+        std::cout << "================================================\n";
+
+        std::cout << "Adição de Plano\n";
+        std::cout << "Nome do Plano: ";
+        std::getline(std::cin, nome);
+
+        if(stringVazia(nome) || !somenteLetras(nome)){
+            std::cout << "\nO nome do plano nao pode ser vazio. Tente novamente\n";
+            enterParaContinuar();
+            continue;
+        }
+        break;
+    }
+
+    std::cout << "Desconto do Plano: ";
+    double desconto = lerDouble("", 0, 1);
+
+    std::cout << "\nDeseja realmente adicionar o plano: \n";
+    std::cout << " | Nome: " << nome << std::endl;
+    std::cout << " | Desconto: " << desconto*100 << "%\n";
+
+    std::cout << "\n1.: Sim\n2.: Nao\n";
+
+    int confirmacao = lerInteiro("\nDigite o que voce deseja fazer: ", 1, 2);
+    if(confirmacao == 2){
+        std::cout << "\nVoltando para o menu anterior\n";
+        return;
+    }
+
+    try{
+        clinica->adicionarPlano(std::make_unique<Plano>(nome, desconto));
+        std::cout << "\n Plano adicionado com sucesso.\n";
+    }
+    catch(std::invalid_argument &e){
+        std::cout << e.what() << std::endl;
+    }
+
+}

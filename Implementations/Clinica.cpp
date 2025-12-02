@@ -173,6 +173,11 @@ void Clinica::removerPlano(Plano* plano){
             break;
         }
     }
+
+    for(long unsigned int i=0; i<pacientes.size(); i++){
+        if(pacientes[i].get()->getPlano() == plano)
+            pacientes[i].get()->setPlano(this->getPlanos()[0].get());
+    }
 }
 
 //Populacao da clinica

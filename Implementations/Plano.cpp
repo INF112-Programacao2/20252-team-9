@@ -40,7 +40,5 @@ void Plano::setDesconto(double desconto){
 
 }
 void Plano::visualizarDados(){
-    
-    std::cout << " | Nome: " << nome << std::endl;
-    std::cout << " | Desconto: " << desconto*100 << "%\n";
+    std::cout << "Nome: " << nome << " | Desconto: " << desconto*100 << "%" << std::endl;
 }
