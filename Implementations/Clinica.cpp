@@ -6,6 +6,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <limits>
+#include <algorithm>
 
 //Construtor
 Clinica::Clinica(std::string nome)
@@ -112,6 +113,7 @@ void Clinica::adicionarAgendamento(std::unique_ptr<Agendamento> agendamento){
         throw std::invalid_argument("Ponteiros de objetos vazios sao invalidos");
 
     agendamentos.push_back(std::move(agendamento));
+    std::sort(agendamentos.begin(), agendamentos.end(), orderAgendamentosByDate);
 }
 
 void Clinica::removerAgendamento(Agendamento* agendamento){
