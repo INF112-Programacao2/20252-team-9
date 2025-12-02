@@ -753,3 +753,16 @@ void Atendente::agendarParaPaciente(Clinica* clinica){
         std::cout << e.what() << std::endl;
     }
 }
+
+void Atendente::visualizarMedicos(Clinica* clinica) {
+    std::cout << "\nAqui está a lista com os detalhes de todos os médicos:\n";
+    for(long unsigned int i = 0; i<clinica->getMedicos().size(); i++){
+        clinica->getMedicos()[i].get()->VizualizaDados();
+    }
+}
+
+void Atendente::visualizarPacientes(Clinica* clinica){
+    std::cout << "\nAqui está a lista com os detalhes de todos os pacientes:\n";
+    for(long unsigned int i = 0; i < clinica->getPacientes().size(); i++)
+        clinica->getPacientes()[i].get()->VizualizaDados();
+}
