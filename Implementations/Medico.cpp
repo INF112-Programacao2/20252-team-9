@@ -49,9 +49,9 @@ void Medico::VizualizaDados() {
     //Chama a implementação da classe base primeiro
     Pessoa::VizualizaDados();
     
-    std::cout << "CRM: " << this->crm << std::endl;
-    std::cout << "Especialidade: " << this->ocupacao << std::endl;
-    std::cout << "Saldo: R$ " << this->saldo << std::endl;
+    std::cout << " | CRM: " << this->crm << std::endl;
+    std::cout << " | Especialidade: " << this->ocupacao << std::endl;
+    std::cout << " | Saldo: R$ " << this->saldo << std::endl;
 }
 
 //Itera sobre o banco de dados da clínica para achar agendamentos deste médico
@@ -91,14 +91,13 @@ void Medico::CancelarAgendamento(Clinica* clinica) {
             agendamentosValidos.push_back(i);
         }
     }
-    std::cout << indexVisual << ".: Voltar\n";
-
-
-
+    
     if(agendamentosValidos.empty()){
         std::cout << "Voce nao possui nenhum agendamento\n";
         return;
     }
+    
+    std::cout << indexVisual << ".: Voltar\n";
 
     std::cout << "\n<====================>\n";
     int escolha = lerInteiro("Digite o numero do agendamento que deseja excluir: ", 1, indexVisual+1);

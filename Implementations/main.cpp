@@ -26,9 +26,9 @@ int main(){
         if(escolha == 1) {
             std::cout << "\n<===========>\n";
             std::cout << "Você deseja: \n";
-            std::cout << "1 - Cadastrar-se\n";
-            std::cout << "2 - Fazer login\n";
-            std::cout << "3 - Voltar\n";
+            std::cout << "1.: Cadastrar-se\n";
+            std::cout << "2.: Fazer login\n";
+            std::cout << "3.: Voltar\n";
             std::cout << "\n<===========>\n";
             int escolha = lerInteiro("Digite sua escolha: ", 1, 3);
             if(escolha == 1){
@@ -196,8 +196,6 @@ int main(){
                 limparTela();
                 continue;
             }
-
-            std::cout << "a\n";
 
             while(true){
                 exibirMenuMedico();
