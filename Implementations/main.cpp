@@ -173,6 +173,7 @@ int main(){
         }
 
         else if(escolha == 2) {
+            limparTela();
             bool tentouNovamente = true;
             while(true){
                 std::string cpf, senha;
@@ -255,6 +256,7 @@ int main(){
         }
 
         else if(escolha == 3) {
+            limparTela();
             if(clinica.getAtendente() == nullptr) {
                 std::cout << "\nAinda não temos atendente.\n";
                 enterParaContinuar();
@@ -350,6 +352,21 @@ int main(){
                     continue;
                 }
                 else if(escolha == 9){
+                    atendente.VizualizaAgendamentos(&clinica);
+                    enterParaContinuar();
+                    continue;
+                }
+                else if(escolha == 10){
+                    atendente.visualizarMedicos(&clinica);
+                    enterParaContinuar();
+                    continue;
+                }   
+                else if(escolha == 11){
+                    atendente.visualizarPacientes(&clinica);
+                    enterParaContinuar();
+                    continue;
+                }
+                else if(escolha == 12){
                     limparTela();
                     break;
                 }

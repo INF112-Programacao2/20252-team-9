@@ -10,6 +10,7 @@
 #include <memory>
 class Clinica;
 class Agendamento;
+class Plano;
 
 //Função que retorna se é uma string vazia(Sem nenhum caracter/Vários espaços/ tabs etc...)
 bool stringVazia(const std::string& string);
@@ -54,5 +55,8 @@ std::vector<std::string> buscaHorarioValido(const std::string& data, Clinica* cl
 
 //Ordena agendamentos por data
 bool orderAgendamentosByDate(const std::unique_ptr<Agendamento>& a, const std::unique_ptr<Agendamento>& b);
+
+//Ordena os planos por desconto
+bool orderPlanosByDesconto(const std::unique_ptr<Plano>& a, const std::unique_ptr<Plano>& b);
 
 #endif

@@ -160,6 +160,7 @@ void Clinica::adicionarPlano(std::unique_ptr<Plano> plano){
         throw std::invalid_argument("Ponteiros de objetos vazios sao invalidos");
 
     planos.push_back(std::move(plano));
+    std::sort(planos.begin(), planos.end(), orderPlanosByDesconto);
 }
 
 void Clinica::removerPlano(Plano* plano){

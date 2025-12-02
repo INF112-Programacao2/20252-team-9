@@ -44,70 +44,73 @@ void Atendente::VizualizaDados(){
 
 void Atendente::VizualizaAgendamentos(Clinica* clinica){
     int n;
-    do{
-        std::cout << "Você deseja visualizar os agendamentos de: \n (1)Paciente \n(2)Médico\n";
-        std:: cin >> n;
+    
+    while(true){
+        limparTela();
+        std::cout << "================================================\n";
+        std::cout << "                      MENU                      \n";
+        std::cout << "================================================\n";
 
-        if(!std::cin){
-            std::cin.clear();
-            std::cin.ignore(1000,'\n');
-            n = 0;
+        std::cout << "\nVocê deseja visualizar os agendamentos de: \n1.: Filtrar por Medico \n2.: Filtrar por Paciente\n3.: Todos agendamentos\n4.: Voltar\n";
+        n = lerInteiro("Digite sua escolha: ", 1, 4);
+
+        if(n == 1){
+            limparTela();
+            std::cout << "================================================\n";
+            std::cout << "                    MEDICOS                     \n";
+            std::cout << "================================================\n\n";
+            const auto &listaMedicos = clinica->getMedicos();
+            int cont = 0;
+            for(auto &med : listaMedicos) {
+                    cont++;
+                    std::cout << cont << ".: " << med->getNome() << " CRM: " << med->getCrm() << "\n";
+                }
+                    std::cout << "\nDigite sua escolha: \n";
+                    int escolha = lerInteiro("", 1, cont);
+
+            listaMedicos[escolha-1]->VizualizaAgendamentos(clinica);
+            enterParaContinuar();
+            continue;
         }
-
-    } while(n != 1 && n != 2);
-
-    if(n == 1){
-        std::cout << "Lista dos Médicos que deseja ver os agendamentos: \n";
-        const auto &listaMedicos = clinica->getMedicos();
-        int cont = 0;
-        for(auto &med : listaMedicos) {
-            cont++;
-            std::cout << "(" << cont << ")" << med->getNome() << " CRM: " << med->getCrm() << "\n";
-        }
-
-        int escolha;
-
-        do {
-            std::cout << "Digite o identificador do Médico que deseja visualizar as consultas: ";
-            std::cin >> escolha;
-            
-            if(!std::cin) {
-                std::cin.clear();
-                std::cin.ignore(1000, '\n');
-                escolha = -1;
+        else if(n==2){
+            limparTela();
+            std::cout << "================================================\n";
+            std::cout << "                  PACIENTES                     \n";
+            std::cout << "================================================\n\n";
+            const auto &listaPacientes = clinica->getPacientes();
+            int cont = 0;
+            for(auto &pac : listaPacientes){
+                cont++;
+                std::cout << cont << ".: " << pac->getNome() << " CPF: " << pac->getCpf() << "\n";
             }
 
-        } while(escolha <= 0 || escolha > cont);
+            std::cout << "\nDigite o identificador do Paciente que deseja visualizar as consultas: \n";
+            int escolha = lerInteiro("", 1, cont);
 
-        listaMedicos[escolha-1]->VizualizaAgendamentos(clinica);
-
-    }
-    else {
-        std::cout << "Lista dos pacientes que deseja ver os agendamentos: \n";
-        const auto &listaPacientes = clinica->getPacientes();
-        int cont = 0;
-        for(auto &pac : listaPacientes){
-            cont++;
-            std::cout << "(" << cont << ")" << pac->getNome() << " CPF: " << pac->getCpf() << "\n";
+            listaPacientes[escolha-1]->VizualizaAgendamentos(clinica);
+            enterParaContinuar();
+            continue;
         }
-
-        int escolha;
-
-        do {
-            std::cout << "Digite o identificador do Paciente que deseja visualizar as consultas: ";
-            std::cin >> escolha;
-
-            if(!std::cin) {
-                std::cin.clear();
-                std::cin.ignore(1000, '\n');
-                escolha = -1;
+        else if(n == 3){
+            limparTela();
+            std::cout << "================================================\n";
+            std::cout << "                AGENDAMENTOS                    \n";
+            std::cout << "================================================\n\n";
+            const auto &listaAgendamentos = clinica->getAgendamentos();
+            int cont = 0;
+            for(auto &agendamento: listaAgendamentos){
+                cont++;
+                std::cout << cont << ".: ";
+                agendamento->imprimirResumido();
             }
-        } while (escolha <= 0 || escolha > cont);
-
-        listaPacientes[escolha-1]->VizualizaAgendamentos(clinica);
-
+            enterParaContinuar();
+            continue;
+        }
+        else if(n == 4){
+            std::cout << "\nVoltando para o menu\n";
+            break;
+        }
     }
-
 }
 
 void Atendente::CadastrarPaciente(Clinica* clinica){

@@ -58,7 +58,7 @@ void Medico::VizualizaDados() {
 //Itera sobre o banco de dados da clínica para achar agendamentos deste médico
 void Medico::VizualizaAgendamentos(Clinica*clinica) {
     limparTela();
-    std::cout << "\n<====================MEUS AGENDAMENTOS====================>\n" << std::endl;
+    std::cout << "\n====================MEUS AGENDAMENTOS====================\n" << std::endl;
     
     bool encontrou = false;
     const std::vector<std::unique_ptr<Agendamento>>& agendamentos = clinica->getAgendamentos();
@@ -74,13 +74,13 @@ void Medico::VizualizaAgendamentos(Clinica*clinica) {
     }
 
     if(!encontrou)
-        std::cout << "\nVoce nao possui nenhum agendamento\n";
+         std::cout << "Nao existe nenhum agendamento\n";
 }
 
 //Interage com usuário para cancelar agendamento específico
 void Medico::CancelarAgendamento(Clinica* clinica) {
     limparTela();
-    std::cout << "\n<====================AGENDAMENTOS PENDENTES====================>\n" << std::endl;
+    std::cout << "\n====================AGENDAMENTOS PENDENTES====================\n" << std::endl;
 
     const std::vector<std::unique_ptr<Agendamento>>& agendamentos = clinica->getAgendamentos();
     int indexVisual=1;
@@ -124,7 +124,7 @@ void Medico::CancelarAgendamento(Clinica* clinica) {
 //Adiciona feedback
 void Medico::AdicionarFeedBack(Clinica* clinica) {
     limparTela();
-    std::cout << "\n<====================FEEDBACKS PENDENTES====================>\n" << std::endl;
+    std::cout << "\n====================FEEDBACKS PENDENTES====================\n" << std::endl;
     const std::vector<std::unique_ptr<Agendamento>>& agendamentos = clinica->getAgendamentos();
 
     int indexVisual=1;

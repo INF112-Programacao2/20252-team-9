@@ -339,7 +339,7 @@ void Paciente::VizualizaAgendamentos(Clinica *clinica){
     }
 
     if(!encontrou)
-        std::cout << "Voce nao possui nenhum agendamento\n";                
+        std::cout << "Nao existe nenhum agendamento\n";                
 }
 
 //Agenda

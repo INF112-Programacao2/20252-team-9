@@ -329,3 +329,7 @@ bool orderAgendamentosByDate(const std::unique_ptr<Agendamento>& a, const std::u
         return true;
    }
 }
+
+bool orderPlanosByDesconto(const  std::unique_ptr<Plano>& a, const std::unique_ptr<Plano>& b){
+    return a.get()->getDesconto() < b.get()->getDesconto();
+}
