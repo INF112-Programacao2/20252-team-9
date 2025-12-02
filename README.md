@@ -46,6 +46,7 @@ O paciente pode cadastrar próprios agendamentos buscando por um médico em espe
 
 ### Requisitos:
 -Compilador C++ (g++)
+
 -Makefile instalado
 
 1. Clone o repositório:
@@ -61,4 +62,5 @@ O paciente pode cadastrar próprios agendamentos buscando por um médico em espe
 4. Execute:
    
    ./clinica
+
 
