@@ -8,19 +8,19 @@
 //Construtor
 Pessoa::Pessoa(std::string nome, std::string cpf, std::string senha, std::string telefone){
     if(stringVazia(nome) || !somenteLetras(nome))
-        throw std::invalid_argument("Nome para pessoa invalido");
+        throw std::invalid_argument("\nNome para pessoa invalido\n");
     this->nome = nome;
 
     if(!validaCpf(cpf))
-        throw std::invalid_argument("CPF para pessoa invalido, deve seguir o modelo XXX.XXX.XXX-XX");
+        throw std::invalid_argument("\nCPF para pessoa invalido, deve seguir o modelo XXX.XXX.XXX-XX\n");
     this->cpf = cpf;
 
     if(stringVazia(senha))
-        throw std::invalid_argument("Senha para pessoa invalida");
+        throw std::invalid_argument("\nSenha para pessoa invalida\n");
     this->senha = senha;
     
     if(!validaTelefone(telefone))
-        throw std::invalid_argument("Telefone para pessoa invalido, deve seguir o modelo (XX) XXXX-XXXX ou (XX) XXXXX-XXXX");
+        throw std::invalid_argument("\nTelefone para pessoa invalido, deve seguir o modelo (XX) XXXX-XXXX ou (XX) XXXXX-XXXX\n");
     this->telefone = telefone;
 }
 
@@ -36,27 +36,26 @@ std::string Pessoa::getTelefone() const {return telefone;}
 //Sets
 void Pessoa :: setNome( std::string nome){
     if(stringVazia(nome))
-        throw std::invalid_argument("Nome para pessoa invalido");
+        throw std::invalid_argument("\nNome para pessoa invalido\n");
     this->nome = nome;
 }
 
 void Pessoa :: setSenha(std::string senha){
     if(stringVazia(senha))
-        throw std::invalid_argument("Senha para pessoa invalida");
+        throw std::invalid_argument("\nSenha para pessoa invalida\n");
     this->senha = senha;
 }
 
 void Pessoa :: setTelefone(std::string telefone){
     if(!validaTelefone(telefone))
-        throw std::invalid_argument("Telefone para pessoa invalido, deve seguir o modelo (XX) XXXX-XXXX ou (XX) XXXXX-XXXX");
+        throw std::invalid_argument("\nTelefone para pessoa invalido, deve seguir o modelo (XX) XXXX-XXXX ou (XX) XXXXX-XXXX\n");
     this->telefone = telefone;
 }
         
 //Métodos
 //Impressão dos dados do usuário:
 void Pessoa :: VizualizaDados(){ // Versão genérica com só os dados de pessoa 
-    std::cout << "---------------- Impressao de Dados ---------------\n";
-    std::cout << "Nome: " << nome << std ::endl;
-    std::cout << "CPF: " << cpf <<std::endl;
-    std::cout << "Telefone: " << telefone <<std::endl;
+    std::cout << " | Nome: " << nome << std ::endl;
+    std::cout << " | CPF: " << cpf <<std::endl;
+    std::cout << " | Telefone: " << telefone <<std::endl;
 }
