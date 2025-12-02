@@ -7,12 +7,12 @@
 //Construtor
 Plano::Plano(std::string nome, double desconto){
     if(stringVazia(nome))
-        throw std::invalid_argument("Nome invalido");
+        throw std::invalid_argument("\nNome invalido\n");
 
     this->nome = nome;
 
     if(desconto<0 || desconto>=1)
-        throw std::invalid_argument("Desconto invalido");
+        throw std::invalid_argument("\nDesconto invalido\n");
 
     this->desconto = desconto;   
 }
@@ -27,20 +27,20 @@ double Plano::getDesconto() const {return desconto;}
 //Setters
 void Plano::setNome(std::string nome){
     if(stringVazia(nome))
-        throw std::invalid_argument("Nome invalido");
+        throw std::invalid_argument("\nNome invalido\n");
 
     this->nome = nome;
 }
 
 void Plano::setDesconto(double desconto){
     if(desconto<=0 || desconto>=1)
-        throw std::invalid_argument("Desconto invalido");
+        throw std::invalid_argument("\nDesconto invalido\n");
 
     this->desconto = desconto;
 
 }
 void Plano::visualizarDados(){
-    std::cout << "---------------- Impressao de Dados ---------------\n";
-    std::cout << "Nome: " << nome << std::endl;
-    std::cout << "Desconto: " << desconto*100 << "%\n";
+    
+    std::cout << " | Nome: " << nome << std::endl;
+    std::cout << " | Desconto: " << desconto*100 << "%\n";
 }
