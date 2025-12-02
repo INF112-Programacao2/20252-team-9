@@ -1,5 +1,10 @@
 # Sistema de Gestão para Clínicas de Saúde 
- Projeto final da disciplina de INF112-Programação II desenvolvido em C++ que visa aplicar os conceitos de POO(Programação Orientada à Objetos), gerenciamento de memória, tratamento de exceções e manipulação de arquivos, que foram abordados em sala de aula.
+ Projeto final da disciplina de INF112-Programação II desenvolvido em C++ que visa aplicar os conceitos abordados em sala de aula, sendo eles:
+ 
+ - POO(Programação Orientada à Objetos)
+ - Gerenciamento de memória
+ - Tratamento de exceções
+ - Manipulação de arquivos 
 
 ---
 
@@ -14,7 +19,7 @@
 ## Descrição:
 
  A ideia do projeto é um programa para administrar uma clínica médica, que oferece diferentes tipos de serviços(exames, consultas e cirurgias). Por meio dele, é possível realizar agendamentos, seja com um médico específico ou escolher uma especialidade, e escolher um profissional com a agenda disponível no dia e horários desejados.
- O sistema poderá ser acessado por 3 tipos de pessoas diferentes *(médico, cliente e paciente)*, cada um com suas particularidades e funções específicas.
+ O sistema poderá ser acessado por 3 tipos de pessoas diferentes *(médico, atendente e paciente)*, cada um com suas particularidades e funções específicas.
 
 ---
  ## Integrantes:
@@ -62,5 +67,6 @@ O paciente pode cadastrar próprios agendamentos buscando por um médico em espe
 4. Execute:
    
    ./clinica
+
 
 
