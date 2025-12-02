@@ -299,9 +299,24 @@ void Atendente::DesligarMedico(Clinica* clinica){
         lastIndex++;
     }
 
+    std::cout << lastIndex << ".: Voltar\n";
+
     //Escolhe qual medico excluir
     int escolha = lerInteiro("Digite o medico que se deseja excluir: ", 1, lastIndex);
     
+    if(escolha == lastIndex){
+        std::cout << "Voltando para o menu anterior\n";
+        return;
+    }
+    else if(escolha != lastIndex){
+        std::cout << "Voce deseja realmente excluir?\n1.Sim\n2.Nao\n";
+        int confirmacao = lerInteiro("Digite o que voce deseja fazer: ", 1, 2);
+        if(confirmacao == 2){
+            std::cout << "Voltando para o menu anterior\n";
+            return;
+        }
+    }
+
     //Exclui o medico
     try{
         clinica->removerMedico(medicos[escolha-1].get());
@@ -364,7 +379,14 @@ void Atendente::AlterarServico(Clinica *clinica){
         std::cout << "(" << cont << ") " << serv.get()->getNome() << " ID: " << serv.get()->getId() << "\n";
     }
     
-    int escolha = lerInteiro("Escolha qual serviço deseja alterar: ", 1, cont);
+    std::cout << cont+1 << ".: Voltar\n";
+
+    int escolha = lerInteiro("Escolha qual serviço deseja alterar: ", 1, cont+1);
+
+    if(escolha == cont+1){
+        std::cout << "Voltando para o menu anterior\n";
+        return;
+    }
 
     Servico *servico_alterar = clinica->getServicos()[escolha-1].get();
 
@@ -375,8 +397,9 @@ void Atendente::AlterarServico(Clinica *clinica){
     std::cout << "(2) Valor\n";
     std::cout << "(3) Duração\n";
     std::cout << "(4) Ocupação Requerida\n";
+    std::cout << "(5) Voltar\n";
 
-    int escolha_alterar = lerInteiro("", 1, 4);
+    int escolha_alterar = lerInteiro("", 1, 5);
 
     if(escolha_alterar == 1)
     {
@@ -443,7 +466,10 @@ void Atendente::AlterarServico(Clinica *clinica){
             std::cout << e.what() << "\n";
         }
     }
-
+    else if(escolha_alterar == 5){
+        std::cout << "Voltando para o menur anterior\n";
+        return;
+    }
 
     std::cout << "Novas Informações do Serviço: \n";
     servico_alterar->visualizarDados();
@@ -461,7 +487,16 @@ void Atendente::agendarParaPaciente(Clinica* clinica){
     for(long unsigned int i=0; i<pacientes.size(); i++){
         std::cout << i+1 << ". Nome: " << pacientes[i].get()->getNome() << " | CPF: " << pacientes[i].get()->getCpf() << " | Telefone: " << pacientes[i].get()->getTelefone() << std::endl;
     }
-    int escolhaPaciente = lerInteiro("Escolha o numero do paciente desejado: ", 1, pacientes.size());
+
+    std::cout << pacientes.size()+1 << ".: Volta\n";
+
+    long unsigned int escolhaPaciente = lerInteiro("Escolha o numero do paciente desejado: ", 1, pacientes.size());
+
+    if(escolhaPaciente == pacientes.size()+1){
+        std::cout << "Voltando para o menu anterior\n";
+        return;
+    }
+
     Paciente* paciente = pacientes[escolhaPaciente-1].get();
 
     //Agora pega os dados do agendamento em si
@@ -537,6 +572,17 @@ void Atendente::agendarParaPaciente(Clinica* clinica){
     //Cria e adiciona o agendamento em si no vetor notificacoes do paciente
     try{
         Agendamento* agendamento = new Agendamento(data, horarios[escolhaHorario-1], paciente , medico, servico);
+        std::cout << "Voce realmente deseja adicioar o agendamento: \n";
+        agendamento->imprimirDetalhado();
+        std::cout << "1.: Sim\n2.: Nao\n";
+        int confirmacao = lerInteiro("Digite oque voce deseja fazer: ", 1, 2);
+
+        if(confirmacao == 2){
+            std::cout << "Voltando para o menu anterior\n";
+            delete agendamento;
+            return;
+        }
+
         std::vector<Agendamento*>& notificacoes = paciente->getNotificacoes();
         notificacoes.push_back(agendamento);
         std::cout << "\nNotificação de agendamento enviada com sucesso!\n";

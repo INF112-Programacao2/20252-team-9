@@ -173,7 +173,6 @@ void exibirMenuPaciente() {
     std::cout << "6 - Checar notificações\n";
     std::cout << "7 - Sair\n";
     std::cout << "\n<===========>\n\n";
-    std::cout << "Digite o que deseja fazer: ";
 }
 
 void exibirMenuAtendente(){
@@ -188,7 +187,6 @@ void exibirMenuAtendente(){
     std::cout << "8 - Marcar Agendamento\n";
     std::cout << "9 - Sair\n";
     std::cout << "\n<===========>\n\n";
-    std::cout << "Digite o que deseja fazer: ";
 }
 
 

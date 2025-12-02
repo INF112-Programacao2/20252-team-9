@@ -224,7 +224,7 @@ int main(){
                 enterParaContinuar();
                 continue;
             }
-            bool tentouNovamente;
+            bool tentouNovamente = true;
             while (true) {
                 std::string cpf, senha;
                 bool acertou = true;
@@ -267,6 +267,54 @@ int main(){
             if(!tentouNovamente) {
                 limparTela();
                 continue;
+            }
+
+            while(true){
+                exibirMenuAtendente();
+                escolha = lerInteiro("Digite o que deseja fazer: ", 1, 9);
+
+                if(escolha == 1){
+                    atendente.VizualizaDados();
+                    enterParaContinuar();
+                    continue;
+                }
+                else if(escolha == 2){
+                    atendente.AlterarServico(&clinica);
+                    enterParaContinuar();
+                    continue;
+                }
+                else if(escolha == 3){
+                    atendente.CadastrarMedico(&clinica);
+                    enterParaContinuar();
+                    continue;
+                }
+                else if(escolha == 4){
+                    atendente.CadastrarPaciente(&clinica);
+                    enterParaContinuar();
+                    continue;
+                }
+                else if(escolha == 5){
+                    atendente.ConsultaSaldoDaClinica(&clinica);
+                    enterParaContinuar();
+                    continue;
+                }
+                else if(escolha == 6){
+                    atendente.CriarServico(&clinica);
+                    enterParaContinuar();
+                    continue;
+                }
+                else if(escolha == 7){
+                    atendente.DesligarMedico(&clinica);
+                    enterParaContinuar();
+                    continue;
+                }
+                else if(escolha == 8){
+                    atendente.agendarParaPaciente(&clinica);
+                    enterParaContinuar();
+                    continue;
+                }
+                else if(escolha == 9)
+                    break;
             }
 
         }
