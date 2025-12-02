@@ -62,7 +62,6 @@ bool dadosValidos(std::string &nome, std::string &cpf, std::string &senha, std::
             enterParaContinuar();
             continue;
         }
-        enterParaContinuar();
         break;
     }
     
@@ -80,7 +79,6 @@ bool dadosValidos(std::string &nome, std::string &cpf, std::string &senha, std::
             enterParaContinuar();
             continue;
         }
-        enterParaContinuar();
         break;
     }
 
@@ -92,7 +90,6 @@ bool dadosValidos(std::string &nome, std::string &cpf, std::string &senha, std::
             enterParaContinuar();
             continue;
         }
-        enterParaContinuar();
         break;
     }
 
@@ -104,7 +101,6 @@ bool dadosValidos(std::string &nome, std::string &cpf, std::string &senha, std::
             enterParaContinuar();
             continue;
         }
-        enterParaContinuar();
         break;
     }
 
@@ -116,13 +112,12 @@ bool dadosValidos(std::string &nome, std::string &cpf, std::string &senha, std::
             enterParaContinuar();
             continue; 
         }
-        enterParaContinuar();
         break;
     }
 
     std::string aux;
     while(true) {
-        std::cout << "(M) Masculino\n(F) Feminino\nInforme seu sexo: ";
+        std::cout << "M.: Masculino\nF.: Feminino\nInforme seu sexo: ";
         getline(std::cin, aux);
         sexo = aux[0];
         if(sexo != 'M' && sexo != 'F'){
@@ -130,21 +125,20 @@ bool dadosValidos(std::string &nome, std::string &cpf, std::string &senha, std::
             enterParaContinuar();
             continue;
         }
-        enterParaContinuar();
         break;
     }
 
     while(true) {
         std::cout << "Informe observações importantes sobre você (Ex: Alergias, Comorbidades): ";
         getline(std::cin, observacoes);
-        enterParaContinuar();
         break;
     }
 
     int cont = 0;
+    std::cout << std::endl;
     for(auto &plano : clinica->getPlanos()) {
         cont ++;
-        std::cout << "(" << cont << ")" << plano.get()->getNome() << " Desconto(%): " << plano.get()->getDesconto()* 100 << "\n";
+        std::cout << cont << ":." << plano.get()->getNome() << " | Desconto(%): " << plano.get()->getDesconto()* 100 << "\n";
     }
 
     int escolha = lerInteiro("Digite sua escolha: ", 1, cont);

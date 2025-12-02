@@ -486,6 +486,7 @@ void Atendente::AlterarServico(Clinica *clinica){
         std::cout << "Não há nenhum serviço para ser modificado.\n";
         return;
     }
+    std::cout << std::endl;
 
     int cont = 0;
     for (auto &serv : clinica->getServicos()) {
@@ -494,6 +495,8 @@ void Atendente::AlterarServico(Clinica *clinica){
     }
     
     std::cout << cont+1 << ".: Voltar\n";
+
+    std::cout << std::endl;
 
     int escolha = lerInteiro("Escolha qual serviço deseja alterar: ", 1, cont+1);
 
