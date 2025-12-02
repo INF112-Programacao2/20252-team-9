@@ -398,8 +398,15 @@ void Paciente::CancelarAgendamento(Clinica *clinica){
         return;
     }
 
+    std::cout << indexVisual << ".: Voltar\n";
+
     std::cout << "\n<====================>\n";
     int escolha = lerInteiro("Digite o numero do agendamento que deseja excluir: ", 1, indexVisual);
+
+    if(escolha == indexVisual){
+        std::cout << "Voltando ao menur anterior\n";
+        return;
+    }
 
     //Acha e exclui o agaendamento escolhido
     try{

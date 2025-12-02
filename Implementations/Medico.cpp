@@ -91,6 +91,9 @@ void Medico::CancelarAgendamento(Clinica* clinica) {
             agendamentosValidos.push_back(i);
         }
     }
+    std::cout << indexVisual << ".: Voltar\n";
+
+
 
     if(agendamentosValidos.empty()){
         std::cout << "Voce nao possui nenhum agendamento\n";
@@ -98,7 +101,12 @@ void Medico::CancelarAgendamento(Clinica* clinica) {
     }
 
     std::cout << "\n<====================>\n";
-    int escolha = lerInteiro("Digite o numero do agendamento que deseja excluir: ", 1, indexVisual);
+    int escolha = lerInteiro("Digite o numero do agendamento que deseja excluir: ", 1, indexVisual+1);
+
+    if(escolha == indexVisual){
+        std::cout << "Retornando ao menu anterior\n";
+        return;
+    }
 
     //Acha e exclui o agaendamento escolhido
     try{
@@ -126,15 +134,25 @@ void Medico::AdicionarFeedBack(Clinica* clinica) {
             agendamentosValidos.push_back(i);
         }
     }
-
+    
+    
     if(agendamentosValidos.empty()){
         std::cout << "Voce nao possui nenhum agendamento com feedback pendente\n";
         return;
     }
     
+    std::cout << indexVisual << ".: Voltar\n";
+    
     std::cout << "\n<====================>\n";
-    int escolha = lerInteiro("Digite o numero do agendamento que deseja dar feedback: ", 1, indexVisual);
+    int escolha = lerInteiro("Digite o numero do agendamento que deseja dar feedback: ", 1, indexVisual+1);
     std::string feedback;
+
+
+    if(escolha == indexVisual){
+        std::cout << "Retornando ao menu anterior\n";
+        return;
+    }
+
 
     bool feedbackValido = false;
     while(!feedbackValido){

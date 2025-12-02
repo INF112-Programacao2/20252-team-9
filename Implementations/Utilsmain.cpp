@@ -45,7 +45,6 @@ void exibirMenuMedico() {
     std::cout << "4 - Adicionar Feedback\n";
     std::cout << "5 - Sair\n";
     std::cout << "\n<===========>\n\n";
-    std::cout << "Digite o que deseja fazer: ";
 }
 
 bool dadosValidos(std::string &nome, std::string &cpf, std::string &senha, std::string &telefone, std::string &dataDeNascimento, char &sexo, std::string &observacoes, Plano* &plano, Clinica* clinica){
@@ -202,4 +201,26 @@ void enterParaContinuar(){
 
 void limparTela() {
     system("clear");
+}
+
+void acharMedico(Clinica *clinica, const std::string& cpf, Medico*& medico){
+    const std::vector<std::unique_ptr<Medico>>& medicos = clinica->getMedicos();
+    
+    for(long unsigned int i=0; i<medicos.size(); i++){
+        if(medicos[i].get()->getCpf() == cpf){
+            medico = medicos[i].get();
+            return;
+        }
+    }
+}
+
+void acharPaciente(Clinica *clinica, const std::string& cpf, Paciente*& paciente){
+    const std::vector<std::unique_ptr<Paciente>>& pacientes = clinica->getPacientes();
+
+    for(long unsigned int i=0; i<pacientes.size(); i++){
+        if(pacientes[i].get()->getCpf() == cpf){
+            paciente = pacientes[i].get();
+            return;
+        }
+    }
 }

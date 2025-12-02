@@ -10,6 +10,9 @@ int main(){
 
     Atendente atendente("Marcia", "103.268.216-78", "123456", "(32) 99968-2006", "0001");
     clinica.setAtendente(atendente);
+    
+    Medico* medico = nullptr;
+    Paciente* paciente = nullptr;
 
     unsigned int escolha;
     
@@ -43,7 +46,7 @@ int main(){
                 }
             }
             else if(escolha == 2){
-                bool tentouNovamente;
+                bool tentouNovamente = true;
                 while (true) {
                     std::string cpf, senha;
                     bool acertou = true;
@@ -60,6 +63,7 @@ int main(){
                     }
                     else if(sucesso_login == 1){
                         std::cout << "Login efetuado com sucesso!\n";
+                        acharPaciente(&clinica, cpf, paciente);
                         enterParaContinuar();
                         break;
                     }
@@ -87,6 +91,45 @@ int main(){
                     limparTela();
                     continue;
                 }
+
+                while(true){
+                    exibirMenuPaciente();
+                    escolha = lerInteiro("Digite o que deseja fazer: ", 1, 7);
+
+                    if(escolha == 1){
+                        paciente->VizualizaDados();
+                        enterParaContinuar();
+                        continue;
+                    }
+                    else if(escolha == 2){
+                        paciente->AlteraDados(&clinica);
+                        enterParaContinuar();
+                        continue;
+                    }
+                    else if(escolha == 3){
+                        paciente->VizualizaAgendamentos(&clinica);
+                        enterParaContinuar();
+                        continue;
+                    }
+                    else if(escolha == 4){
+                        paciente->Agendar(&clinica);
+                        enterParaContinuar();
+                        continue;
+                    }
+                    else if(escolha == 5){
+                        paciente->CancelarAgendamento(&clinica);
+                        enterParaContinuar();
+                        continue;
+                    }
+                    else if(escolha == 6){
+                        paciente->checarNotificacoes(&clinica);
+                        enterParaContinuar();
+                        continue;
+                    }
+                    else if(escolha == 7)
+                        break;
+                }
+                
             }
             else {
                 limparTela();
@@ -95,7 +138,7 @@ int main(){
         }
 
         else if(escolha == 2) {
-            bool tentouNovamente;
+            bool tentouNovamente = true;
             while(true){
                 std::string cpf, senha;
                 bool acertou = true;
@@ -113,6 +156,7 @@ int main(){
                 }
                 else if(sucesso_login == 1){
                     std::cout << "Login efetuado com sucesso!\n";
+                    acharMedico(&clinica, cpf, medico);
                     enterParaContinuar();
                     break;
                 }
@@ -135,9 +179,41 @@ int main(){
                     else break;
                 }
             }
+
             if(!tentouNovamente) {
                 limparTela();
                 continue;
+            }
+
+            std::cout << "a\n";
+
+            while(true){
+                exibirMenuMedico();
+                escolha = lerInteiro("Digite o que deseja fazer: ", 1, 5);
+
+                if(escolha == 1){
+                    medico->VizualizaDados();
+                    enterParaContinuar();
+                    continue;
+                }
+                else if(escolha == 2){
+                    medico->VizualizaAgendamentos(&clinica);
+                    enterParaContinuar();
+                    continue;
+                }
+                else if(escolha == 3){
+                    medico->CancelarAgendamento(&clinica);
+                    enterParaContinuar();
+                    continue;
+                }
+                else if(escolha == 4){
+                    medico->AdicionarFeedBack(&clinica);
+                    enterParaContinuar();
+                    continue;
+                }
+                else if(escolha == 5)
+                    break;
+
             }
 
         }

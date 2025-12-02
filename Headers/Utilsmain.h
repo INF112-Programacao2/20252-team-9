@@ -13,6 +13,8 @@ void exibirMenuPaciente();
 void exibirMenuAtendente();
 void enterParaContinuar();
 void limparTela();
+void acharMedico(Clinica *clinica, const std::string& cpf, Medico*& medico);
+void acharPaciente(Clinica *clinica, const std::string& cpf, Paciente*& paciente);
 
 
 #endif
