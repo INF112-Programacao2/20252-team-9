@@ -10,21 +10,21 @@ int Servico::contadorId = 0;
 //Construtor
 Servico::Servico(std::string nome, double valor, int duracao, std::string ocupacaoRequerida){
     if(stringVazia(nome))
-        throw std::invalid_argument("Nome para servico invalido");
+        throw std::invalid_argument("\nNome para servico invalido\n");
     this->nome = nome;
 
     this->id = gerarNovoId();
 
     if(valor < 0)
-        throw std::invalid_argument("Valor do servico nao pode ser negativo");
+        throw std::invalid_argument("\nValor do servico nao pode ser negativo\n");
     this->valor = valor;
 
     if(duracao <= 0)
-        throw std::invalid_argument("A duracao do servico nao pode ser negativa ou nula");
+        throw std::invalid_argument("\nA duracao do servico nao pode ser negativa ou nula\n");
     this->duracao = duracao;
 
     if(stringVazia(ocupacaoRequerida))
-        throw std::invalid_argument("Ocupacao requerida para o servico invalida");
+        throw std::invalid_argument("\nOcupacao requerida para o servico invalida\n");
     this->ocupacaoRequerida = ocupacaoRequerida;
 }
 
@@ -41,25 +41,25 @@ std::string Servico::getOcupacaoRequerida() const {return ocupacaoRequerida;}
 //Setters
 void Servico::setNome(std::string nome) {
     if(stringVazia(nome))
-        throw std::invalid_argument("Nome para servico invalido");
+        throw std::invalid_argument("\nNome para servico invalido\n");
     this->nome = nome;
 }
 
 void Servico::setValor(double valor) {
     if(valor < 0)
-        throw std::invalid_argument("Valor do servico nao pode ser negativo");
+        throw std::invalid_argument("\nValor do servico nao pode ser negativo\n");
     this->valor = valor;
 }
 
 void Servico::setDuracao(int duracao) {
     if(duracao <= 0)
-        throw std::invalid_argument("A duracao do servico nao pode ser negativa ou nula");
+        throw std::invalid_argument("\nA duracao do servico nao pode ser negativa ou nula\n");
     this->duracao = duracao;
 }
 
 void Servico::setOcupacaoRequerida(std::string ocupacaoRequerida){
     if(stringVazia(ocupacaoRequerida))
-        throw std::invalid_argument("Ocupacao requerida para o servico invalida");
+        throw std::invalid_argument("\nOcupacao requerida para o servico invalida\n");
     this->ocupacaoRequerida = ocupacaoRequerida;
 }
 
