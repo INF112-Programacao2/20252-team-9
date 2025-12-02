@@ -4,17 +4,21 @@
 #include <iostream>
 
 void exibirMenuInicial(){
-    std::cout << "\n<===========>\n";
-    std::cout << "Você deseja utilizar o sistema como: \n";
-    std::cout << "1 - Paciente\n";
-    std::cout << "2 - Médico\n";
-    std::cout << "3 - Atendente\n";
-    std::cout << "4 - Sair do programa\n";
-    std::cout << "\n<===========>\n\n";
+    std::cout << "================================================\n";
+    std::cout << "                      LOGIN                     \n";
+    std::cout << "================================================\n";
+    std::cout << " 1.: Paciente\n";
+    std::cout << " 2.: Médico\n";
+    std::cout << " 3.: Atendente\n";
+    std::cout << " 4.: Sair do programa\n";
+    std::cout << "------------------------------------------------\n";
 }
+//Paciente Médico Atendente Sair do programa
 
 void exibirMenuLogin(std::string &cpf, std::string &senha, bool &acertou){
-    std::cout << "\n<===========>\n"; 
+    std::cout << "================================================\n";
+    std::cout << "                      LOGIN                     \n";
+    std::cout << "================================================\n";
     std::cout << "CPF: ";
     getline(std::cin, cpf);
     if(!validaCpf(cpf)){
@@ -26,25 +30,27 @@ void exibirMenuLogin(std::string &cpf, std::string &senha, bool &acertou){
 }
 
 bool tentarNovamente() {
-    std::cout << "\n<===========>\n";
-    std::cout << "Você deseja tentar novamente ?\n";
-    std::cout << "1 - Sim\n";
-    std::cout << "2 - Não\n";
-    std::cout << "\n<============>\n\n";
+    std::cout << "\n================================================\n";
+    std::cout << "Deseja tentar novamente ?\n";
+    std::cout << "1.: Sim\n";
+    std::cout << "2.: Não\n";
+    std::cout << "================================================\n";
     int escolha;
-    escolha = lerInteiro("Digite uma opcao: ", 1, 2);
+    escolha = lerInteiro("Digite sua escolha: ", 1, 2);
     if(escolha == 1 ) return true;
     else return false;
 }
 
 void exibirMenuMedico() {
-    std::cout << "\n<===========>\n";
-    std::cout << "1 - Visualizar Dados\n";
-    std::cout << "2 - Visualizar agendamentos\n";
-    std::cout << "3 - Cancelar Agendamento\n";
-    std::cout << "4 - Adicionar Feedback\n";
-    std::cout << "5 - Sair\n";
-    std::cout << "\n<===========>\n\n";
+    std::cout << "================================================\n";
+    std::cout << "                      MENU                      \n";
+    std::cout << "================================================\n";
+    std::cout << " 1.: Visualizar Dados Pessoais\n";
+    std::cout << " 2.: Visualizar Agendamentos\n";
+    std::cout << " 3.: Cancelar Agendamento\n";
+    std::cout << " 4.: Adicionar Feedback\n";
+    std::cout << " 5.: Sair\n";
+    std::cout << "------------------------------------------------\n";
 }
 
 bool dadosValidos(std::string &nome, std::string &cpf, std::string &senha, std::string &telefone, std::string &dataDeNascimento, char &sexo, std::string &observacoes, Plano* &plano, Clinica* clinica){
@@ -141,7 +147,7 @@ bool dadosValidos(std::string &nome, std::string &cpf, std::string &senha, std::
         std::cout << "(" << cont << ")" << plano.get()->getNome() << " Desconto(%): " << plano.get()->getDesconto()* 100 << "\n";
     }
 
-    int escolha = lerInteiro("Escolha o seu plano: ", 1, cont);
+    int escolha = lerInteiro("Digite sua escolha: ", 1, cont);
     
 
     plano = clinica->getPlanos()[escolha - 1].get();
@@ -150,31 +156,35 @@ bool dadosValidos(std::string &nome, std::string &cpf, std::string &senha, std::
 }
 
 void exibirMenuPaciente() {
-    std::cout << "\n<===========>\n";
-    std::cout << "1 - Visualizar Dados\n";
-    std::cout << "2 - Alterar dados\n";
-    std::cout << "3 - Visualizar Agendamento\n";
-    std::cout << "4 - Agendar\n";
-    std::cout << "5 - Cancelar agendamentos\n";
-    std::cout << "6 - Checar notificações\n";
-    std::cout << "7 - Sair\n";
-    std::cout << "\n<===========>\n\n";
+    std::cout << "================================================\n";
+    std::cout << "                      MENU                      \n";
+    std::cout << "================================================\n";
+    std::cout << " 1.: Visualizar Dados Pessoais\n";
+    std::cout << " 2.: Alterar Dados\n";
+    std::cout << " 3.: Visualizar Agendamentos\n";
+    std::cout << " 4.: Agendar\n";
+    std::cout << " 5.: Cancelar Agendamento\n";
+    std::cout << " 6.: Checar notificações\n";
+    std::cout << " 7.: Sair\n";
+    std::cout << "------------------------------------------------\n";
 }
 
 void exibirMenuAtendente(){
-    std::cout << "\n<===========>\n";
-    std::cout << "1 - Visualizar Dados\n";
-    std::cout << "2 - Alterar serviço\n";
-    std::cout << "3 - Cadastrar Médico\n";
-    std::cout << "4 - Cadastrar Paciente\n";
-    std::cout << "5 - Consultar saldo da clínica\n";
-    std::cout << "6 - Criar serviço\n";
-    std::cout << "7 - Desligar Médico\n";
-    std::cout << "8 - Marcar Agendamento\n";
-    std::cout << "9 - Sair\n";
-    std::cout << "\n<===========>\n\n";
+    std::cout << "================================================\n";
+    std::cout << "                      MENU                      \n";
+    std::cout << "================================================\n";
+    std::cout << " 1.: Visualizar Dados Pessoais\n";
+    std::cout << " 2.: Alterar Serviço\n";
+    std::cout << " 3.: Cadastrar Novo Médico\n";
+    std::cout << " 4.: Cadastrar Novo Paciente\n";
+    std::cout << " 5.: Consultar Saldo da Clínica\n";
+    std::cout << " 6.: Criar Novo Serviço\n";
+    std::cout << " 7.: Desligar Médico\n";
+    std::cout << " 8.: Marcar Agendamento para Paciente\n";
+    std::cout << " 9.: Sair\n";
+    std::cout << "------------------------------------------------\n";
 }
-
+//Visualizar dados / alterar serviço / cadastrar medico / cadastrar paciente / consultar saldo da clinica / criar serviço / desligar medico / marcar agendamento / sair
 
 void enterParaContinuar(){
     std::string enter;

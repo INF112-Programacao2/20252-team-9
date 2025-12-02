@@ -55,7 +55,7 @@ void Pessoa :: setTelefone(std::string telefone){
 //Métodos
 //Impressão dos dados do usuário:
 void Pessoa :: VizualizaDados(){ // Versão genérica com só os dados de pessoa 
-    std::cout << " | Nome: " << nome << std ::endl;
+    std::cout << "\n | Nome: " << nome << std ::endl;
     std::cout << " | CPF: " << cpf <<std::endl;
     std::cout << " | Telefone: " << telefone <<std::endl;
 }
