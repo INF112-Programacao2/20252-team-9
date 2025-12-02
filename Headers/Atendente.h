@@ -35,7 +35,8 @@ class Atendente : public Pessoa{
         void CriarServico(Clinica* clinica);
         void AlterarServico(Clinica* clinica);
         void agendarParaPaciente(Clinica* clinica);
-        
+        void visualizarMedicos(Clinica* clinica);
+        void visualizarPacientes(Clinica* clinica);
 };
 
 #endif // PROJETO_FINAL_INF_112_ATENDENTE

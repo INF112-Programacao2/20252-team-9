@@ -2,6 +2,7 @@
 #include "../Headers/Clinica.h"
 #include "../Headers/Utils.h"
 #include "../Headers/Agendamento.h"
+#include "../Headers/Utilsmain.h"
 #include <iostream>
 #include <vector>
 
@@ -56,7 +57,8 @@ void Medico::VizualizaDados() {
 
 //Itera sobre o banco de dados da clínica para achar agendamentos deste médico
 void Medico::VizualizaAgendamentos(Clinica*clinica) {
-    std::cout << "\n<==========MEUS AGENDAMENTOS==========>\n" << std::endl;
+    limparTela();
+    std::cout << "\n<====================MEUS AGENDAMENTOS====================>\n" << std::endl;
     
     bool encontrou = false;
     const std::vector<std::unique_ptr<Agendamento>>& agendamentos = clinica->getAgendamentos();
@@ -72,12 +74,13 @@ void Medico::VizualizaAgendamentos(Clinica*clinica) {
     }
 
     if(!encontrou)
-        std::cout << "Voce nao possui nenhum agendamento\n";
+        std::cout << "\nVoce nao possui nenhum agendamento\n";
 }
 
 //Interage com usuário para cancelar agendamento específico
 void Medico::CancelarAgendamento(Clinica* clinica) {
-    std::cout << "\n<==========AGENDAMENTOS PENDENTES==========>\n" << std::endl;
+    limparTela();
+    std::cout << "\n<====================AGENDAMENTOS PENDENTES====================>\n" << std::endl;
 
     const std::vector<std::unique_ptr<Agendamento>>& agendamentos = clinica->getAgendamentos();
     int indexVisual=1;
@@ -93,17 +96,17 @@ void Medico::CancelarAgendamento(Clinica* clinica) {
     }
     
     if(agendamentosValidos.empty()){
-        std::cout << "Voce nao possui nenhum agendamento\n";
+        std::cout << "\nVoce nao possui nenhum agendamento\n";
         return;
     }
     
     std::cout << indexVisual << ".: Voltar\n";
 
-    std::cout << "\n<====================>\n";
-    int escolha = lerInteiro("Digite o numero do agendamento que deseja excluir: ", 1, indexVisual+1);
+    std::cout << "---------------------------------------\n";
+    int escolha = lerInteiro("Digite sua escolha: ", 1, indexVisual+1);
 
     if(escolha == indexVisual){
-        std::cout << "Retornando ao menu anterior\n";
+        std::cout << "\nRetornando ao menu anterior\n";
         return;
     }
 
@@ -111,7 +114,7 @@ void Medico::CancelarAgendamento(Clinica* clinica) {
     try{
         Agendamento* ptr = agendamentos[agendamentosValidos[escolha-1]].get();
         clinica->removerAgendamento(ptr);
-        std::cout << "Agendamento excluido com sucesso\n";
+        std::cout << "\nAgendamento excluido com sucesso!\n";
     }
     catch(std::invalid_argument &e){
         std::cout << e.what() << std::endl;
@@ -120,7 +123,8 @@ void Medico::CancelarAgendamento(Clinica* clinica) {
 
 //Adiciona feedback
 void Medico::AdicionarFeedBack(Clinica* clinica) {
-    std::cout << "\n<==========FEEDBACKS PENDENTES==========>\n" << std::endl;
+    limparTela();
+    std::cout << "\n<====================FEEDBACKS PENDENTES====================>\n" << std::endl;
     const std::vector<std::unique_ptr<Agendamento>>& agendamentos = clinica->getAgendamentos();
 
     int indexVisual=1;
@@ -136,36 +140,39 @@ void Medico::AdicionarFeedBack(Clinica* clinica) {
     
     
     if(agendamentosValidos.empty()){
-        std::cout << "Voce nao possui nenhum agendamento com feedback pendente\n";
+        std::cout << "\nVoce nao possui nenhum agendamento com feedback pendente\n";
         return;
     }
     
     std::cout << indexVisual << ".: Voltar\n";
     
-    std::cout << "\n<====================>\n";
-    int escolha = lerInteiro("Digite o numero do agendamento que deseja dar feedback: ", 1, indexVisual+1);
+    std::cout << "---------------------------------------\n";
+    int escolha = lerInteiro("Digite sua escolha: ", 1, indexVisual+1);
     std::string feedback;
 
-
     if(escolha == indexVisual){
-        std::cout << "Retornando ao menu anterior\n";
+        std::cout << "\nRetornando ao menu anterior\n";
         return;
     }
 
 
     bool feedbackValido = false;
     while(!feedbackValido){
+        std::cout <<"========================================\n";
+        std::cout <<"                FEEDBACK                \n";
+        std::cout <<"========================================\n";
         std::cout << "Digite o feedback: ";
         getline(std::cin, feedback);
         if(stringVazia(feedback)){
-            std::cout << "Feedback invalido, ele nao pode ser vazio. Tente novamente.\n";
+            std::cout << "\nFeedback invalido, ele nao pode ser vazio. Tente novamente.\n";
+            enterParaContinuar();
             continue;
         }
 
         try{
             agendamentos[agendamentosValidos[escolha-1]].get()->setFeedback(feedback);
             feedbackValido = true;
-            std::cout << "Feedback adicionado com sucesso\n";
+            std::cout << "\nFeedback adicionado com sucesso\n";
         }catch(std::invalid_argument &e){
             std::cout << e.what() << std::endl;
         }

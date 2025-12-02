@@ -318,3 +318,14 @@ std::vector<std::string> buscaHorarioValido(const std::string& data, Clinica* cl
     return horariosValidos;
 
 }
+
+bool orderAgendamentosByDate(const std::unique_ptr<Agendamento>& a, const std::unique_ptr<Agendamento>& b){
+   int resultado = comparaData(a.get()->getData(), b.get()->getData());
+
+   if(resultado == -1 || resultado == 0){
+        return false;
+   }
+   else{
+        return true;
+   }
+}

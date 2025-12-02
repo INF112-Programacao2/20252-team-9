@@ -7,7 +7,9 @@
 //Includes
 #include <string>
 #include <vector>
+#include <memory>
 class Clinica;
+class Agendamento;
 
 //Função que retorna se é uma string vazia(Sem nenhum caracter/Vários espaços/ tabs etc...)
 bool stringVazia(const std::string& string);
@@ -49,5 +51,8 @@ int comparaData(const std::string& data1, const std::string& data2);
 
 //Função para achar os horarios disponiveis para um agendamento em uma determinada data
 std::vector<std::string> buscaHorarioValido(const std::string& data, Clinica* clinica, int duracao, std::string crm);
+
+//Ordena agendamentos por data
+bool orderAgendamentosByDate(const std::unique_ptr<Agendamento>& a, const std::unique_ptr<Agendamento>& b);
 
 #endif
