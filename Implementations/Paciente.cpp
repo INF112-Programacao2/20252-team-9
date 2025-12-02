@@ -369,6 +369,10 @@ void Paciente::Agendar(Clinica *clinica){
 
     try{
         clinica->adicionarAgendamento(std::make_unique<Agendamento>(data, horarios[escolhaHorario-1], (this) , medico, servico));
+
+        medico->setSaldo(medico->getSaldo() + servico->getValor()* 0.6);
+        clinica->setSaldo(clinica->getSaldo() + servico->getValor() * 0.4);
+
         std::cout << "Agendamento realizado com sucesso.\n";
     }
     catch(std::invalid_argument &e){
@@ -441,6 +445,13 @@ void Paciente::checarNotificacoes(Clinica* clinica){
         clinica->adicionarAgendamento(std::make_unique<Agendamento>(*notificacoes[escolhaOpcao-1]));
         delete notificacoes[escolhaAgendamento-1];
         notificacoes.erase(notificacoes.begin()+escolhaAgendamento-1);
+
+        Medico *medico = notificacoes[escolhaOpcao-1]->getMedico();
+        Servico *servico = notificacoes[escolhaOpcao-1]->getServico();
+
+        medico->setSaldo(medico->getSaldo() + servico->getValor()*0.6);
+        clinica->setSaldo(clinica->getSaldo() + servico->getValor()*0.4);
+
         std::cout << "Agendamento realizado com sucesso\n";
     }
     else{

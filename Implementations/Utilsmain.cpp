@@ -49,10 +49,8 @@ void exibirMenuMedico() {
 
 bool dadosValidos(std::string &nome, std::string &cpf, std::string &senha, std::string &telefone, std::string &dataDeNascimento, char &sexo, std::string &observacoes, Plano* &plano, Clinica* clinica){
     while (true){
-        std::cout << "\nDigite -1 para cancelar o cadastro.\n";
         std::cout << "Nome: ";
         std::getline(std::cin, nome);
-        if(nome == "-1") return false;
         if(stringVazia(nome) || !somenteLetras(nome)){
             std::cout << "O paciente deve ter algum nome.\n";
             enterParaContinuar();
@@ -64,10 +62,8 @@ bool dadosValidos(std::string &nome, std::string &cpf, std::string &senha, std::
     
 
     while(true) {
-        std::cout << "\nDigite -1 para cancelar o cadastro.\n";
         std::cout << "CPF: ";
         getline(std::cin, cpf);
-        if(cpf == "-1") return false;
         if(!validaCpf(cpf)){
             std::cout << "CPF inválido, deve seguir o modelo XXX.XXX.XXX-XX, tente novamente\n";
             enterParaContinuar();
@@ -83,10 +79,8 @@ bool dadosValidos(std::string &nome, std::string &cpf, std::string &senha, std::
     }
 
     while(true){
-        std::cout << "\nDigite -1 para cancelar o cadastro.\n";
         std::cout << "Senha: ";
         std::getline(std::cin, senha);
-        if(senha == "-1") return false;
         if(stringVazia(senha)){
             std::cout << "Senha para criar paciente invalida, nao pode ser vazia. Tente novamente\n";
             enterParaContinuar();
@@ -97,10 +91,8 @@ bool dadosValidos(std::string &nome, std::string &cpf, std::string &senha, std::
     }
 
     while(true){
-        std::cout << "\nDigite -1 para cancelar o cadastro.\n";
         std::cout << "Telefone (XX) XXXXX-XXXX: ";
         std::getline(std::cin, telefone);
-        if(senha == "-1") return false;
         if(!validaTelefone(telefone)){
             std::cout << "Telefone invalido, deve seguir o modelo (XX) XXXX-XXXX ou (XX) XXXXX-XXXX, tente novamente\n";
             enterParaContinuar();
@@ -111,10 +103,8 @@ bool dadosValidos(std::string &nome, std::string &cpf, std::string &senha, std::
     }
 
     while (true){
-        std::cout << "\nDigite -1 para cancelar o cadastro.\n";
         std::cout << "Informe a sua data de nascimento: ";
         getline(std::cin, dataDeNascimento);
-        if(dataDeNascimento == "-1") return false;
         if(!validaData(dataDeNascimento)){
             std::cout << "Data inválida, deve seguir o modelo DD/MM/AAAA";
             enterParaContinuar();
@@ -126,11 +116,9 @@ bool dadosValidos(std::string &nome, std::string &cpf, std::string &senha, std::
 
     std::string aux;
     while(true) {
-        std::cout << "\nDigite -1 para cancelar o cadastro.\n";
         std::cout << "(M) Masculino\n(F) Feminino\nInforme seu sexo: ";
         getline(std::cin, aux);
         sexo = aux[0];
-        if(aux == "-1") return false;
         if(sexo != 'M' && sexo != 'F'){
             std::cout << "Sexo inválido, informe (F) ou (M)";
             enterParaContinuar();
@@ -141,10 +129,8 @@ bool dadosValidos(std::string &nome, std::string &cpf, std::string &senha, std::
     }
 
     while(true) {
-        std::cout << "\nDigite -1 para cancelar o cadastro.\n";
         std::cout << "Informe observações importantes sobre você (Ex: Alergias, Comorbidades): ";
         getline(std::cin, observacoes);
-        if(observacoes == "-1") return false;
         enterParaContinuar();
         break;
     }

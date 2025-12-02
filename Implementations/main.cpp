@@ -36,6 +36,18 @@ int main(){
                 char sexo;
                 Plano* plano = nullptr;
                 if(dadosValidos(nome, cpf, senha, telefone, dataDeNascimento, sexo, observacoes, plano, &clinica)){
+                    Paciente novoPaciente = Paciente(nome, cpf, senha, telefone, dataDeNascimento, sexo, observacoes, plano);
+                    novoPaciente.VizualizaDados();
+                    
+                    std::cout << "Voce realmente deseja se cadastrar?\n";
+                    std::cout << "\n1.: Sim\n2.: Nao\n";
+                    int confirmacao = lerInteiro("Digite o que deseja fazer: ", 1, 2);
+                    if(confirmacao == 2){
+                        std::cout << "Voltando para o menu\n";
+                        enterParaContinuar();
+                        continue;
+                    }
+
                     clinica.adicionarPaciente(std::make_unique<Paciente>(nome, cpf, senha, telefone, dataDeNascimento, sexo, observacoes, plano));
                     enterParaContinuar();
                     continue;
