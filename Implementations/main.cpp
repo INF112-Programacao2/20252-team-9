@@ -21,7 +21,7 @@ int main(){
     enterParaContinuar();
     while (true){
         exibirMenuInicial();
-        escolha = lerInteiro("Digite o que deseja fazer: ", 1, 4);
+        escolha = lerInteiro("Digite sua escolha: ", 1, 4);
 
         if(escolha == 1) {
             std::cout << "\n<===========>\n";
@@ -30,7 +30,7 @@ int main(){
             std::cout << "2 - Fazer login\n";
             std::cout << "3 - Voltar\n";
             std::cout << "\n<===========>\n";
-            int escolha = lerInteiro("Digite uma opção: ", 1, 3);
+            int escolha = lerInteiro("Digite sua escolha: ", 1, 3);
             if(escolha == 1){
                 std::string nome, cpf, senha, telefone, dataDeNascimento, observacoes;
                 char sexo;
@@ -41,7 +41,7 @@ int main(){
                     
                     std::cout << "Voce realmente deseja se cadastrar?\n";
                     std::cout << "\n1.: Sim\n2.: Nao\n";
-                    int confirmacao = lerInteiro("Digite o que deseja fazer: ", 1, 2);
+                    int confirmacao = lerInteiro("Digite sua escolha: ", 1, 2);
                     if(confirmacao == 2){
                         std::cout << "Voltando para o menu\n";
                         enterParaContinuar();
@@ -201,7 +201,7 @@ int main(){
 
             while(true){
                 exibirMenuMedico();
-                escolha = lerInteiro("Digite o que deseja fazer: ", 1, 5);
+                escolha = lerInteiro("Digite sua escolha: ", 1, 5);
 
                 if(escolha == 1){
                     medico->VizualizaDados();
@@ -283,7 +283,7 @@ int main(){
 
             while(true){
                 exibirMenuAtendente();
-                escolha = lerInteiro("Digite o que deseja fazer: ", 1, 9);
+                escolha = lerInteiro("Digite sua escolha: ", 1, 9);
 
                 if(escolha == 1){
                     atendente.VizualizaDados();
