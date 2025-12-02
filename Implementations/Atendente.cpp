@@ -231,11 +231,18 @@ void Atendente::CadastrarPaciente(Clinica* clinica){
         break;
     }
 
+    limparTela();
+
+    std::cout << "================================================\n";
+    std::cout << "                    CADASTRO                    \n";
+    std::cout << "================================================\n";
+
     int cont = 0;
     for(auto &plano : clinica->getPlanos()) {
         cont ++;
         std::cout << cont << ".: Nome: " << plano.get()->getNome() << " | Desconto(%): " << plano.get()->getDesconto()* 100 << "\n";
     }
+
 
     int escolha = lerInteiro("Digite sua escolha: ", 1, cont);
 
@@ -434,6 +441,7 @@ void Atendente::CriarServico(Clinica* clinica){
         std::getline(std::cin, nome);
         if(stringVazia(nome)){
             std::cout << "\nNome para criar servico invalido, nao pode ser vazio. Tente novamente\n";
+            enterParaContinuar();
             continue;
         }
         break;
