@@ -1,5 +1,6 @@
 #include "../Headers/Paciente.h"
 #include "../Headers/Utils.h"
+#include "../Headers/Utilsmain.h"
 #include "../Headers/Clinica.h"
 #include <string>
 #include <iostream>
@@ -9,17 +10,17 @@
 Paciente::Paciente(std::string nome, std::string cpf, std::string senha, std::string telefone, std::string dataDeNascimento, char sexo, std::string observacoes, Plano* plano)
     :Pessoa(nome, cpf, senha, telefone){
         if(!validaData(dataDeNascimento))
-            throw std::invalid_argument("Data de nascimento invalida\n");
+            throw std::invalid_argument("\nData de nascimento invalida\n");
         this->dataDeNascimento = dataDeNascimento;
 
         if(sexo != 'F' && sexo != 'M')
-            throw std::invalid_argument("Sexo invalido, deve ser fornecido apenas um caractere maisculo, M para homem ou F para mulher)");
+            throw std::invalid_argument("\nSexo invalido, deve ser fornecido apenas um caractere maisculo, M para masculino ou F para feminino\n");
         this->sexo = sexo;
 
         this->observacoes = observacoes;
 
         if(plano == nullptr)
-            throw std::invalid_argument("Ponteiro para plano nao pode ser vazio");
+            throw std::invalid_argument("\nPonteiro para plano nao pode ser vazio\n");
         this->plano = plano;
     }
 
@@ -35,19 +36,19 @@ std::vector<Agendamento*>& Paciente::getNotificacoes() {return notificacoes;}
 //Sets
 void Paciente::setObservacoes(std::string observacoes){
     if(stringVazia(observacoes))
-            throw std::invalid_argument("Observacao para paciente invalida, nao pode ser vazia");
+            throw std::invalid_argument("\nObservacao para paciente invalida, nao pode ser vazia\n");
     this->observacoes = observacoes;
 }
 
 void Paciente::setSexo(char sexo){
     if(sexo != 'F' && sexo != 'M')
-            throw std::invalid_argument("Sexo invalido, deve ser fornecido apenas um caractere maisculo, M para homem ou F para mulher)");
+            throw std::invalid_argument("\nSexo invalido, deve ser fornecido apenas um caractere maisculo, M para masculino ou F para feminino\n");
         this->sexo = sexo;
 }
 
 void Paciente::setPlano(Plano *plano){
     if(plano == nullptr)
-        throw std::invalid_argument("Ponteiro para plano nao pode ser vazio");
+        throw std::invalid_argument("\nPonteiro para plano nao pode ser vazio\n");
     this->plano = plano;
 }
         
@@ -58,17 +59,21 @@ void Paciente :: AlteraDados(Clinica* clinica){ //Abre um menu, em que o pacient
                             // ele deseja alterar, e o método chama o método set correspondente.
     
     //Impressão do menu:
-    std::cout <<"\n------------------Menu de Ajuste dos Dados------------------"<<std::endl;
-    std::cout <<std::endl;
-    std::cout << "1 - Nome\n";
-    std::cout << "2 - Senha\n";
-    std::cout << "3 - Telefone\n";
-    std::cout << "4 - Observacoes\n";
-    std::cout << "5 - Sexo\n";
-    std::cout << "6 - Plano de saude\n";
-    std::cout << "7 - Sair\n";
+    std::cout <<"========================================\n";
+    std::cout <<"                  DADOS                 \n";
+    std::cout <<"========================================\n";
+    std::cout << "1.: Nome\n";
+    std::cout << "2.: Senha\n";
+    std::cout << "3.: Telefone\n";
+    std::cout << "4.: Observacoes\n";
+    std::cout << "5.: Sexo\n";
+    std::cout << "6.: Plano de saude\n";
+    std::cout << "7.: Sair\n";
+    std::cout << "---------------------------------------\n";
     
-    int escolha = lerInteiro("Digite o numero de qual das opcoes voce deseja alterar:", 1, 7);
+    int escolha = lerInteiro("Digite sua escolha: ", 1, 7);
+
+    limparTela();
 
     //Switch case para a implementaão do menu
     switch (escolha)
@@ -78,10 +83,14 @@ void Paciente :: AlteraDados(Clinica* clinica){ //Abre um menu, em que o pacient
             std::string novoNome;
             
             while(true){
-                std::cout <<"Digite o novo nome do usuario:";
+
+                std::cout <<"========================================\n";
+                std::cout <<"                  DADOS                 \n";
+                std::cout <<"========================================\n";
+                std::cout <<"Digite o novo nome do usuario: ";
                 getline(std::cin, novoNome);
                 if(stringVazia(novoNome) || !somenteLetras(novoNome)){
-                    std::cout << "Nome nao pode ser vazio e deve conter somente letra. Tente novamente\n";
+                    std::cout << "\nNome nao pode ser vazio e deve conter somente letra. Tente novamente\n";
                     continue;
                 }
                 break;
@@ -89,10 +98,11 @@ void Paciente :: AlteraDados(Clinica* clinica){ //Abre um menu, em que o pacient
 
             try{
                 this->setNome(novoNome);
-                std::cout << "Nome alterado com sucesso.\n";
+                std::cout << "\nNome alterado com sucesso.\n";
                 break;
             }
             catch(std::invalid_argument &e) {
+                limparTela();
                 std::cout << e.what() << std::endl;
             }
             break;
@@ -100,24 +110,28 @@ void Paciente :: AlteraDados(Clinica* clinica){ //Abre um menu, em que o pacient
 
         case 2: //Mudança de senha
         {
-            std::cout <<"Para realizar a troca de senha, voce deve primeiro inserir a atual." <<std::endl;
-            std::cout <<"Voce possui 3 chances, caso nao se lembre ou nao acerte em nenhuma das 3 tentativas, procure a atendente da clinica para redefinir seua senha de login" <<std::endl;
+            std::cout <<"========================================\n";
+            std::cout <<"                  DADOS                 \n";
+            std::cout <<"========================================\n";
+            std::cout <<"Antes de alterar, digite a senha atual.\n";
+            std::cout <<"Voce possui 3 chances.\n";
+            std::cout << "Caso nao se lembre, procure a clinica \npara redefinir seua senha de login.\n";
             std::string senhaComparar;
             int tentativa=3;
             
             while(tentativa>0){
-                std::cout<<"Digite sua senha atual:";
+                std::cout<<"\nDigite sua senha atual: ";
                 while(true){
                     getline(std::cin, senhaComparar);
                     if(stringVazia(senhaComparar)){
-                        std::cout << "Senha invalida, nao pode ser vazia. Tente novamente\n";
+                        std::cout << "\nSenha invalida, nao pode ser vazia. Tente novamente\n";
                         continue;
                     }
                     break;
                 }
 
                 if(senhaComparar != this->senha){
-                    std::cout << "Senha incorreta. Tente novamente\n";
+                    std::cout << "\nSenha incorreta. Tente novamente!\n";
                     tentativa--;    
                 }
                 else
@@ -125,19 +139,29 @@ void Paciente :: AlteraDados(Clinica* clinica){ //Abre um menu, em que o pacient
             }
              
             if(tentativa == 0){
-                std::cout << "Infelizmente suas tentativas se esgotaram, tente novamente mais tarde";
+                limparTela();
+                std::cout <<"========================================\n";
+                std::cout <<"                  DADOS                 \n";
+                std::cout <<"========================================\n";
+                std::cout <<"Infelizmente suas tentativas esgotaram. \n Tente novamente mais tarde.";
                 break;
             }
 
-            std::cout << "Senha verificada corretamente\n";
+            std::cout << "\nSenha verificada corretamente\n";
+            enterParaContinuar();
 
             std::string novaSenha;
          
             while(true){
+                std::cout <<"========================================\n";
+                std::cout <<"                  DADOS                 \n";
+                std::cout <<"========================================\n";
                 std::cout << "Digite a nova senha: ";
+
                 getline(std::cin, novaSenha);
                 if(stringVazia(novaSenha)){
-                    std::cout << "Nova senha invalida, ela nao pode ser vazia. Tente novamente\n";
+                    std::cout << "\nNova senha invalida, ela nao pode ser vazia. Tente novamente\n";
+                    enterParaContinuar();
                     continue;
                 }
                 break;
@@ -145,7 +169,7 @@ void Paciente :: AlteraDados(Clinica* clinica){ //Abre um menu, em que o pacient
       
             try{
                 this->setSenha(novaSenha);
-                std::cout << "Senha alterada com sucesso\n";
+                std::cout << "\nSenha alterada com sucesso\n";
                 break;
             }
             catch(std::invalid_argument &e){
@@ -158,10 +182,14 @@ void Paciente :: AlteraDados(Clinica* clinica){ //Abre um menu, em que o pacient
         { 
             std::string novoTelefone;
             while(true){
-                std::cout << "Digite a nova numero de telefone: ";
+                std::cout <<"========================================\n";
+                std::cout <<"                  DADOS                 \n";
+                std::cout <<"========================================\n";
+                std::cout << "Digite o novo numero de telefone: ";
                 getline(std::cin, novoTelefone);
                 if(!validaTelefone(novoTelefone)){
-                    std::cout << "Numero de telefone invalido, deve seguir o formato (XX) XXXXX-XXXX ou (XX) XXXX-XXXX. Tente novamente\n";
+                    std::cout << "\nNumero de telefone invalido, deve seguir o formato (XX) XXXXX-XXXX ou (XX) XXXX-XXXX. Tente novamente\n";
+                    enterParaContinuar();
                     continue;
                 }
                 break;
@@ -170,7 +198,7 @@ void Paciente :: AlteraDados(Clinica* clinica){ //Abre um menu, em que o pacient
 
             try{
                 this->setTelefone(novoTelefone);
-                std::cout << "Telefone alterado com sucesso\n";
+                std::cout << "\nTelefone alterado com sucesso\n";
                 break;
             }
             catch(std::invalid_argument &e){
@@ -182,13 +210,18 @@ void Paciente :: AlteraDados(Clinica* clinica){ //Abre um menu, em que o pacient
         case 4: //Alterar as observações
         {
             std::string novaObservacao;
-            std::cout<<"Digite uma observacao que possa ser relevante aos mediscos(Ex: Alergias):" ;
+            std::cout<<"========================================\n";
+            std::cout<<"                  DADOS                 \n";
+            std::cout<<"========================================\n";
+            std::cout<<"Digite uma nova observacao.\n";
+            std::cout<<"Algo relevante aos medicos, ex: alergias.\n";
 
             while(true){
-                std::cout << "Digite a nova observacao do paciente: ";
+                std::cout << "\nDigite a nova observacao: ";
                 getline(std::cin, novaObservacao);
                 if(stringVazia(novaObservacao)){
-                    std::cout << "Observacao invalida, nao pode ser vazia. Tente novamente\n";
+                    std::cout << "\nObservacao invalida, nao pode ser vazia. Tente novamente\n";
+                    enterParaContinuar();
                     continue;
                 }
                 break;
@@ -196,7 +229,7 @@ void Paciente :: AlteraDados(Clinica* clinica){ //Abre um menu, em que o pacient
 
             try{
                 this->setObservacoes(novaObservacao);
-                std::cout << "Observacao alterada com sucesso.\n";
+                std::cout << "\nObservacao alterada com sucesso.\n";
                 break;
             }
             catch(std::invalid_argument &e){
@@ -207,11 +240,14 @@ void Paciente :: AlteraDados(Clinica* clinica){ //Abre um menu, em que o pacient
 
         case 5: //Altera Sexo
         {
-            std::cout <<"Opcoes de sexo:\n";
+            std::cout<<"========================================\n";
+            std::cout<<"                  DADOS                 \n";
+            std::cout<<"========================================\n";
+            std::cout <<"Opcoes:\n";
             std::cout << "1 - Feminino\n";
             std::cout << "2 - Masculino\n";
 
-            int entrada = lerInteiro("Digite a opcao do sexo que voce deseja: ", 1, 2);
+            int entrada = lerInteiro("\nDigite a sua escolha: ", 1, 2);
             char sexo = entrada == 1? 'F' : 'M';
 
             try{
@@ -221,31 +257,39 @@ void Paciente :: AlteraDados(Clinica* clinica){ //Abre um menu, em que o pacient
             catch(std::invalid_argument &e){
                 std::cout << e.what() << std::endl;
             }
-            std::cout<<"Alteracao bem sucedida.\n";
+            std::cout<<"\nAlteracao bem sucedida.\n";
+            enterParaContinuar();
             break;
         }
 
         case 6:// Mudança de plano de saúde
         {
+            std::cout<<"========================================\n";
+            std::cout<<"                  DADOS                 \n";
+            std::cout<<"========================================\n";
             std::cout << "Escolha o seu novo plano\n";
             const std::vector<std::unique_ptr<Plano>>& planos = clinica->getPlanos();
 
             if(planos.size() == 0){
-                std::cout << "A clinica ainda nao possui parceria com nenhum convenio. Tente novamente mais tarde\n";
+                std::cout << "\nA clinica ainda nao possui parceria com nenhum convenio. \nTente novamente mais tarde\n";
+                enterParaContinuar();
                 break;
             }
             
+            std::cout << std::endl;
             for(long unsigned int i=0; i<planos.size(); i++)
-                std::cout << i+1 << ". " << planos[i].get()->getNome() << std::endl;
+                std::cout << i+1 << ".: " << planos[i].get()->getNome() << std::endl;
+
+            std::cout << std::endl;
 
             int entrada = lerInteiro("Digite a opcao de plano desejada: ", 1, planos.size());
             Plano* plano = planos[entrada-1].get();
 
             try{
                 this->setPlano(plano);
-                std::cout << "Plano alterado com sucesso.";
+                std::cout << "\nPlano alterado com sucesso.\n";
                 break;
-;            }
+            }
             catch(std::invalid_argument &e){
                 std::cout << e.what() << std::endl;
             }
@@ -254,20 +298,21 @@ void Paciente :: AlteraDados(Clinica* clinica){ //Abre um menu, em que o pacient
 
         case 7:
         {   
-            std::cout<<"Saindo do menu de alteracoes."<<std::endl;
+            std::cout<<"\nSaindo do menu de alteracoes.\n"<<std::endl;
             break;
         }
     }
-
 }
 
 void Paciente :: VizualizaDados(){ // Sobreescrita do método da superclasse, além dos dados de pessoa
-                                   // imprime também data de nascimento, sexo, as observações e plano de saúde
+
+    // imprime também data de nascimento, sexo, as observações e plano de saúde
+    std::cout << std::endl;
     Pessoa::VizualizaDados();
     
-    std::cout << "Data de nascimento: " << this->dataDeNascimento << std::endl;
-    std::cout << "Observacoes: " << this->observacoes << std::endl;
-    std::cout << "Plano: " << plano->getNome() << std::endl; //Remoção da validação com nullptr,para diminuir a chance de bugs 
+    std::cout << " | Data de nascimento: " << this->dataDeNascimento << std::endl;
+    std::cout << " | Observacoes: " << this->observacoes << std::endl;
+    std::cout << " | Plano: " << plano->getNome() << std::endl << std::endl; //Remoção da validação com nullptr,para diminuir a chance de bugs 
                                                              //porque vamos ter um objeto "Nenhum" com desconto=0 
                                                              //para os clientes sem plano.
     
@@ -276,7 +321,9 @@ void Paciente :: VizualizaDados(){ // Sobreescrita do método da superclasse, al
                                     
 //Impressão dos agendamentos do paciente
 void Paciente::VizualizaAgendamentos(Clinica *clinica){ 
-    std::cout << "\n<==========MEUS AGENDAMENTOS==========>\n" << std::endl;
+    std::cout<<"========================================\n";
+    std::cout<<"              AGENDAMENTOS              \n";
+    std::cout<<"========================================\n\n";
     
     bool encontrou = false;
     const std::vector<std::unique_ptr<Agendamento>>& agendamentos = clinica->getAgendamentos();
@@ -297,39 +344,48 @@ void Paciente::VizualizaAgendamentos(Clinica *clinica){
 
 //Agenda
 void Paciente::Agendar(Clinica *clinica){
-    std::cout << "<====================\n";
-    std::cout << "Vamos comecar o agendamento:\n";
-    std::cout << "Primeiro escolha qual servico voce deseja agendar:\n";
+    std::cout<<"========================================\n";
+    std::cout<<"              AGENDAMENTO               \n";
+    std::cout<<"========================================\n\n";
+    std::cout << "Servicos:\n\n";
 
     const std::vector<std::unique_ptr<Servico>>& servicos = clinica->getServicos();
 
     if(servicos.empty()){
-        std::cout << "Infelizmente ainda nao ofertamnos nenhum servico na clinica. Tente novamente depois\n";
+        std::cout << "\nInfelizmente ainda nao ofertamnos nenhum servico na clinica. Tente novamente depois\n";
         return;
     }
 
     for(long unsigned int i=0; i<servicos.size(); i++){
-        std::cout << i+1 << ". " << servicos[i].get()->getNome() << std::endl;
+        std::cout << i+1 << ".: " << servicos[i].get()->getNome() << std::endl;
     }
-    int escolhaServico = lerInteiro("Digite o numero do servico: ", 1, servicos.size());
 
-    std::cout << "Agora escolha o medico:\n";
+    int escolhaServico = lerInteiro("\nDigite a sua escolha: ", 1, servicos.size());
+
+    limparTela();
+
+    std::cout<<"========================================\n";
+    std::cout<<"              AGENDAMENTO               \n";
+    std::cout<<"========================================\n\n";
+
+
+    std::cout << "Escolha o medico:\n\n";
     int indexVisual = 1;
     std::vector<int> indexMedicosValidos;
     const std::vector<std::unique_ptr<Medico>>& medicos = clinica->getMedicos();
     for(long unsigned int i=0; i<medicos.size(); i++){
-        if(servicos[escolhaServico].get()->getOcupacaoRequerida() == medicos[i].get()->getOcupacao()){
-            std::cout << indexVisual << ". Dr(a) " << medicos[i].get()->getNome() << std::endl;
+        if(servicos[escolhaServico-1].get()->getOcupacaoRequerida() == medicos[i].get()->getOcupacao()){
+            std::cout << indexVisual << ".: Dr(a) " << medicos[i].get()->getNome() << std::endl;
             indexMedicosValidos.push_back(i);
             indexVisual++;
         }
     }   
 
     if(indexMedicosValidos.empty()){
-        std::cout << "Infelizmente nao ha nenhum medico no momento que realiza esse servico. Tente novamente depois\n";
+        std::cout << "\nInfelizmente nao ha nenhum medico no momento que realiza esse servico. Tente novamente depois\n";
         return;
     }
-    int escolhaMedico = lerInteiro("Digite o numero do medico: ", 1, indexMedicosValidos.size());
+    int escolhaMedico = lerInteiro("\nDigite a sua escolha: ", 1, indexMedicosValidos.size());
 
     Servico* servico = servicos[escolhaServico-1].get();
     Medico* medico = medicos[indexMedicosValidos[escolhaMedico-1]].get();
@@ -337,34 +393,47 @@ void Paciente::Agendar(Clinica *clinica){
     std::string data;
     std::vector<std::string> horarios;
 
+    limparTela();
+
+    std::cout<<"========================================\n";
+    std::cout<<"              AGENDAMENTO               \n";
+    std::cout<<"========================================\n\n";
+
     while(true){
-        std::cout << "Digite uma data para o agendamento: ";
+        std::cout << "\nDigite uma data para o agendamento: ";
         getline(std::cin, data);
         if(!validaData(data)){
-            std::cout << "Data de agendamento invalida, deve seguir o modelo XX/XX/XXXX\n";
+            std::cout << "\nData de agendamento invalida, deve seguir o modelo XX/XX/XXXX\n";
             continue;
         }
 
         if(comparaData(data, Agendamento::getDateReference()) == -1){
-            std::cout << "Voce nao pode agendar em uma data do passado\n";
+            std::cout << "\nVoce nao pode agendar em uma data do passado\n";
             continue;
         }
 
         horarios = buscaHorarioValido(data, clinica, servico->getDuracao(), medico->getCrm());
 
         if(horarios.empty()){
-            std::cout << "Nao ha nenhum horario disponivel nessa data. Tente novamente\n";
+            std::cout << "\n Nao ha nenhum horario disponivel nessa data. Tente novamente\n";
+            enterParaContinuar();
             continue;
         }
         break;
     }
+
+    limparTela();
+
+    std::cout<<"========================================\n";
+    std::cout<<"              AGENDAMENTO               \n";
+    std::cout<<"========================================\n\n";
 
     //Imprime horarios disponíveis
     std::cout << "Horarios disponiveis\n";
     for(long unsigned int i=0; i<horarios.size(); i++)
         std::cout << i+1 << ". " << horarios[i] << std::endl;
 
-    int escolhaHorario = lerInteiro("Digite o horario desejado: ", 1, horarios.size());
+    int escolhaHorario = lerInteiro("\nDigite a sua escolha: ", 1, horarios.size());
     
 
     try{
@@ -373,6 +442,10 @@ void Paciente::Agendar(Clinica *clinica){
         medico->setSaldo(medico->getSaldo() + servico->getValor()* 0.6);
         clinica->setSaldo(clinica->getSaldo() + servico->getValor() * 0.4);
 
+        limparTela();
+        std::cout<<"========================================\n";
+        std::cout<<"              AGENDAMENTO               \n";
+        std::cout<<"========================================\n\n";
         std::cout << "Agendamento realizado com sucesso.\n";
     }
     catch(std::invalid_argument &e){
@@ -382,7 +455,9 @@ void Paciente::Agendar(Clinica *clinica){
 
 //Cancelar agendamento
 void Paciente::CancelarAgendamento(Clinica *clinica){
-   std::cout << "\n<==========AGENDAMENTOS PENDENTES==========>\n" << std::endl;
+    std::cout<<"========================================\n";
+    std::cout<<"         AGENDAMENTOS PENDENTES         \n";
+    std::cout<<"========================================\n\n";
 
     const std::vector<std::unique_ptr<Agendamento>>& agendamentos = clinica->getAgendamentos();
     int indexVisual=1;
@@ -402,21 +477,23 @@ void Paciente::CancelarAgendamento(Clinica *clinica){
         return;
     }
 
-    std::cout << indexVisual << ".: Voltar\n";
+    std::cout << indexVisual << ".: Voltar\n\n";
 
-    std::cout << "\n<====================>\n";
-    int escolha = lerInteiro("Digite o numero do agendamento que deseja excluir: ", 1, indexVisual);
+    int escolha = lerInteiro("Digite a sua escolha: ", 1, indexVisual);
 
     if(escolha == indexVisual){
-        std::cout << "Voltando ao menur anterior\n";
+        std::cout << "\nVoltando ao menur anterior\n";
+        enterParaContinuar();
         return;
     }
+
+    limparTela();
 
     //Acha e exclui o agaendamento escolhido
     try{
         Agendamento* ptr = agendamentos[agendamentosValidos[escolha-1]].get();
         clinica->removerAgendamento(ptr);
-        std::cout << "Agendamento excluido com sucesso\n";
+        std::cout << "\nAgendamento excluido com sucesso\n";
     }
     catch(std::invalid_argument &e){
         std::cout << e.what() << std::endl;
@@ -425,20 +502,23 @@ void Paciente::CancelarAgendamento(Clinica *clinica){
 
 //Checar notificacoes
 void Paciente::checarNotificacoes(Clinica* clinica){
+    std::cout<<"========================================\n";
+    std::cout<<"              NOTIFICAÇÕES              \n";
+    std::cout<<"========================================\n\n";
+
     if(notificacoes.empty()){
         std::cout << "Voce nao tem nenhuma notificacao ainda\n";
         return;
     }
 
-    std::cout << "\n<==========AGENDAMENTOS A CONFIRMAR==========>\n";
     for(unsigned int i=0; i<notificacoes.size(); i++){
-        std::cout << i+1 << ". ";
+        std::cout << i+1 << ".: ";
         notificacoes[i]->imprimirResumido();
     }
 
-    int escolhaAgendamento = lerInteiro("Digite a notificacao que deseja tratar: ", 1, notificacoes.size());
-    std::cout << "Voce deseja confirmar ou cancelar esse agendamento?\n1.Confirmar\n2.Cancelar\n";
-    int escolhaOpcao = lerInteiro("Digite a escolha que voce deseja: ", 1, 2);
+    int escolhaAgendamento = lerInteiro("Digite a notificacao que deseja alterar: ", 1, notificacoes.size());
+    std::cout << "\nVoce deseja confirmar ou cancelar esse agendamento?\n1.Confirmar\n2.Cancelar\n";
+    int escolhaOpcao = lerInteiro("Digite a sua escolha: ", 1, 2);
     
     try{
         if(escolhaOpcao == 1){
@@ -452,12 +532,12 @@ void Paciente::checarNotificacoes(Clinica* clinica){
         medico->setSaldo(medico->getSaldo() + servico->getValor()*0.6);
         clinica->setSaldo(clinica->getSaldo() + servico->getValor()*0.4);
 
-        std::cout << "Agendamento realizado com sucesso\n";
+        std::cout << "\nAgendamento realizado com sucesso\n";
     }
     else{
         delete notificacoes[escolhaAgendamento-1];
         notificacoes.erase(notificacoes.begin()+escolhaAgendamento-1);
-        std::cout << "Agendamento cancelado com sucesso\n";
+        std::cout << "\nAgendamento cancelado com sucesso\n";
     }
     }catch(std::exception &e){
         std::cout << e.what() << std::endl;
