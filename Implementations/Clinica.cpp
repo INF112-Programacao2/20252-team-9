@@ -337,6 +337,11 @@ void Clinica::popularClinica(std::string arquivo){
 
         //Armazenamento no vetor da clínica
         try{
+            if(comparaData(data, Agendamento::getDateReference()) == -1){
+                medico->setSaldo(medico->getSaldo() + servico->getValor()* 0.6);
+                this->setSaldo(this->getSaldo() + servico->getValor() * 0.4);
+            }
+
             this->adicionarAgendamento(std::make_unique<Agendamento>(data, horario, paciente, medico, servico));
         }
         catch(std::invalid_argument &e){
