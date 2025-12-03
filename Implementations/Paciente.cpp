@@ -524,7 +524,7 @@ void Paciente::checarNotificacoes(Clinica* clinica){
         notificacoes[i]->imprimirResumido();
     }
 
-    int escolhaAgendamento = lerInteiro("Digite a notificacao que deseja alterar: ", 1, notificacoes.size());
+    int escolhaAgendamento = lerInteiro("\nDigite sua escolha: ", 1, notificacoes.size());
     std::cout << "\nVoce deseja confirmar ou cancelar esse agendamento?\n1.Confirmar\n2.Cancelar\n";
     int escolhaOpcao = lerInteiro("Digite a sua escolha: ", 1, 2);
     

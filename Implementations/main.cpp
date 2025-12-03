@@ -412,7 +412,7 @@ int main(){
                     continue;
                 }
                 else if(escolha == 18){
-                    std::cout << "\nFunção ainda nao implementada\n";
+                    atendente.removerServico(&clinica);
                     enterParaContinuar();
                     continue;
                 }

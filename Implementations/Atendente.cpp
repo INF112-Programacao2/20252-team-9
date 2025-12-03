@@ -947,8 +947,8 @@ void Atendente::agendarParaPaciente(Clinica* clinica){
     try{
         Agendamento* agendamento = new Agendamento(data, horarios[escolhaHorario-1], paciente , medico, servico);
         
-        for(auto &a : clinica->getAgendamentos()){
-            if(a->getPaciente()->getCpf() == agendamento->getPaciente()->getCpf() && a->getMedico()->getCpf() == agendamento->getMedico()->getCpf() && a->getData() == agendamento->getData() && a->getHorario() == agendamento->getHorario() && a->getServico()->getId() == a->getServico()->getId()){
+        for(auto &a : paciente->getNotificacoes()){
+            if(a->getPaciente()->getCpf() == agendamento->getPaciente()->getCpf() && a->getMedico()->getCpf() == agendamento->getMedico()->getCpf() && a->getData() == agendamento->getData() && a->getHorario() == agendamento->getHorario() && a->getServico()->getId() == agendamento->getServico()->getId()){
                 std::cout << "\nErro! Essa solicitação já foi realizada.\n";
                 return;
             }
@@ -985,6 +985,7 @@ void Atendente::agendarParaPaciente(Clinica* clinica){
 }
 
 void Atendente::visualizarMedicos(Clinica* clinica) {
+    limparTela();
     std::cout << "\nAqui está a lista com os detalhes de todos os médicos:\n";
     for(long unsigned int i = 0; i<clinica->getMedicos().size(); i++){
         clinica->getMedicos()[i].get()->VisualizaDados();
@@ -992,6 +993,7 @@ void Atendente::visualizarMedicos(Clinica* clinica) {
 }
 
 void Atendente::visualizarPacientes(Clinica* clinica){
+    limparTela();
     std::cout << "\nAqui está a lista com os detalhes de todos os pacientes:\n";
     for(long unsigned int i = 0; i < clinica->getPacientes().size(); i++)
         clinica->getPacientes()[i].get()->VisualizaDados();

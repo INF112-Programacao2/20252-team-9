@@ -195,32 +195,6 @@ void exibirMenuAtendente(){
     std::cout << "------------------------------------------------\n";
 }
 
-//Visualizar dados pessoais
-//Visualisar Agendamentos
-//Visualizar pacientes
-//Visualizar medicos
-//Visualizar servicos
-//Visualizar planos
-//Marcar agendamento para paciente
-//Cadastrar Novo Paciente
-//Cadastrar Novo Medico
-//Cadastrar novo servico
-//Cadastrar novo plano
-//Alterar dados atendente
-//Alterar agendamento
-//Alterar paciente
-//Alterar Médico
-//Alterar servico
-//Alterar plano
-//Remover  Agendamento
-//Remover paciente
-//Remover medico
-//Remover servico
-//Remover plano
-//Sair
-
-
-
 void enterParaContinuar(){
     std::string enter;
     std::cout << "\nDigite enter para continuar\n";
