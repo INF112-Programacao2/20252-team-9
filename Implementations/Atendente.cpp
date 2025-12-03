@@ -32,7 +32,6 @@ void Atendente::ConsultaSaldoDaClinica(Clinica* clinica){
     std::cout << "\n | Saldo da Clínica (R$): " << std::fixed << std::setprecision(2) << clinica->getSaldo() << "\n";
 }
 
-
 //Metodos
 
 void Atendente::VisualizaDados(){
@@ -41,7 +40,6 @@ void Atendente::VisualizaDados(){
 
     std::cout << " | Matrícula: " << this->getMatricula() << "\n";
 }
-
 
 void Atendente::alterarDados(Clinica* clinica){
     while(true){
@@ -1167,7 +1165,6 @@ void Atendente::cadastrarServico(Clinica* clinica){
     }
 
 }
-<<<<<<< HEAD
 
 void Atendente::exibirHistoricoTransacoes(Clinica* clinica){
     limparTela();
@@ -1180,5 +1177,12 @@ void Atendente::exibirHistoricoTransacoes(Clinica* clinica){
         std::cout << historico[i] << std::endl;
     }
 }
-=======
->>>>>>> 750bf1af6872c78ea49b4a73465ac6971db612de
+
+void Atendente::alterarPlano(Clinica* clinica){
+    limparTela();
+
+    std::cout << "================================================\n";
+    std::cout << "                   PLANOS                       \n";
+    std::cout << "================================================\n";
+
+}
