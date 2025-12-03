@@ -392,7 +392,7 @@ int main(){
                     continue;
                 }
                 else if(escolha == 16){
-                    std::cout << "\nFunção ainda nao implementada\n";
+                    atendente.AlterarServico(&clinica);
                     enterParaContinuar();
                     continue;
                 }

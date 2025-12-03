@@ -66,7 +66,7 @@ void Servico::setOcupacaoRequerida(std::string ocupacaoRequerida){
 //Metodos
 
 void Servico::visualizarDados(){
-    std::cout << " | Nome: " << this->getNome() << " | ";
+    std::cout << " | Nome: " << this->getNome();
     std::cout << " | ID: " << this->getId() << std::endl;
     std::cout << " | Valor(R$): " << this->getValor() << std::endl;
     std::cout << " | Duração(min): " << this->getDuracao() << std::endl;

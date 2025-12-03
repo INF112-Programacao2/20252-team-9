@@ -642,66 +642,6 @@ void Atendente::DesligarMedico(Clinica* clinica){
     }
 }
 
-void Atendente::CriarServico(Clinica* clinica){
-    limparTela();
-
-    std::string nome, ocupacaoRequerida;
-    double valor;
-    int duracao;
-    
-    while(true){
-        std::cout << "================================================\n";
-        std::cout << "                    CADASTRO                    \n";
-        std::cout << "================================================\n";
-        std::cout << "Nome do servico: ";
-        std::getline(std::cin, nome);
-        if(stringVazia(nome)){
-            std::cout << "\nNome para criar servico invalido, nao pode ser vazio. Tente novamente\n";
-            enterParaContinuar();
-            continue;
-        }
-        break;
-    }
-
-    limparTela();
-
-    std::cout << "================================================\n";
-    std::cout << "                    CADASTRO                    \n";
-    std::cout << "================================================\n";
-
-    valor = lerDouble("Valor(R$): ", 0, 1000000000);
-    duracao = lerInteiro("Duracao(min): ", 1, 1000000000);
-
-    limparTela();
-
-    while(true){
-        std::cout << "================================================\n";
-        std::cout << "                    CADASTRO                    \n";
-        std::cout << "================================================\n";
-        std::cout << "Ocupacao requerida: ";
-        std::getline(std::cin, ocupacaoRequerida);
-        if(stringVazia(ocupacaoRequerida)){
-            std::cout << "\nOcupacao requerida para criar servico invalida, nao pode ser vazia. Tente novamente\n";
-            enterParaContinuar();
-            continue;
-        }
-        break;
-    }
-
-    limparTela();
-
-    try{
-        Servico servico = Servico(nome, valor, duracao, ocupacaoRequerida);
-        std::cout << "Dados no serviço:\n\n";
-        servico.visualizarDados(); 
-
-        clinica->adicionarServico(std::make_unique<Servico>(servico));
-        std::cout << "\nServiço cadastrado com sucesso!\n";
-    }catch(std::invalid_argument &e){
-        std::cout << e.what() << std::endl;
-    }
-}
-
 void Atendente::AlterarServico(Clinica *clinica){
     limparTela();
 
@@ -1184,12 +1124,16 @@ void Atendente::cadastrarServico(Clinica* clinica){
         std::cout << "                  NOVO SERVICO                  \n";
         std::cout << "================================================\n";
 
-        std::cout << "Duraçao do serviço: ";
+        std::cout << "Duraçao do serviço(min): ";
         std::cin >> duracao;
         std::cin.ignore(100000, '\n');  //Limpa buffer
 
         if(duracao <= 0){
             std::cout << "\nA duração do servico não pode ser menor que 0. Tente novamente\n";
+            enterParaContinuar();
+            continue;
+        }else if(duracao > 600){
+            std::cout << "\nA duração do servico não pode ser maior que o expediente da clinica. Tente novamente\n";
             enterParaContinuar();
             continue;
         }
@@ -1205,20 +1149,25 @@ void Atendente::cadastrarServico(Clinica* clinica){
         std::cout << "                  NOVO SERVICO                  \n";
         std::cout << "================================================\n";
 
-        valor = lerDouble("Valor do servico: ", 0.0, 1000000000.00);
+        valor = lerDouble("Valor do servico(R$): ", 0.0, 1000000000.00);
 
         break;
     }
 
     try{
-        clinica->adicionarServico(std::make_unique<Servico>(nome, valor, duracao, ocupacaoRequerida));
-        std::cout << "\nServico adicionado com sucesso!\n";
+        Servico servico = Servico(nome, valor, duracao, ocupacaoRequerida);
+        std::cout << "Dados no serviço:\n\n";
+        servico.visualizarDados(); 
+
+        clinica->adicionarServico(std::make_unique<Servico>(servico));
+        std::cout << "\nServiço cadastrado com sucesso!\n";
     }
     catch(std::invalid_argument &e){
         std::cout << e.what() << std::endl;
     }
 
 }
+<<<<<<< HEAD
 
 void Atendente::exibirHistoricoTransacoes(Clinica* clinica){
     limparTela();
@@ -1231,3 +1180,5 @@ void Atendente::exibirHistoricoTransacoes(Clinica* clinica){
         std::cout << historico[i] << std::endl;
     }
 }
+=======
+>>>>>>> 750bf1af6872c78ea49b4a73465ac6971db612de
