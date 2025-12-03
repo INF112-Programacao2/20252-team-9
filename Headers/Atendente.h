@@ -42,6 +42,7 @@ class Atendente : public Pessoa{
         void removerPlano(Clinica* clinica);
         void adicionarPlanos(Clinica* clinica);
         void visulizarServicos(Clinica* clinica);
+        void cadastrarServico(Clinica* clinica);
 };
 
 #endif // PROJETO_FINAL_INF_112_ATENDENTE

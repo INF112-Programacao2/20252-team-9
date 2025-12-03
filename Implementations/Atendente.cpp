@@ -1116,3 +1116,106 @@ void Atendente::visulizarServicos(Clinica* clinica){
         std::cout << std::endl;
     }
 }
+
+void Atendente::cadastrarServico(Clinica* clinica){
+
+    std::string nome, ocupacaoRequerida;
+    int duracao;
+    double valor;
+
+    limparTela();
+
+    while(true){
+
+        std::cout << "================================================\n";
+        std::cout << "                  NOVO SERVICO                  \n";
+        std::cout << "================================================\n";
+
+        std::cout << "Nome do servico: ";
+        std::getline(std::cin, nome);
+        if(stringVazia(nome) || !somenteLetras(nome)){
+            std::cout << "\nNome para criar servico invalido. Tente novamente\n";
+            enterParaContinuar();
+            continue;
+        }
+
+        bool jaRegistrado = false;
+
+        for(long unsigned int i = 0; i < clinica->getServicos().size(); i++){
+            if(clinica->getServicos()[i]->getNome() == nome){
+                std::cout <<"\nEsse serviço já foi registrado. Tente novamente\n";
+                jaRegistrado = true;
+
+                enterParaContinuar();
+
+                break;
+            }
+        }
+
+        if(jaRegistrado) continue;
+
+        break;
+    }
+
+    limparTela();
+
+    while(true){
+
+        std::cout << "================================================\n";
+        std::cout << "                  NOVO SERVICO                  \n";
+        std::cout << "================================================\n";
+
+        std::cout << "Ocupacao requerida para realizar o serviço: ";
+        std::getline(std::cin, ocupacaoRequerida);
+        if(stringVazia(ocupacaoRequerida) || !somenteLetras(ocupacaoRequerida)){
+            std::cout << "\nOucapacao requerida inválida. Tente novamente\n";
+            enterParaContinuar();
+            continue;
+        }
+
+        break;
+    }   
+
+    limparTela();
+
+    while(true){
+
+        std::cout << "================================================\n";
+        std::cout << "                  NOVO SERVICO                  \n";
+        std::cout << "================================================\n";
+
+        std::cout << "Duraçao do serviço: ";
+        std::cin >> duracao;
+        std::cin.ignore(100000, '\n');  //Limpa buffer
+
+        if(duracao <= 0){
+            std::cout << "\nA duração do servico não pode ser menor que 0. Tente novamente\n";
+            enterParaContinuar();
+            continue;
+        }
+
+        break;
+    }
+
+    limparTela();
+
+    while(true){
+
+        std::cout << "================================================\n";
+        std::cout << "                  NOVO SERVICO                  \n";
+        std::cout << "================================================\n";
+
+        valor = lerDouble("Valor do servico: ", 0.0, 1000000000.00);
+
+        break;
+    }
+
+    try{
+        clinica->adicionarServico(std::make_unique<Servico>(nome, valor, duracao, ocupacaoRequerida));
+        std::cout << "\nServico adicionado com sucesso!\n";
+    }
+    catch(std::invalid_argument &e){
+        std::cout << e.what() << std::endl;
+    }
+
+}

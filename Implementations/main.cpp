@@ -362,7 +362,7 @@ int main(){
                     continue;
                 }
                 else if(escolha == 10){
-                    std::cout << "\nFunção ainda nao implementada\n";
+                    atendente.cadastrarServico(&clinica);
                     enterParaContinuar();
                     continue;
                 }   
