@@ -265,7 +265,7 @@ void Atendente::VisualizaAgendamentos(Clinica* clinica){
         std::cout << "                      MENU                      \n";
         std::cout << "================================================\n";
 
-        std::cout << "\nVocê deseja visualizar os agendamentos de: \n1.: Filtrar por Medico \n2.: Filtrar por Paciente\n3.: Todos agendamentos\n4.: Voltar\n";
+        std::cout << "\nVocê deseja visualizar os agendamentos: \n1.: Filtrados por Medico \n2.: Filtrados por Paciente\n3.: Todos agendamentos\n4.: Voltar\n";
         n = lerInteiro("Digite sua escolha: ", 1, 4);
 
         if(n == 1){
@@ -359,6 +359,20 @@ void Atendente::CadastrarPaciente(Clinica* clinica){
             enterParaContinuar();
             continue;
         }
+
+        bool duplicada = false;
+
+        for(long unsigned int i = 0; i < clinica->getPacientes().size(); i++){
+            if(clinica->getPacientes()[i]->getCpf() == cpf){
+                std::cout << "\nEssa pessoa já está registrada no sistema. Tente novamente\n";
+                duplicada = true;
+                enterParaContinuar();
+                break;
+            }
+        }
+
+        if(duplicada) continue;
+
         break;
     }
 
@@ -499,6 +513,21 @@ void Atendente::CadastrarMedico(Clinica* clinica) {
             enterParaContinuar();
             continue;
         }
+
+        bool duplicado = false;
+
+        for(long unsigned int i = 0; i < clinica->getMedicos().size(); i++){
+            if(clinica->getMedicos()[i]->getCpf() == cpf){
+                std::cout << "\nCPF invalido, este cpf já está cadastrado no sistema. Tente novamente\n";
+                duplicado = true;
+                enterParaContinuar();
+                break;
+            }
+        }
+
+        if(duplicado){
+            continue;
+        }
         break;
     }
 
@@ -547,6 +576,22 @@ void Atendente::CadastrarMedico(Clinica* clinica) {
             enterParaContinuar();
             continue;
         }
+
+        bool duplicado = false;
+
+        for(long unsigned int i = 0; i < clinica->getMedicos().size(); i++){
+            if(clinica->getMedicos()[i]->getCrm() == crm){
+                std::cout << "\nCRM invalido, este crm já está cadastrado no sistema. Tente novamente\n";
+                duplicado = true;
+                enterParaContinuar();
+                break;
+            }
+        }
+
+        if(duplicado){
+            continue;
+        }
+
         break;
     }
 
@@ -901,6 +946,24 @@ void Atendente::agendarParaPaciente(Clinica* clinica){
     //Cria e adiciona o agendamento em si no vetor notificacoes do paciente
     try{
         Agendamento* agendamento = new Agendamento(data, horarios[escolhaHorario-1], paciente , medico, servico);
+        
+        for(auto &a : clinica->getAgendamentos()){
+            if(a->getPaciente()->getCpf() == agendamento->getPaciente()->getCpf() && a->getMedico()->getCpf() == agendamento->getMedico()->getCpf() && a->getData() == agendamento->getData() && a->getHorario() == agendamento->getHorario() && a->getServico()->getId() == a->getServico()->getId()){
+                std::cout << "\nErro! Essa solicitação já foi realizada.\n";
+                return;
+            }
+
+            if(a->getPaciente()->getCpf() == agendamento->getPaciente()->getCpf() && a->getData() == agendamento->getData() && a->getHorario() == agendamento->getHorario()){
+                std::cout << "\nErro! O paciente já possui um agendamento nessa data e horário.\n";
+                return;
+            }
+
+            if(a->getMedico()->getCpf() == agendamento->getMedico()->getCpf() && a->getData() == agendamento->getData() && a->getHorario() == agendamento->getHorario()){
+                std::cout << "\nErro! O médico já possui um agendamento nessa data e horário.\n";
+                return;
+            }
+        }
+
         std::cout << "\nVoce realmente deseja adicioar o agendamento: \n";
         agendamento->imprimirDetalhado();
         std::cout << "1.: Sim\n2.: Nao\n\n";
@@ -939,11 +1002,10 @@ void Atendente::visualizarPlanos(Clinica *clinica){
     std::cout << "================================================\n";
     std::cout << "                      PLANOS                    \n";
     std::cout << "================================================\n";
-    int cont = 0;
+
     for(auto &plano : clinica->getPlanos()){
-        cont++;
         if(plano.get()->getNome() == "Nenhum") continue;
-        std::cout << cont-1 << ".: ";
+        std::cout << " | ";
         plano.get()->visualizarDados();
     }
 
@@ -1018,6 +1080,18 @@ void Atendente::adicionarPlanos(Clinica* clinica){
             enterParaContinuar();
             continue;
         }
+
+        bool duplicado = false;
+        for(long unsigned int i = 0; i < clinica->getPlanos().size(); i++){
+            if(nome == clinica->getPlanos()[i]->getNome()){
+                std::cout << "\nJá existe um plano com o mesmo nome registrado no sistema. Tente outro nome.\n";
+                duplicado = true;
+                enterParaContinuar();
+                continue;
+            }
+        }
+        if(duplicado) continue;
+
         break;
     }
 

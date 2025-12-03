@@ -324,7 +324,7 @@ int main(){
 
             while(true){
                 exibirMenuAtendente();
-                escolha = lerInteiro("Digite sua escolha: ", 1, 23);
+                escolha = lerInteiro("Digite sua escolha: ", 1, 22);
 
                 if(escolha == 1){
                     atendente.VisualizaDados();
@@ -387,17 +387,17 @@ int main(){
                     continue;
                 }
                 else if(escolha == 13){
-                    std::cout << "\nFunção ainda nao implementada\n";
-                    enterParaContinuar();
-                    continue;
-                }
-                else if(escolha == 14){
                     atendente.AlterarServico(&clinica);
                     enterParaContinuar();
                     continue;
                 }
-                else if(escolha == 15){
+                else if(escolha == 14){
                     atendente.alterarPlano(&clinica);
+                    enterParaContinuar();
+                    continue;
+                }
+                else if(escolha == 15){
+                    std::cout << "\nFunção ainda nao implementada\n";
                     enterParaContinuar();
                     continue;
                 }
@@ -407,36 +407,31 @@ int main(){
                     continue;
                 }
                 else if(escolha == 17){
-                    std::cout << "\nFunção ainda nao implementada\n";
-                    enterParaContinuar();
-                    continue;
-                }
-                else if(escolha == 18){
                     atendente.DesligarMedico(&clinica);
                     enterParaContinuar();
                     continue;
                 }
-                else if(escolha == 19){
+                else if(escolha == 18){
                     std::cout << "\nFunção ainda nao implementada\n";
                     enterParaContinuar();
                     continue;
                 }
-                else if(escolha == 20){
+                else if(escolha == 19){
                     atendente.removerPlano(&clinica);
                     enterParaContinuar();
                     continue;
                 }
-                else if(escolha == 21){
+                else if(escolha == 20){
                     atendente.ConsultaSaldoDaClinica(&clinica);
                     enterParaContinuar();
                     continue;
                 }
-                else if(escolha == 22){
+                else if(escolha == 21){
                     atendente.exibirHistoricoTransacoes(&clinica);
                     enterParaContinuar();
                     continue;
                 }
-                else if(escolha == 23){
+                else if(escolha == 22){
                     limparTela();
                     break;
                 }
