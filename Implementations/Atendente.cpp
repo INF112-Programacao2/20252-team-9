@@ -265,7 +265,7 @@ void Atendente::VisualizaAgendamentos(Clinica* clinica){
         std::cout << "                      MENU                      \n";
         std::cout << "================================================\n";
 
-        std::cout << "\nVocê deseja visualizar os agendamentos de: \n1.: Filtrar por Medico \n2.: Filtrar por Paciente\n3.: Todos agendamentos\n4.: Voltar\n";
+        std::cout << "\nVocê deseja visualizar os agendamentos: \n1.: Filtrados por Medico \n2.: Filtrados por Paciente\n3.: Todos agendamentos\n4.: Voltar\n";
         n = lerInteiro("Digite sua escolha: ", 1, 4);
 
         if(n == 1){
@@ -939,11 +939,10 @@ void Atendente::visualizarPlanos(Clinica *clinica){
     std::cout << "================================================\n";
     std::cout << "                      PLANOS                    \n";
     std::cout << "================================================\n";
-    int cont = 0;
+
     for(auto &plano : clinica->getPlanos()){
-        cont++;
         if(plano.get()->getNome() == "Nenhum") continue;
-        std::cout << cont-1 << ".: ";
+        std::cout << " | ";
         plano.get()->visualizarDados();
     }
 

@@ -180,17 +180,16 @@ void exibirMenuAtendente(){
     std::cout << " 10.: Cadastrar Novo Serviço\n";
     std::cout << " 11.: Cadastrar Novo Plano\n";
     std::cout << " 12.: Alterar Cadastros\n";
-    std::cout << " 13.: Alterar Agendamento\n";
-    std::cout << " 14.: Alterar Servico\n";
-    std::cout << " 15.: Alterar Plano\n";
-    std::cout << " 16.: Remover Agendamento\n";
-    std::cout << " 17.: Remover Paciente\n";
-    std::cout << " 18.: Remover Médico\n";
-    std::cout << " 19.: Remover Serviço\n";
-    std::cout << " 20.: Remover Plano\n";
-    std::cout << " 21.: Consultar Saldo da Clínica\n";
-    std::cout << " 22.: Exibir Histórico de Transações da Clínica\n";
-    std::cout << " 23.: Sair\n";
+    std::cout << " 13.: Alterar Servico\n";
+    std::cout << " 14.: Alterar Plano\n";
+    std::cout << " 15.: Remover Agendamento\n";
+    std::cout << " 16.: Remover Paciente\n";
+    std::cout << " 17.: Remover Médico\n";
+    std::cout << " 18.: Remover Serviço\n";
+    std::cout << " 19.: Remover Plano\n";
+    std::cout << " 20.: Consultar Saldo da Clínica\n";
+    std::cout << " 21.: Exibir Histórico de Transações da Clínica\n";
+    std::cout << " 22.: Sair\n";
     std::cout << "------------------------------------------------\n";
 }
 
