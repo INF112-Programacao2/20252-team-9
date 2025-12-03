@@ -191,7 +191,7 @@ int main(){
                     else break;
                 }
                 else if(sucesso_login == 1){
-                    std::cout << "Login efetuado com sucesso!\n";
+                    std::cout << "\nLogin efetuado com sucesso!\n";
                     acharMedico(&clinica, cpf, medico);
                     enterParaContinuar();
                     break;
@@ -314,7 +314,7 @@ int main(){
 
             while(true){
                 exibirMenuAtendente();
-                escolha = lerInteiro("Digite sua escolha: ", 1, 25);
+                escolha = lerInteiro("Digite sua escolha: ", 1, 26);
 
                 if(escolha == 1){
                     atendente.VisualizaDados();
@@ -337,7 +337,7 @@ int main(){
                     continue;
                 }
                 else if(escolha == 5){
-                    std::cout << "\nFunção ainda nao implementada\n";
+                    atendente.visulizarServicos(&clinica);
                     enterParaContinuar();
                     continue;
                 }

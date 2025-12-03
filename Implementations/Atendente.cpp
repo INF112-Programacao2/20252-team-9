@@ -1108,3 +1108,11 @@ void Atendente::adicionarPlanos(Clinica* clinica){
     }
 
 }
+
+void Atendente::visulizarServicos(Clinica* clinica){
+    std::cout << "\nAqui está a lista com os detalhes de todos os médicos:\n\n";
+    for(long unsigned int i = 0; i < clinica->getServicos().size(); i++){
+        clinica->getServicos()[i]->visualizarDados();
+        std::cout << std::endl;
+    }
+}
