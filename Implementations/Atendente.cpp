@@ -946,6 +946,24 @@ void Atendente::agendarParaPaciente(Clinica* clinica){
     //Cria e adiciona o agendamento em si no vetor notificacoes do paciente
     try{
         Agendamento* agendamento = new Agendamento(data, horarios[escolhaHorario-1], paciente , medico, servico);
+        
+        for(auto &a : clinica->getAgendamentos()){
+            if(a->getPaciente()->getCpf() == agendamento->getPaciente()->getCpf() && a->getMedico()->getCpf() == agendamento->getMedico()->getCpf() && a->getData() == agendamento->getData() && a->getHorario() == agendamento->getHorario() && a->getServico()->getId() == a->getServico()->getId()){
+                std::cout << "\nErro! Essa solicitação já foi realizada.\n";
+                return;
+            }
+
+            if(a->getPaciente()->getCpf() == agendamento->getPaciente()->getCpf() && a->getData() == agendamento->getData() && a->getHorario() == agendamento->getHorario()){
+                std::cout << "\nErro! O paciente já possui um agendamento nessa data e horário.\n";
+                return;
+            }
+
+            if(a->getMedico()->getCpf() == agendamento->getMedico()->getCpf() && a->getData() == agendamento->getData() && a->getHorario() == agendamento->getHorario()){
+                std::cout << "\nErro! O médico já possui um agendamento nessa data e horário.\n";
+                return;
+            }
+        }
+
         std::cout << "\nVoce realmente deseja adicioar o agendamento: \n";
         agendamento->imprimirDetalhado();
         std::cout << "1.: Sim\n2.: Nao\n\n";
