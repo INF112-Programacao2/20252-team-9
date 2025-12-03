@@ -387,7 +387,7 @@ int main(){
                     continue;
                 }
                 else if(escolha == 15){
-                    std::cout << "\nFunção ainda nao implementada\n";
+                    atendente.alterarPlano(&clinica);
                     enterParaContinuar();
                     continue;
                 }

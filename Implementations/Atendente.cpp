@@ -695,7 +695,6 @@ void Atendente::AlterarServico(Clinica *clinica){
     {
         std::string novo_nome;
         
-        
         while (true){
             std::cout << "================================================\n";
             std::cout << "                   ALTERAR                      \n";
@@ -1225,5 +1224,123 @@ void Atendente::removerServico(Clinica *clinica){
     }
     catch(std::invalid_argument &e){
         std::cout << e.what() << std::endl;
+    }
+}
+
+void Atendente::alterarPlano(Clinica *clinica){
+    while(true){   
+        limparTela();
+
+        std::cout << "================================================\n";
+        std::cout << "                   PLANOS                       \n";
+        std::cout << "================================================\n";
+
+        if(clinica->getPlanos().size() == 1){
+            std::cout << "Não há nenhum plano para ser modificado.\n";
+            return;
+        }
+
+        std::cout << std::endl;
+
+        int cont = 0;
+        for (auto &plano : clinica->getPlanos()) {
+            if(plano.get()->getNome() == "Nenhum") continue;
+            cont++;
+            std::cout << cont << ".: Nome: " << plano.get()->getNome() << " Desconto: " << plano.get()->getDesconto() << "\n";
+        }
+
+        std::cout << cont+1 << ".: Voltar\n";
+
+        std::cout << std::endl;
+
+        int escolha = lerInteiro("Escolha qual plano deseja alterar: ", 1, cont+1);
+
+        if(escolha == cont+1){
+            std::cout << "\nVoltando para o menu anterior\n";
+            return;
+        }
+
+        Plano *plano_alterar = clinica->getPlanos()[escolha].get();
+        limparTela();
+
+        std::cout << "================================================\n";
+        std::cout << "                   ALTERAR                      \n";
+        std::cout << "================================================\n";
+
+        std::cout << "Dados do plano:\n";
+        plano_alterar->visualizarDados();
+
+        
+        std::cout << "\nEscolha qual deseja alterar: \n";
+        std::cout << "1.: Nome\n";
+        std::cout << "2.: Desconto\n";
+        std::cout << "3.: Voltar\n";
+
+        int escolha_alterar = lerInteiro("Digite sua escolha: ", 1, 3);
+        limparTela();
+
+        if(escolha_alterar == 1){
+            std::string novo_nome;
+            
+            while (true){
+                std::cout << "================================================\n";
+                std::cout << "                   ALTERAR                      \n";
+                std::cout << "================================================\n";
+                std::cout << "Informe o novo nome do plano: ";
+                getline(std::cin, novo_nome);
+                if(!stringVazia(novo_nome))
+                    break;
+                std::cout << "\nO nome não pode ser vazio, Tente novamente\n"; 
+                enterParaContinuar();
+            }
+
+            try {
+                plano_alterar->setNome(novo_nome);
+                std::cout << "\nNome do plano alterado com sucesso!\n";
+                enterParaContinuar();
+            }
+            catch(std::invalid_argument &e){
+                std::cout << e.what() << "\n";
+            }
+
+        }else if(escolha_alterar == 2){
+            double novo_desconto;
+            
+            std::cout << "================================================\n";
+            std::cout << "                   ALTERAR                      \n";
+            std::cout << "================================================\n";
+
+            novo_desconto = lerDouble("Informe o novo desconto do plano: ", 0, 1);
+
+            try {
+                limparTela();
+                plano_alterar->setDesconto(novo_desconto);
+                std::cout << "\nDesconto do plano alterado com sucesso!\n";
+                enterParaContinuar();
+            }
+            catch(std::invalid_argument &e){
+                std::cout << e.what() << "\n";
+            }
+
+        }else if(escolha_alterar == 3){
+            std::cout << "\nVoltando para o menur anterior\n";
+            enterParaContinuar();
+            continue;
+        }
+
+        std::cout << "\nNovas Informações do Plano: \n";
+        plano_alterar->visualizarDados();
+
+        std::cout << "\nDeseja fazer uma nova alteração em algum plano: \n";
+        std::cout << "1.: Sim\n";
+        std::cout << "2.: Nao\n";
+
+        escolha_alterar = lerInteiro("\nDigite sua escolha: ", 1, 2);
+
+        if(escolha_alterar == 1){
+            continue;
+        }else{
+            return;
+        }
     }
 }
