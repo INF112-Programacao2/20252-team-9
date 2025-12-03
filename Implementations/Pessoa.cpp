@@ -1,6 +1,7 @@
 #include "../Headers/Pessoa.h"
 #include "../Headers/Utils.h"
 #include "../Headers/Clinica.h"
+#include "../Headers/Utilsmain.h"
 #include <string>
 #include <iostream>
 #include <stdexcept>
@@ -54,8 +55,12 @@ void Pessoa :: setTelefone(std::string telefone){
         
 //Métodos
 //Impressão dos dados do usuário:
-void Pessoa :: VizualizaDados(){ // Versão genérica com só os dados de pessoa 
+void Pessoa :: VisualizaDados(){ // Versão genérica com só os dados de pessoa 
     std::cout << "\n | Nome: " << nome << std ::endl;
     std::cout << " | CPF: " << cpf <<std::endl;
     std::cout << " | Telefone: " << telefone <<std::endl;
+}
+
+void Pessoa::alterarDados(Clinica *clinica){
+    std::cout << "teste\n";
 }

@@ -35,14 +35,14 @@ void Atendente::ConsultaSaldoDaClinica(Clinica* clinica){
 
 //Metodos
 
-void Atendente::VizualizaDados(){
+void Atendente::VisualizaDados(){
     std::cout << "\nDados do(a) Atendente:\n";
-    Pessoa::VizualizaDados();
+    Pessoa::VisualizaDados();
 
     std::cout << " | Matrícula: " << this->getMatricula() << "\n";
 }
 
-void Atendente::VizualizaAgendamentos(Clinica* clinica){
+void Atendente::VisualizaAgendamentos(Clinica* clinica){
     int n;
     
     while(true){
@@ -68,7 +68,7 @@ void Atendente::VizualizaAgendamentos(Clinica* clinica){
                     std::cout << "\nDigite sua escolha: \n";
                     int escolha = lerInteiro("", 1, cont);
 
-            listaMedicos[escolha-1]->VizualizaAgendamentos(clinica);
+            listaMedicos[escolha-1]->VisualizaAgendamentos(clinica);
             enterParaContinuar();
             continue;
         }
@@ -87,7 +87,7 @@ void Atendente::VizualizaAgendamentos(Clinica* clinica){
             std::cout << "\nDigite o identificador do Paciente que deseja visualizar as consultas: \n";
             int escolha = lerInteiro("", 1, cont);
 
-            listaPacientes[escolha-1]->VizualizaAgendamentos(clinica);
+            listaPacientes[escolha-1]->VisualizaAgendamentos(clinica);
             enterParaContinuar();
             continue;
         }
@@ -771,14 +771,14 @@ void Atendente::agendarParaPaciente(Clinica* clinica){
 void Atendente::visualizarMedicos(Clinica* clinica) {
     std::cout << "\nAqui está a lista com os detalhes de todos os médicos:\n";
     for(long unsigned int i = 0; i<clinica->getMedicos().size(); i++){
-        clinica->getMedicos()[i].get()->VizualizaDados();
+        clinica->getMedicos()[i].get()->VisualizaDados();
     }
 }
 
 void Atendente::visualizarPacientes(Clinica* clinica){
     std::cout << "\nAqui está a lista com os detalhes de todos os pacientes:\n";
     for(long unsigned int i = 0; i < clinica->getPacientes().size(); i++)
-        clinica->getPacientes()[i].get()->VizualizaDados();
+        clinica->getPacientes()[i].get()->VisualizaDados();
 }
 
 void Atendente::visualizarPlanos(Clinica *clinica){

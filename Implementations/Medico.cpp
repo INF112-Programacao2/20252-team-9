@@ -46,17 +46,209 @@ void Medico::setSaldo(double saldo) {
 //Métodos
 
 //Sobrescrita do método de Pessoa para incluir dados específicos do médico
-void Medico::VizualizaDados() {
+void Medico::VisualizaDados() {
     //Chama a implementação da classe base primeiro
-    Pessoa::VizualizaDados();
+    Pessoa::VisualizaDados();
     
     std::cout << " | CRM: " << this->crm << std::endl;
-    std::cout << " | Especialidade: " << this->ocupacao << std::endl;
+    std::cout << " | Ocupação: " << this->ocupacao << std::endl;
     std::cout << " | Saldo: R$ " << this->saldo << std::endl;
 }
 
+void Medico::alterarDados(Clinica *clinica) {
+    while (true){
+        limparTela();
+        std::cout <<"================================================\n";
+        std::cout <<"                      DADOS                     \n";
+        std::cout <<"================================================\n";
+
+        this->VisualizaDados();
+
+        std::cout << "\n 1.: Nome\n";
+        std::cout << " 2.: Senha\n";
+        std::cout << " 3.: Telefone\n";
+        std::cout << " 4.: Ocupação\n";
+        std::cout << " 5.: Sair\n";
+        std::cout << "---------------------------------------\n";
+        
+        int escolha = lerInteiro("Digite sua escolha: ", 1, 5);
+
+        limparTela();
+
+        //Switch case para a implementção do menu
+        switch (escolha)
+        {
+            case 1: //Troca de nome
+            {
+                std::string novoNome;
+                
+                while(true){
+
+                    std::cout <<"================================================\n";
+                    std::cout <<"                      DADOS                     \n";
+                    std::cout <<"================================================\n";
+                    std::cout <<"Digite o novo nome do usuario: ";
+                    getline(std::cin, novoNome);
+                    if(stringVazia(novoNome) || !somenteLetras(novoNome)){
+                        std::cout << "\nNome nao pode ser vazio e deve conter somente letra. Tente novamente\n";
+                        continue;
+                    }
+                    break;
+                }
+
+                try{
+                    this->setNome(novoNome);
+                    std::cout << "\nNome alterado com sucesso.\n";
+                    break;
+                }
+                catch(std::invalid_argument &e) {
+                    limparTela();
+                    std::cout << e.what() << std::endl;
+                }
+                break;
+            }
+
+            case 2: //Mudança de senha
+            {
+                std::cout <<"================================================\n";
+                std::cout <<"                      DADOS                     \n";
+                std::cout <<"================================================\n";
+                std::cout <<"Antes de alterar, digite a senha atual.\n";
+                std::cout <<"Voce possui 3 chances.\n";
+                std::cout << "Caso nao se lembre, procure a clinica \npara redefinir seua senha de login.\n";
+                std::string senhaComparar;
+                int tentativa=3;
+                
+                while(tentativa>0){
+                    std::cout<<"\nDigite sua senha atual: ";
+                    while(true){
+                        getline(std::cin, senhaComparar);
+                        if(stringVazia(senhaComparar)){
+                            std::cout << "\nSenha invalida, nao pode ser vazia. Tente novamente\n";
+                            continue;
+                        }
+                        break;
+                    }
+
+                    if(senhaComparar != this->senha){
+                        std::cout << "\nSenha incorreta. Tente novamente!\n";
+                        tentativa--;    
+                    }
+                    else
+                        break;
+                }
+                
+                if(tentativa == 0){
+                    limparTela();
+                    std::cout <<"================================================\n";
+                    std::cout <<"                      DADOS                     \n";
+                    std::cout <<"================================================\n";
+                    std::cout <<"Infelizmente suas tentativas esgotaram. \n Tente novamente mais tarde.";
+                    break;
+                }
+
+                std::cout << "\nSenha verificada corretamente\n";
+                enterParaContinuar();
+
+                std::string novaSenha;
+            
+                while(true){
+                    std::cout <<"================================================\n";
+                    std::cout <<"                      DADOS                     \n";
+                    std::cout <<"================================================\n";
+                    std::cout << "Digite a nova senha: ";
+
+                    getline(std::cin, novaSenha);
+                    if(stringVazia(novaSenha)){
+                        std::cout << "\nNova senha invalida, ela nao pode ser vazia. Tente novamente\n";
+                        enterParaContinuar();
+                        continue;
+                    }
+                    break;
+                }
+        
+                try{
+                    this->setSenha(novaSenha);
+                    std::cout << "\nSenha alterada com sucesso\n";
+                    break;
+                }
+                catch(std::invalid_argument &e){
+                    std::cout << e.what() << std::endl;
+                }
+                break;
+            }
+        
+            case 3: //Muda o telefone
+            { 
+                std::string novoTelefone;
+                while(true){
+                    std::cout <<"================================================\n";
+                    std::cout <<"                      DADOS                     \n";
+                    std::cout <<"================================================\n";
+                    std::cout << "Digite o novo numero de telefone: ";
+                    getline(std::cin, novoTelefone);
+                    if(!validaTelefone(novoTelefone)){
+                        std::cout << "\nNumero de telefone invalido, deve seguir o formato (XX) XXXXX-XXXX ou (XX) XXXX-XXXX. Tente novamente\n";
+                        enterParaContinuar();
+                        continue;
+                    }
+                    break;
+                }
+
+
+                try{
+                    this->setTelefone(novoTelefone);
+                    std::cout << "\nTelefone alterado com sucesso\n";
+                    break;
+                }
+                catch(std::invalid_argument &e){
+                    std::cout << e.what() << std::endl;
+                }
+                break;
+            }
+
+            case 4:// Mudança de ocupação
+            {
+                std::string nova_ocupacao;
+                while(true){
+                    std::cout<<"================================================\n";
+                    std::cout<<"                       DADOS                    \n";
+                    std::cout<<"================================================\n";
+                    std::cout << "Informe a nova ocupação do médico(a): ";
+                    
+                    getline(std::cin, nova_ocupacao);
+
+                    if(stringVazia(nova_ocupacao) || !somenteLetras(nova_ocupacao)){
+                        std::cout << "Ocupação nova inválida, tente novamente.\n";
+                        continue;
+                    }
+                    break;
+                }
+                
+                try {
+                    this->setOcupacao(nova_ocupacao);
+
+                }
+                catch(std::invalid_argument &e) {
+                    std::cout << e.what() << "\n";
+                }
+
+            }
+
+            case 5: //sair do menu
+            {   
+                std::cout<<"\nSaindo do menu de alteracoes.\n"<<std::endl;
+                break;
+            }
+        }
+        int sair = lerInteiro("\nDeseja continuar alterando os dados?\n 1.: Sim\n 2.: Não\n\nDigite sua escolha:", 1, 2);
+        if(sair == 1) continue;
+        else if (sair == 2) break;
+    }
+}
+
 //Itera sobre o banco de dados da clínica para achar agendamentos deste médico
-void Medico::VizualizaAgendamentos(Clinica*clinica) {
+void Medico::VisualizaAgendamentos(Clinica*clinica) {
     limparTela();
     std::cout << "\n====================MEUS AGENDAMENTOS====================\n" << std::endl;
     

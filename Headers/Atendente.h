@@ -26,8 +26,8 @@ class Atendente : public Pessoa{
 
         
         //Metodos
-        void VizualizaDados() override;
-        void VizualizaAgendamentos(Clinica* clinica) override; // Metodos herdados de pessoa
+        void VisualizaDados() override;
+        void VisualizaAgendamentos(Clinica* clinica) override; // Metodos herdados de pessoa
         void CadastrarPaciente(Clinica *clinica);
         void CadastrarMedico(Clinica* clinica);
         void DesligarMedico(Clinica* clinica);

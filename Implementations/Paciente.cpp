@@ -55,7 +55,7 @@ void Paciente::setPlano(Plano *plano){
 
 //Métodos
 //Impressão dos dados do usuário:
-void Paciente :: AlteraDados(Clinica* clinica){ //Abre um menu, em que o paciente seleciona usando números qual atributo 
+void Paciente :: alterarDados(Clinica* clinica){ //Abre um menu, em que o paciente seleciona usando números qual atributo 
                             // ele deseja alterar, e o método chama o método set correspondente.
     
     //Impressão do menu:
@@ -304,11 +304,11 @@ void Paciente :: AlteraDados(Clinica* clinica){ //Abre um menu, em que o pacient
     }
 }
 
-void Paciente :: VizualizaDados(){ // Sobreescrita do método da superclasse, além dos dados de pessoa
+void Paciente :: VisualizaDados(){ // Sobreescrita do método da superclasse, além dos dados de pessoa
 
     // imprime também data de nascimento, sexo, as observações e plano de saúde
     std::cout << std::endl;
-    Pessoa::VizualizaDados();
+    Pessoa::VisualizaDados();
     
     std::cout << " | Data de nascimento: " << this->dataDeNascimento << std::endl;
     std::cout << " | Observacoes: " << this->observacoes << std::endl;
@@ -320,7 +320,7 @@ void Paciente :: VizualizaDados(){ // Sobreescrita do método da superclasse, al
 
                                     
 //Impressão dos agendamentos do paciente
-void Paciente::VizualizaAgendamentos(Clinica *clinica){ 
+void Paciente::VisualizaAgendamentos(Clinica *clinica){ 
     std::cout<<"================================================\n";
     std::cout<<"                  AGENDAMENTOS                  \n";
     std::cout<<"================================================\n\n";

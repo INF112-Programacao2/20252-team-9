@@ -47,9 +47,10 @@ void exibirMenuMedico() {
     std::cout << "================================================\n";
     std::cout << " 1.: Visualizar Dados Pessoais\n";
     std::cout << " 2.: Visualizar Agendamentos\n";
-    std::cout << " 3.: Cancelar Agendamento\n";
-    std::cout << " 4.: Adicionar Feedback\n";
-    std::cout << " 5.: Sair\n";
+    std::cout << " 3.: Alterar Dados\n";
+    std::cout << " 4.: Cancelar Agendamento\n";
+    std::cout << " 5.: Adicionar Feedback\n";
+    std::cout << " 6.: Sair\n";
     std::cout << "------------------------------------------------\n";
 }
 

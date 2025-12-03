@@ -27,10 +27,12 @@ class Medico : public Pessoa {
         void setSaldo(double saldo);
 
         //Demais métodos
-        void VizualizaDados() override; // Reescrita do método de pessoa, 
+        void alterarDados(Clinica *clinica) override;
+
+        void VisualizaDados() override; // Reescrita do método de pessoa, 
                                                 // imprime todos os dados de pessoa e também os dados especificos do médico 
 
-        void VizualizaAgendamentos(Clinica* clinica) override; // Reescrita do método de pessoa, 
+        void VisualizaAgendamentos(Clinica* clinica) override; // Reescrita do método de pessoa, 
                                                        // imprime todos os agendamentos já realizados e os previstos para esse médico
 
         void CancelarAgendamento(Clinica* clinica); // Cancela um agendamento 

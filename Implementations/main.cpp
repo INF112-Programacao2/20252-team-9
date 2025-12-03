@@ -51,7 +51,7 @@ int main(){
 
                 if(dadosValidos(nome, cpf, senha, telefone, dataDeNascimento, sexo, observacoes, plano, &clinica)){
                     Paciente novoPaciente = Paciente(nome, cpf, senha, telefone, dataDeNascimento, sexo, observacoes, plano);
-                    novoPaciente.VizualizaDados();
+                    novoPaciente.VisualizaDados();
 
                     limparTela();
 
@@ -130,17 +130,17 @@ int main(){
                     escolha = lerInteiro("Digite o que deseja fazer: ", 1, 7);
 
                     if(escolha == 1){
-                        paciente->VizualizaDados();
+                        paciente->VisualizaDados();
                         enterParaContinuar();
                         continue;
                     }
                     else if(escolha == 2){
-                        paciente->AlteraDados(&clinica);
+                        paciente->alterarDados(&clinica);
                         enterParaContinuar();
                         continue;
                     }
                     else if(escolha == 3){
-                        paciente->VizualizaAgendamentos(&clinica);
+                        paciente->VisualizaAgendamentos(&clinica);
                         enterParaContinuar();
                         continue;
                     }
@@ -223,29 +223,34 @@ int main(){
 
             while(true){
                 exibirMenuMedico();
-                escolha = lerInteiro("Digite sua escolha: ", 1, 5);
+                escolha = lerInteiro("Digite sua escolha: ", 1, 6);
 
                 if(escolha == 1){
-                    medico->VizualizaDados();
+                    medico->VisualizaDados();
                     enterParaContinuar();
                     continue;
                 }
                 else if(escolha == 2){
-                    medico->VizualizaAgendamentos(&clinica);
+                    medico->VisualizaAgendamentos(&clinica);
                     enterParaContinuar();
                     continue;
                 }
                 else if(escolha == 3){
-                    medico->CancelarAgendamento(&clinica);
+                    medico->alterarDados(&clinica);
                     enterParaContinuar();
                     continue;
                 }
                 else if(escolha == 4){
-                    medico->AdicionarFeedBack(&clinica);
+                    medico->CancelarAgendamento(&clinica);
                     enterParaContinuar();
                     continue;
                 }
                 else if(escolha == 5){
+                    medico->AdicionarFeedBack(&clinica);
+                    enterParaContinuar();
+                    continue;
+                }
+                else if(escolha == 6){
                     limparTela();
                     break;
                 }
@@ -312,12 +317,12 @@ int main(){
                 escolha = lerInteiro("Digite sua escolha: ", 1, 25);
 
                 if(escolha == 1){
-                    atendente.VizualizaDados();
+                    atendente.VisualizaDados();
                     enterParaContinuar();
                     continue;
                 }
                 else if(escolha == 2){
-                    atendente.VizualizaAgendamentos(&clinica);
+                    atendente.VisualizaAgendamentos(&clinica);
                     enterParaContinuar();
                     continue;
                 }

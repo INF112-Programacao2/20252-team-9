@@ -45,16 +45,16 @@ class Paciente : public Pessoa {
         
         //Métodos
         //Impressão dos dados do usuário:
-        void AlteraDados(Clinica *clinica); //Abre um menu, em que o paciente seleciona usando números qual atributo 
+        void alterarDados(Clinica *clinica) override; //Abre um menu, em que o paciente seleciona usando números qual atributo 
                                             // ele deseja alterar, e o método chama o método set correspondente.
                                             //Refatoração: Adicionei o parâmetro clinica para ter acesso ao vetor de planos da clinica e
                                             // informar quais são as opções na hora de alterar.
 
-        void VizualizaDados() override; // Sobreescrita do método da superclasse, além dos dados de pessoa
+        void VisualizaDados() override; // Sobreescrita do método da superclasse, além dos dados de pessoa
                                        // imprime também data de nascimento, sexo, as observações e plano de saúde
 
         //Impressão dos agendamentos:
-        void VizualizaAgendamentos(Clinica *clinica) override; //Reescrita do método de pessoa, imprime todos os agendamentos já
+        void VisualizaAgendamentos(Clinica *clinica) override; //Reescrita do método de pessoa, imprime todos os agendamentos já
                                       // realizados e os previstos para esse paciente.
         
         void Agendar(Clinica *clinica); //Preenche os dados e cria um agendamento, e o adiciona no vetor agendamentos
