@@ -156,7 +156,7 @@ void exibirMenuPaciente() {
     std::cout << "                      MENU                      \n";
     std::cout << "================================================\n";
     std::cout << " 1.: Visualizar Dados Pessoais\n";
-    std::cout << " 3.: Visualizar Agendamentos\n";
+    std::cout << " 2.: Visualizar Agendamentos\n";
     std::cout << " 3.: Exibir Histórico de Transações\n";
     std::cout << " 4.: Checar notificações\n";
     std::cout << " 5.: Agendar\n";

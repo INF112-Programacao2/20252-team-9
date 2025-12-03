@@ -1165,7 +1165,9 @@ void Atendente::cadastrarServico(Clinica* clinica){
             }
         }
 
-        if(jaRegistrado) continue;
+        if(jaRegistrado) {
+            continue;
+        }
 
         break;
     }
@@ -1200,6 +1202,13 @@ void Atendente::cadastrarServico(Clinica* clinica){
         std::cout << "Duraçao do serviço(min): ";
         std::cin >> duracao;
         std::cin.ignore(100000, '\n');  //Limpa buffer
+
+
+        if(std::cin.fail()) {
+            std::cin.clear();
+            enterParaContinuar();
+            continue;
+        }
 
         if(duracao <= 0){
             std::cout << "\nA duração do servico não pode ser menor que 0. Tente novamente\n";
@@ -1247,7 +1256,9 @@ void Atendente::exibirHistoricoTransacoes(Clinica* clinica){
     std::cout << "                   HISTORICO                    \n";
     std::cout << "================================================\n";
 
-    
+    int cont = 0;
+    for(auto &trans : clinica->getTransacoes()) std::cout << ++cont << ".: " << trans.get()->getData() << " | " << trans.get()->getHorario() << " | " << trans.get()->getAgendamento()->getServico()->getValor() << " R$\n";
+
 }
 
 void Atendente::removerServico(Clinica *clinica){
