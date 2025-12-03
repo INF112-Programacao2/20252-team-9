@@ -448,9 +448,6 @@ void Paciente::Agendar(Clinica *clinica){
     try{
         clinica->adicionarAgendamento(std::make_unique<Agendamento>(data, horarios[escolhaHorario-1], (this) , medico, servico));
 
-        medico->setSaldo(medico->getSaldo() + servico->getValor()* 0.6);
-        clinica->setSaldo(clinica->getSaldo() + servico->getValor() * 0.4);
-
         limparTela();
         std::cout<<"================================================\n";
         std::cout<<"                  AGENDAMENTO                   \n";

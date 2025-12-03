@@ -7,6 +7,7 @@
 #include <iostream>
 #include <limits>
 #include <algorithm>
+#include <iomanip>
 
 //Construtor
 Clinica::Clinica(std::string nome)
@@ -26,6 +27,7 @@ Clinica::~Clinica(){}
 //Getters
 double Clinica::getSaldo() const {return saldo;}
 std::string Clinica::getNome() const {return nome;}
+std::vector<std::string> Clinica::getHistoricoTransacoes() {return historicoTransacoes;}
 const std::vector<std::unique_ptr<Paciente>>& Clinica::getPacientes() const {return pacientes;}
 const std::vector<std::unique_ptr<Medico>>& Clinica::getMedicos() const {return medicos;}
 const std::vector<std::unique_ptr<Agendamento>>& Clinica::getAgendamentos() const {return agendamentos;}
@@ -111,6 +113,21 @@ void Clinica::removerMedico(Medico* medico){
 void Clinica::adicionarAgendamento(std::unique_ptr<Agendamento> agendamento){
     if(!agendamento)
         throw std::invalid_argument("Ponteiros de objetos vazios sao invalidos");
+        
+        
+    //Armazena a transacao
+    std::stringstream transacao;
+
+    transacao << "Data: " << agendamento.get()->getData() << " | Horario: " << agendamento.get()->getHorario() << " | CPF do Paciente: " << agendamento.get()->getPaciente()->getCpf() << " | CRM do Médico: " << agendamento.get()->getMedico()->getCrm() << " | Valor(R$): " << std::fixed << std::setprecision(2) <<  agendamento.get()->getServico()->getValor() - (agendamento.get()->getPaciente()->getPlano()->getDesconto() * agendamento.get()->getServico()->getValor());
+    
+    historicoTransacoes.push_back(transacao.str());
+
+    //Adiciona o valor do agendamento nos saldos do médico e clinica
+    Medico* medico = agendamento.get()->getMedico();
+    Servico* servico = agendamento.get()->getServico();
+
+    medico->setSaldo(medico->getSaldo() + servico->getValor()* 0.6);
+    this->setSaldo(this->getSaldo() + servico->getValor() * 0.4);
 
     agendamentos.push_back(std::move(agendamento));
     std::sort(agendamentos.begin(), agendamentos.end(), orderAgendamentosByDate);
@@ -337,11 +354,6 @@ void Clinica::popularClinica(std::string arquivo){
 
         //Armazenamento no vetor da clínica
         try{
-            if(comparaData(data, Agendamento::getDateReference()) == -1){
-                medico->setSaldo(medico->getSaldo() + servico->getValor()* 0.6);
-                this->setSaldo(this->getSaldo() + servico->getValor() * 0.4);
-            }
-
             this->adicionarAgendamento(std::make_unique<Agendamento>(data, horario, paciente, medico, servico));
         }
         catch(std::invalid_argument &e){

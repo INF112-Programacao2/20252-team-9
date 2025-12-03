@@ -1110,7 +1110,7 @@ void Atendente::adicionarPlanos(Clinica* clinica){
 }
 
 void Atendente::visulizarServicos(Clinica* clinica){
-    std::cout << "\nAqui está a lista com os detalhes de todos os médicos:\n\n";
+    std::cout << "\nAqui está a lista com os detalhes de todos os serviços:\n\n";
     for(long unsigned int i = 0; i < clinica->getServicos().size(); i++){
         clinica->getServicos()[i]->visualizarDados();
         std::cout << std::endl;
@@ -1218,4 +1218,16 @@ void Atendente::cadastrarServico(Clinica* clinica){
         std::cout << e.what() << std::endl;
     }
 
+}
+
+void Atendente::exibirHistoricoTransacoes(Clinica* clinica){
+    limparTela();
+    std::cout << "================================================\n";
+    std::cout << "                   HISTORICO                    \n";
+    std::cout << "================================================\n";
+
+    std::vector<std::string> historico = clinica->getHistoricoTransacoes();
+    for(long unsigned int i=0; i<historico.size(); i++){
+        std::cout << historico[i] << std::endl;
+    }
 }

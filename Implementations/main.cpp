@@ -432,7 +432,7 @@ int main(){
                     continue;
                 }
                 else if(escolha == 24){
-                    std::cout << "\nFunção ainda nao implementada\n";
+                    atendente.exibirHistoricoTransacoes(&clinica);
                     enterParaContinuar();
                     continue;
                 }

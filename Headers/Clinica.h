@@ -15,6 +15,7 @@ class Clinica{
     private:
         double saldo;
         std::string nome;
+        std::vector<std::string> historicoTransacoes;
 
         std::vector<std::unique_ptr<Paciente>> pacientes; //Vector que contém todos pacientes da clínica
         std::vector<std::unique_ptr<Medico>> medicos;  //Vector que contém todos os médicos da clínica
@@ -33,6 +34,8 @@ class Clinica{
         //Getters
         double getSaldo() const;
         std::string getNome() const;
+        std::vector<std::string> getHistoricoTransacoes();
+
         const std::vector<std::unique_ptr<Paciente>>& getPacientes() const;
         const std::vector<std::unique_ptr<Medico>>& getMedicos() const;
         const std::vector<std::unique_ptr<Agendamento>>& getAgendamentos() const;
