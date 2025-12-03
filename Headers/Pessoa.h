@@ -38,7 +38,7 @@ class Pessoa{
         virtual void VisualizaAgendamentos(Clinica* clinica)=0; //Virtual pura, só vai ser implementada nas subclasses 
                                                 // porque além do comportamento diferir entre as classes, não
                                                 // existem um genérico.
-        virtual void alterarDados(Clinica* clinica); //virtual puro, cada classe acima dela possui um modo 
+        virtual void alterarDados(Clinica* clinica) = 0; //virtual puro, cada classe acima dela possui um modo 
                                                 //diferente de alteração de dados
 };
 

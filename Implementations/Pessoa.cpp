@@ -60,7 +60,3 @@ void Pessoa :: VisualizaDados(){ // Versão genérica com só os dados de pessoa
     std::cout << " | CPF: " << cpf <<std::endl;
     std::cout << " | Telefone: " << telefone <<std::endl;
 }
-
-void Pessoa::alterarDados(Clinica *clinica){
-    std::cout << "teste\n";
-}

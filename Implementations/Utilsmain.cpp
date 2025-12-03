@@ -192,7 +192,8 @@ void exibirMenuAtendente(){
     std::cout << " 22.: Remover Plano\n";
     std::cout << " 23.: Consultar Saldo da Clínica\n";
     std::cout << " 24.: Exibir Histórico de Transações da Clínica\n";
-    std::cout << " 25.: Sair\n";
+    std::cout << " 25.: Alterar Dados\n";
+    std::cout << " 26.: Sair\n";
     std::cout << "------------------------------------------------\n";
 }
 

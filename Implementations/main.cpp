@@ -437,6 +437,11 @@ int main(){
                     continue;
                 }
                 else if(escolha == 25){
+                    atendente.alterarDados(&clinica);
+                    enterParaContinuar();
+                    continue;
+                }
+                else if(escolha == 26){
                     limparTela();
                     break;
                 }
