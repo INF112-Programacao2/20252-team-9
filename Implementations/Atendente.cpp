@@ -32,7 +32,6 @@ void Atendente::ConsultaSaldoDaClinica(Clinica* clinica){
     std::cout << "\n | Saldo da Clínica (R$): " << std::fixed << std::setprecision(2) << clinica->getSaldo() << "\n";
 }
 
-
 //Metodos
 
 void Atendente::VisualizaDados(){
@@ -41,7 +40,6 @@ void Atendente::VisualizaDados(){
 
     std::cout << " | Matrícula: " << this->getMatricula() << "\n";
 }
-
 
 void Atendente::alterarDados(Clinica* clinica){
     while(true){
@@ -1204,7 +1202,7 @@ void Atendente::removerServico(Clinica *clinica){
 
     std::cout << lastIndex << ".: Voltar\n\n";
 
-    //Escolhe qual medico excluir
+    //Escolhe qual serviço excluir
     int escolha = lerInteiro("Digite sua escolha: ", 1, lastIndex);
     
     if(escolha == lastIndex){
@@ -1220,7 +1218,7 @@ void Atendente::removerServico(Clinica *clinica){
         }
     }
 
-    //Exclui o medico
+    //Exclui o serviço
     try{
         clinica->removerServico(servicos[escolha-1].get());
         std::cout << "\nServiço removido com sucesso.\n";
