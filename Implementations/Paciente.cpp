@@ -6,6 +6,7 @@
 #include <iostream>
 #include <stdexcept>
 #include <memory>
+#include <iomanip>
 
 Paciente::Paciente(std::string nome, std::string cpf, std::string senha, std::string telefone, std::string dataDeNascimento, char sexo, std::string observacoes, Plano* plano)
     :Pessoa(nome, cpf, senha, telefone){
@@ -548,6 +549,34 @@ void Paciente::checarNotificacoes(Clinica* clinica){
     }
     }catch(std::exception &e){
         std::cout << e.what() << std::endl;
+    }
+
+}
+
+void Paciente::exibirHistoricoTransacoes(Clinica *clinica){
+    limparTela();
+
+    //Recebe todas as transacoes
+    const std::vector<std::unique_ptr<Transacao>>& transacoes = clinica->getTransacoes();
+
+    //Exibe o histórico
+    std::cout << "================================================\n";
+    std::cout << "                   HISTORICO                    \n";
+    std::cout << "================================================\n";
+    
+    int indexVisual = 1;
+    for(long unsigned int i=0; i<transacoes.size(); i++){
+        Agendamento* agendamento = transacoes[i]->getAgendamento();
+       if(agendamento->getPaciente()->getCpf() == this->cpf){
+            std::cout << indexVisual << ".: ";
+            std::cout << "Data: " << transacoes[i]->getData() << " | Horario: " << transacoes[i]->getHorario() << " | Medico: " << transacoes[i]->getAgendamento()->getMedico()->getNome() << " | Valor(R$): " << std::fixed << std::setprecision(2) << agendamento->getServico()->getValor()*(1-this->plano->getDesconto()) << " | Serviço: " << agendamento->getServico()->getNome() << std::endl;
+            indexVisual++;
+       }
+    }
+
+    if(indexVisual == 1){
+        std::cout << "\nAinda nao há nenhuma transacao\n";
+        return;
     }
 
 }

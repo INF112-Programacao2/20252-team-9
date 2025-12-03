@@ -127,7 +127,7 @@ int main(){
 
                 while(true){
                     exibirMenuPaciente();
-                    escolha = lerInteiro("Digite o que deseja fazer: ", 1, 7);
+                    escolha = lerInteiro("Digite o que deseja fazer: ", 1, 8);
 
                     if(escolha == 1){
                         paciente->VisualizaDados();
@@ -135,31 +135,36 @@ int main(){
                         continue;
                     }
                     else if(escolha == 2){
-                        paciente->alterarDados(&clinica);
-                        enterParaContinuar();
-                        continue;
-                    }
-                    else if(escolha == 3){
                         paciente->VisualizaAgendamentos(&clinica);
                         enterParaContinuar();
                         continue;
                     }
+                    else if(escolha == 3){
+                        paciente->exibirHistoricoTransacoes(&clinica);
+                        enterParaContinuar();
+                        continue;
+                    }
                     else if(escolha == 4){
-                        paciente->Agendar(&clinica);
-                        enterParaContinuar();
-                        continue;
-                    }
-                    else if(escolha == 5){
-                        paciente->CancelarAgendamento(&clinica);
-                        enterParaContinuar();
-                        continue;
-                    }
-                    else if(escolha == 6){
                         paciente->checarNotificacoes(&clinica);
                         enterParaContinuar();
                         continue;
                     }
+                    else if(escolha == 5){
+                        paciente->Agendar(&clinica);
+                        enterParaContinuar();
+                        continue;
+                    }
+                    else if(escolha == 6){
+                        paciente->alterarDados(&clinica);
+                        enterParaContinuar();
+                        continue;
+                    }
                     else if(escolha == 7){
+                        paciente->CancelarAgendamento(&clinica);
+                        enterParaContinuar();
+                        continue;
+                    }
+                    else if(escolha == 8){
                         limparTela();
                         break;
                     }
@@ -223,7 +228,7 @@ int main(){
 
             while(true){
                 exibirMenuMedico();
-                escolha = lerInteiro("Digite sua escolha: ", 1, 6);
+                escolha = lerInteiro("Digite sua escolha: ", 1, 7);
 
                 if(escolha == 1){
                     medico->VisualizaDados();
@@ -236,21 +241,26 @@ int main(){
                     continue;
                 }
                 else if(escolha == 3){
-                    medico->alterarDados(&clinica);
+                    medico->exibirHistoricoTransacoes(&clinica);
                     enterParaContinuar();
                     continue;
                 }
                 else if(escolha == 4){
-                    medico->CancelarAgendamento(&clinica);
-                    enterParaContinuar();
-                    continue;
-                }
-                else if(escolha == 5){
                     medico->AdicionarFeedBack(&clinica);
                     enterParaContinuar();
                     continue;
                 }
+                else if(escolha == 5){
+                    medico->alterarDados(&clinica);
+                    enterParaContinuar();
+                    continue;
+                }
                 else if(escolha == 6){
+                    medico->CancelarAgendamento(&clinica);
+                    limparTela();
+                    continue;
+                }
+                else if(escolha == 7){
                     limparTela();
                     break;
                 }

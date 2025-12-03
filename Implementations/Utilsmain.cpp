@@ -47,10 +47,11 @@ void exibirMenuMedico() {
     std::cout << "================================================\n";
     std::cout << " 1.: Visualizar Dados Pessoais\n";
     std::cout << " 2.: Visualizar Agendamentos\n";
-    std::cout << " 3.: Alterar Dados\n";
-    std::cout << " 4.: Cancelar Agendamento\n";
-    std::cout << " 5.: Adicionar Feedback\n";
-    std::cout << " 6.: Sair\n";
+    std::cout << " 3.: Exibir Histórico de Transações\n";
+    std::cout << " 4.: Adicionar Feedback\n";
+    std::cout << " 5.: Alterar Dados\n";
+    std::cout << " 6.: Cancelar Agendamento\n";
+    std::cout << " 7.: Sair\n";
     std::cout << "------------------------------------------------\n";
 }
 
@@ -155,12 +156,13 @@ void exibirMenuPaciente() {
     std::cout << "                      MENU                      \n";
     std::cout << "================================================\n";
     std::cout << " 1.: Visualizar Dados Pessoais\n";
-    std::cout << " 2.: Alterar Dados\n";
     std::cout << " 3.: Visualizar Agendamentos\n";
-    std::cout << " 4.: Agendar\n";
-    std::cout << " 5.: Cancelar Agendamento\n";
-    std::cout << " 6.: Checar notificações\n";
-    std::cout << " 7.: Sair\n";
+    std::cout << " 3.: Exibir Histórico de Transações\n";
+    std::cout << " 4.: Checar notificações\n";
+    std::cout << " 5.: Agendar\n";
+    std::cout << " 6.: Alterar Dados\n";
+    std::cout << " 7.: Cancelar Agendamento\n";
+    std::cout << " 8.: Sair\n";
     std::cout << "------------------------------------------------\n";
 }
 

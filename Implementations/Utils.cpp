@@ -2,6 +2,7 @@
 #include "../Headers/Utils.h"
 #include "../Headers/Clinica.h"
 #include <regex>
+#include <ctime>
 #include <iostream>
 
 bool stringVazia(const std::string &string){
@@ -332,4 +333,24 @@ bool orderAgendamentosByDate(const std::unique_ptr<Agendamento>& a, const std::u
 
 bool orderPlanosByDesconto(const  std::unique_ptr<Plano>& a, const std::unique_ptr<Plano>& b){
     return a.get()->getDesconto() < b.get()->getDesconto();
+}
+
+std::string obterDataAtual() {
+    std::time_t tempoAtual = std::time(nullptr);
+    std::tm* tempoLocal = std::localtime(&tempoAtual);
+
+    char buffer[11];
+    std::strftime(buffer, sizeof(buffer), "%d/%m/%Y", tempoLocal);
+
+    return std::string(buffer);
+}
+
+std::string obterHorarioAtual() {
+    std::time_t tempoAtual = std::time(nullptr);
+    std::tm* tempoLocal = std::localtime(&tempoAtual);
+
+    char buffer[6]; 
+    std::strftime(buffer, sizeof(buffer), "%H:%M", tempoLocal);
+
+    return std::string(buffer);
 }

@@ -63,6 +63,8 @@ class Paciente : public Pessoa {
 
         void checarNotificacoes(Clinica *clinica);
 
+        void exibirHistoricoTransacoes(Clinica *clinica);
+
 };
     
 

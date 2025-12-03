@@ -38,6 +38,8 @@ class Medico : public Pessoa {
         void CancelarAgendamento(Clinica* clinica); // Cancela um agendamento 
         
         void AdicionarFeedBack(Clinica* clinica); // Adiciona um comentário a um agendamento que já ocorreu  
+
+        void exibirHistoricoTransacoes(Clinica* clinica);
 };
 
 #endif //PROJETO_FINAL_INF_112_MEDICO_H

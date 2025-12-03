@@ -7,6 +7,7 @@
 #include "Agendamento.h"
 #include "Servico.h"
 #include "Plano.h"
+#include "Transacao.h"
 #include <vector>
 #include <memory>
 
@@ -15,13 +16,13 @@ class Clinica{
     private:
         double saldo;
         std::string nome;
-        std::vector<std::string> historicoTransacoes;
 
         std::vector<std::unique_ptr<Paciente>> pacientes; //Vector que contém todos pacientes da clínica
         std::vector<std::unique_ptr<Medico>> medicos;  //Vector que contém todos os médicos da clínica
         std::vector<std::unique_ptr<Agendamento>> agendamentos; //Vector que contém todos agendamentos da clínica
         std::vector<std::unique_ptr<Servico>> servicos; //Vector que contém todos serviços ofertados pela clínica
         std::vector<std::unique_ptr<Plano>> planos; //Vector que contém todos convênios que a clínica tem contrato
+        std::vector<std::unique_ptr<Transacao>> transacoes; //Vector que contém todos as transacoes feitas pela clinica
         Atendente* atendente; //Clinica só irá possuir uma atendente
 
     public:
@@ -34,13 +35,13 @@ class Clinica{
         //Getters
         double getSaldo() const;
         std::string getNome() const;
-        std::vector<std::string> getHistoricoTransacoes();
 
         const std::vector<std::unique_ptr<Paciente>>& getPacientes() const;
         const std::vector<std::unique_ptr<Medico>>& getMedicos() const;
         const std::vector<std::unique_ptr<Agendamento>>& getAgendamentos() const;
         const std::vector<std::unique_ptr<Servico>>& getServicos() const;
         const std::vector<std::unique_ptr<Plano>>& getPlanos() const;
+        const std::vector<std::unique_ptr<Transacao>>& getTransacoes() const;
         Atendente* getAtendente() const;
 
         //OBS: Unique_prts não permitem cópia em nenhum contexto, inclusive no loop que forem fazer para percorrer esses vetores
@@ -65,21 +66,25 @@ class Clinica{
         void adicionarPaciente(std::unique_ptr<Paciente> paciente); 
         void removerPaciente(Paciente* paciente);
 
-        //Controle dos médicos(Recebe como parâmetro um objeto do tipo Medico, seja para adicionar ou remover)
+        //Controle dos médicos(Recebe como parâmetro um ponteiro do tipo Medico, seja para adicionar ou remover)
         void adicionarMedico(std::unique_ptr<Medico> medico);
         void removerMedico(Medico* medico);
 
-        //Controle dos agendamentos(Recebe como parâmetro um objeto do tipo Agendamento, seja para adicionar ou remover)
+        //Controle dos agendamentos(Recebe como parâmetro um ponteiro do tipo Agendamento, seja para adicionar ou remover)
         void adicionarAgendamento(std::unique_ptr<Agendamento> agendamento);
         void removerAgendamento(Agendamento* agendamento);
 
-        //Controle dos serviços(Recebe como parâmetro um objeto do tipo Servico, seja para adicionar ou remover)
+        //Controle dos serviços(Recebe como parâmetro um ponteiro do tipo Servico, seja para adicionar ou remover)
         void adicionarServico(std::unique_ptr<Servico> servico);
         void removerServico(Servico* servico);
 
-        //Controle dos planos(Recebe como parâmetro um objeto do tipo Plano, seja para adicionar ou remover)
+        //Controle dos planos(Recebe como parâmetro um ponteiro do tipo Plano, seja para adicionar ou remover)
         void adicionarPlano(std::unique_ptr<Plano> plano);
         void removerPlano(Plano* plano);
+
+        //Controle dos transacoes(Recebe como parâmetro um ponteiro do tipo Transacao, seja para adicionar ou remover)
+        void adicionarTransacao(std::unique_ptr<Transacao> transacao);
+        void removerTransacao(Transacao* transacao);
 
         //Organizar clinica
         void popularClinica(std::string arquivo); //Faz a população da clínica atráves dos dados lidos de um determinado arquivo.

@@ -3,9 +3,11 @@
 #include "../Headers/Utils.h"
 #include <iostream>
 #include <iomanip>
+#include <ctime>
+
 
 //Define a data tida como referencia para saber se os agendamentos atuais já aconteceram ou não
-std::string Agendamento::dateReference = "02/12/2025";
+std::string Agendamento::dateReference = obterDataAtual();
 
 //Construtor
 Agendamento::Agendamento(std::string data, std::string horario, Paciente* paciente, Medico* medico, Servico* servico){

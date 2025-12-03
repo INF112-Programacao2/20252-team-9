@@ -1171,10 +1171,7 @@ void Atendente::exibirHistoricoTransacoes(Clinica* clinica){
     std::cout << "                   HISTORICO                    \n";
     std::cout << "================================================\n";
 
-    std::vector<std::string> historico = clinica->getHistoricoTransacoes();
-    for(long unsigned int i=0; i<historico.size(); i++){
-        std::cout << historico[i] << std::endl;
-    }
+    
 }
 
 void Atendente::removerServico(Clinica *clinica){

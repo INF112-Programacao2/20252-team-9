@@ -5,6 +5,7 @@
 #include "../Headers/Utilsmain.h"
 #include <iostream>
 #include <vector>
+#include <iomanip>
 
 
 //Construtor
@@ -371,3 +372,30 @@ void Medico::AdicionarFeedBack(Clinica* clinica) {
     }
 }
 
+void Medico::exibirHistoricoTransacoes(Clinica* clinica){
+    limparTela();
+
+    //Recebe todas as transacoes
+    const std::vector<std::unique_ptr<Transacao>>& transacoes = clinica->getTransacoes();
+
+    //Exibe o histórico
+    std::cout << "================================================\n";
+    std::cout << "                   HISTORICO                    \n";
+    std::cout << "================================================\n";
+    
+    int indexVisual = 1;
+    for(long unsigned int i=0; i<transacoes.size(); i++){
+        Agendamento* agendamento = transacoes[i]->getAgendamento();
+       if(agendamento->getMedico()->getCrm() == this->crm){
+            std::cout << indexVisual << ".: ";
+            std::cout << "Data: " << transacoes[i]->getData() << " | Horario: " << transacoes[i]->getHorario() << " | Paciente: " << transacoes[i]->getAgendamento()->getPaciente()->getNome() << " | Valor(R$): " << std::fixed << std::setprecision(2) << agendamento->getServico()->getValor()*0.6 << " | Serviço: " << agendamento->getServico()->getNome() << std::endl;
+            indexVisual++;
+       }
+    }
+
+    if(indexVisual == 1){
+        std::cout << "\nAinda nao há nenhuma transacao\n";
+        return;
+    }
+
+}

@@ -27,12 +27,12 @@ Clinica::~Clinica(){}
 //Getters
 double Clinica::getSaldo() const {return saldo;}
 std::string Clinica::getNome() const {return nome;}
-std::vector<std::string> Clinica::getHistoricoTransacoes() {return historicoTransacoes;}
 const std::vector<std::unique_ptr<Paciente>>& Clinica::getPacientes() const {return pacientes;}
 const std::vector<std::unique_ptr<Medico>>& Clinica::getMedicos() const {return medicos;}
 const std::vector<std::unique_ptr<Agendamento>>& Clinica::getAgendamentos() const {return agendamentos;}
 const std::vector<std::unique_ptr<Servico>>& Clinica::getServicos() const {return servicos;}
 const std::vector<std::unique_ptr<Plano>>& Clinica::getPlanos() const {return planos;}
+const std::vector<std::unique_ptr<Transacao>>& Clinica::getTransacoes() const {return transacoes;}
 Atendente* Clinica::getAtendente() const {return atendente;}
 
 //Setters
@@ -116,11 +116,7 @@ void Clinica::adicionarAgendamento(std::unique_ptr<Agendamento> agendamento){
         
         
     //Armazena a transacao
-    std::stringstream transacao;
-
-    transacao << "Data: " << agendamento.get()->getData() << " | Horario: " << agendamento.get()->getHorario() << " | CPF do Paciente: " << agendamento.get()->getPaciente()->getCpf() << " | CRM do Médico: " << agendamento.get()->getMedico()->getCrm() << " | Valor(R$): " << std::fixed << std::setprecision(2) <<  agendamento.get()->getServico()->getValor() - (agendamento.get()->getPaciente()->getPlano()->getDesconto() * agendamento.get()->getServico()->getValor());
-    
-    historicoTransacoes.push_back(transacao.str());
+    this->adicionarTransacao(std::make_unique<Transacao>(obterHorarioAtual(), obterDataAtual(), agendamento.get()));
 
     //Adiciona o valor do agendamento nos saldos do médico e clinica
     Medico* medico = agendamento.get()->getMedico();
@@ -191,9 +187,30 @@ void Clinica::removerPlano(Plano* plano){
         }
     }
 
+    //Faz com que ao plano ser excluido, pacientes passem a ter um plano "nenhum", com desconto nulo
     for(long unsigned int i=0; i<pacientes.size(); i++){
         if(pacientes[i].get()->getPlano() == plano)
             pacientes[i].get()->setPlano(this->getPlanos()[0].get());
+    }
+}
+
+//Controle das transacoes
+void Clinica::adicionarTransacao(std::unique_ptr<Transacao> transacao){
+    if(!transacao)
+        throw std::invalid_argument("Ponteiros de objetos vazios sao invalidos");
+
+    transacoes.push_back(std::move(transacao));
+}
+
+void Clinica::removerTransacao(Transacao* transacao){
+    if(!transacao)
+        throw std::invalid_argument("Ponteiros de objetos vazios sao invalidos");
+
+    for(long unsigned int i=0; i<transacoes.size(); i++){
+        if(transacoes[i].get() == transacao){
+            planos.erase(planos.begin() + i);
+            break;
+        }
     }
 }
 

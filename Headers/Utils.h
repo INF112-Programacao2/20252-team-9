@@ -59,4 +59,10 @@ bool orderAgendamentosByDate(const std::unique_ptr<Agendamento>& a, const std::u
 //Ordena os planos por desconto
 bool orderPlanosByDesconto(const std::unique_ptr<Plano>& a, const std::unique_ptr<Plano>& b);
 
+// Retorna data atual do sistema (Ex: "03/12/2025")
+std::string obterDataAtual();
+
+// Retorna horário atual do sistema (Ex: "14:30")
+std::string obterHorarioAtual();
+
 #endif
