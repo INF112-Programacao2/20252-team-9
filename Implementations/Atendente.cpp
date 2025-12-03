@@ -648,7 +648,7 @@ void Atendente::agendarParaPaciente(Clinica* clinica){
 
     std::cout << pacientes.size()+1 << ".: Voltar\n";
 
-    long unsigned int escolhaPaciente = lerInteiro("Digite sua escolha: ", 1, pacientes.size());
+    long unsigned int escolhaPaciente = lerInteiro("Digite sua escolha: ", 1, pacientes.size()+1);
 
     if(escolhaPaciente == pacientes.size()+1){
         std::cout << "\nVoltando para o menu anterior\n";

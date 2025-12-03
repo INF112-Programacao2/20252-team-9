@@ -8,7 +8,7 @@ int main(){
     Clinica clinica("Centro Odontológico");
     clinica.popularClinica("populacao.txt");
 
-    Atendente atendente("Marcia", "103.268.216-78", "123456", "(32) 99968-2006", "0001");
+    Atendente atendente("Marcia", "111.111.111-11", "123", "(32) 99968-2006", "0001");
     clinica.setAtendente(atendente);
     
     Medico* medico = nullptr;
@@ -309,7 +309,7 @@ int main(){
 
             while(true){
                 exibirMenuAtendente();
-                escolha = lerInteiro("Digite sua escolha: ", 1, 15);
+                escolha = lerInteiro("Digite sua escolha: ", 1, 25);
 
                 if(escolha == 1){
                     atendente.VizualizaDados();
@@ -317,71 +317,121 @@ int main(){
                     continue;
                 }
                 else if(escolha == 2){
-                    atendente.AlterarServico(&clinica);
-                    enterParaContinuar();
-                    continue;
-                }
-                else if(escolha == 3){
-                    atendente.CadastrarMedico(&clinica);
-                    enterParaContinuar();
-                    continue;
-                }
-                else if(escolha == 4){
-                    atendente.CadastrarPaciente(&clinica);
-                    enterParaContinuar();
-                    continue;
-                }
-                else if(escolha == 5){
-                    atendente.ConsultaSaldoDaClinica(&clinica);
-                    enterParaContinuar();
-                    continue;
-                }
-                else if(escolha == 6){
-                    atendente.CriarServico(&clinica);
-                    enterParaContinuar();
-                    continue;
-                }
-                else if(escolha == 7){
-                    atendente.DesligarMedico(&clinica);
-                    enterParaContinuar();
-                    continue;
-                }
-                else if(escolha == 8){
-                    atendente.agendarParaPaciente(&clinica);
-                    enterParaContinuar();
-                    continue;
-                }
-                else if(escolha == 9){
                     atendente.VizualizaAgendamentos(&clinica);
                     enterParaContinuar();
                     continue;
                 }
-                else if(escolha == 10){
-                    atendente.visualizarMedicos(&clinica);
-                    enterParaContinuar();
-                    continue;
-                }   
-                else if(escolha == 11){
+                else if(escolha == 3){
                     atendente.visualizarPacientes(&clinica);
                     enterParaContinuar();
                     continue;
                 }
-                else if(escolha == 12){
+                else if(escolha == 4){
+                    atendente.visualizarMedicos(&clinica);
+                    enterParaContinuar();
+                    continue;
+                }
+                else if(escolha == 5){
+                    std::cout << "\nFunção ainda nao implementada\n";
+                    enterParaContinuar();
+                    continue;
+                }
+                else if(escolha == 6){
                     atendente.visualizarPlanos(&clinica);
                     enterParaContinuar();
                     continue;
                 }
-                else if(escolha == 13){
+                else if(escolha == 7){
+                    atendente.agendarParaPaciente(&clinica);
+                    enterParaContinuar();
+                    continue;
+                }
+                else if(escolha == 8){
+                    atendente.CadastrarPaciente(&clinica);
+                    enterParaContinuar();
+                    continue;
+                }
+                else if(escolha == 9){
+                    atendente.CadastrarMedico(&clinica);
+                    enterParaContinuar();
+                    continue;
+                }
+                else if(escolha == 10){
+                    std::cout << "\nFunção ainda nao implementada\n";
+                    enterParaContinuar();
+                    continue;
+                }   
+                else if(escolha == 11){
                     atendente.adicionarPlanos(&clinica);
                     enterParaContinuar();
                     continue;
                 }
+                else if(escolha == 12){
+                    std::cout << "\nFunção ainda nao implementada\n";
+                    enterParaContinuar();
+                    continue;
+                }
+                else if(escolha == 13){
+                    std::cout << "\nFunção ainda nao implementada\n";
+                    enterParaContinuar();
+                    continue;
+                }
                 else if(escolha == 14){
-                    atendente.removerPlano(&clinica);
+                    std::cout << "\nFunção ainda nao implementada\n";
                     enterParaContinuar();
                     continue;
                 }
                 else if(escolha == 15){
+                    std::cout << "\nFunção ainda nao implementada\n";
+                    enterParaContinuar();
+                    continue;
+                }
+                else if(escolha == 16){
+                    std::cout << "\nFunção ainda nao implementada\n";
+                    enterParaContinuar();
+                    continue;
+                }
+                else if(escolha == 17){
+                    std::cout << "\nFunção ainda nao implementada\n";
+                    enterParaContinuar();
+                    continue;
+                }
+                else if(escolha == 18){
+                    std::cout << "\nFunção ainda nao implementada\n";
+                    enterParaContinuar();
+                    continue;
+                }
+                else if(escolha == 19){
+                    std::cout << "\nFunção ainda nao implementada\n";
+                    enterParaContinuar();
+                    continue;
+                }
+                else if(escolha == 20){
+                    atendente.DesligarMedico(&clinica);
+                    enterParaContinuar();
+                    continue;
+                }
+                else if(escolha == 21){
+                    std::cout << "\nFunção ainda nao implementada\n";
+                    enterParaContinuar();
+                    continue;
+                }
+                else if(escolha == 22){
+                    atendente.removerPlano(&clinica);
+                    enterParaContinuar();
+                    continue;
+                }
+                else if(escolha == 23){
+                    atendente.ConsultaSaldoDaClinica(&clinica);
+                    enterParaContinuar();
+                    continue;
+                }
+                else if(escolha == 24){
+                    std::cout << "\nFunção ainda nao implementada\n";
+                    enterParaContinuar();
+                    continue;
+                }
+                else if(escolha == 25){
                     limparTela();
                     break;
                 }

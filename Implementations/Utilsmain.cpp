@@ -168,23 +168,58 @@ void exibirMenuAtendente(){
     std::cout << "                      MENU                      \n";
     std::cout << "================================================\n";
     std::cout << " 1.: Visualizar Dados Pessoais\n";
-    std::cout << " 2.: Alterar Serviço\n";
-    std::cout << " 3.: Cadastrar Novo Médico\n";
-    std::cout << " 4.: Cadastrar Novo Paciente\n";
-    std::cout << " 5.: Consultar Saldo da Clínica\n";
-    std::cout << " 6.: Criar Novo Serviço\n";
-    std::cout << " 7.: Desligar Médico\n";
-    std::cout << " 8.: Marcar Agendamento para Paciente\n";
-    std::cout << " 9.: Visualizar Agendamentos\n";
-    std::cout << " 10.: Visualizar Médicos\n";
-    std::cout << " 11.: Visualizar Pacientes\n";
-    std::cout << " 12.: Visualizar Planos\n";
-    std::cout << " 13.: Adicionar Plano\n";
-    std::cout << " 14.: Remover Plano\n";
-    std::cout << " 15.: Sair\n";
+    std::cout << " 2.: Visualizar Agendamentos\n";
+    std::cout << " 3.: Visualizar Pacientes\n";
+    std::cout << " 4.: Visualizar Médicos\n";
+    std::cout << " 5.: Visualzar Serviços\n";
+    std::cout << " 6.: Visualizar Planos\n";
+    std::cout << " 7.: Marcar Agendamento para Paciente\n";
+    std::cout << " 8.: Cadastrar Novo Paciente\n";
+    std::cout << " 9.: Cadastrar Novo Médico\n";
+    std::cout << " 10.: Cadastrar Novo Serviço\n";
+    std::cout << " 11.: Cadastrar Novo Plano\n";
+    std::cout << " 12.: Alterar Dados Pessoais\n";
+    std::cout << " 13.: Alterar Agendamento\n";
+    std::cout << " 14.: Alterar Paciente\n";
+    std::cout << " 15.: Alterar Médico\n";
+    std::cout << " 16.: Alterar Servico\n";
+    std::cout << " 17.: Alterar Plano\n";
+    std::cout << " 18.: Remover Agendamento\n";
+    std::cout << " 19.: Remover Paciente\n";
+    std::cout << " 20.: Remover Médico\n";
+    std::cout << " 21.: Remover Serviço\n";
+    std::cout << " 22.: Remover Plano\n";
+    std::cout << " 23.: Consultar Saldo da Clínica\n";
+    std::cout << " 24.: Exibir Histórico de Transações da Clínica\n";
+    std::cout << " 25.: Sair\n";
     std::cout << "------------------------------------------------\n";
 }
-//Visualizar dados / alterar serviço / cadastrar medico / cadastrar paciente / consultar saldo da clinica / criar serviço / desligar medico / marcar agendamento / sair
+
+//Visualizar dados pessoais
+//Visualisar Agendamentos
+//Visualizar pacientes
+//Visualizar medicos
+//Visualizar servicos
+//Visualizar planos
+//Marcar agendamento para paciente
+//Cadastrar Novo Paciente
+//Cadastrar Novo Medico
+//Cadastrar novo servico
+//Cadastrar novo plano
+//Alterar dados atendente
+//Alterar agendamento
+//Alterar paciente
+//Alterar Médico
+//Alterar servico
+//Alterar plano
+//Remover  Agendamento
+//Remover paciente
+//Remover medico
+//Remover servico
+//Remover plano
+//Sair
+
+
 
 void enterParaContinuar(){
     std::string enter;
