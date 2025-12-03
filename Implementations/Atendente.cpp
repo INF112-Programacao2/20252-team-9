@@ -1167,7 +1167,6 @@ void Atendente::cadastrarServico(Clinica* clinica){
     }
 
 }
-<<<<<<< HEAD
 
 void Atendente::exibirHistoricoTransacoes(Clinica* clinica){
     limparTela();
@@ -1180,5 +1179,53 @@ void Atendente::exibirHistoricoTransacoes(Clinica* clinica){
         std::cout << historico[i] << std::endl;
     }
 }
-=======
->>>>>>> 750bf1af6872c78ea49b4a73465ac6971db612de
+
+void Atendente::removerServico(Clinica *clinica){
+    //Recebe a lista de serviços
+    limparTela();
+    const std::vector<std::unique_ptr<Servico>>& servicos = clinica->getServicos();
+
+    std::cout << "================================================\n";
+    std::cout << "                   SERVICOS                     \n";
+    std::cout << "================================================\n";
+    
+    if(servicos.empty()){
+        std::cout << "\nNao há nenhum serviço cadastrado ainda. Cadastre pelo menos um antes de tentar excluir\n";
+        return;
+    }
+
+    //Imprime a lista de serviços
+    std::cout << std::endl;
+    int lastIndex = 1;
+    for(long unsigned int i=0; i<servicos.size(); i++){
+        std::cout << i+1 << ".: Nome: " << servicos[i].get()->getNome() << " | Valor sem Descontos(R$): " << std::fixed << std::setprecision(2) <<  servicos[i].get()->getValor() << " | Ocupacao necessária: " << servicos[i].get()->getOcupacaoRequerida() << std::endl;
+        lastIndex++;
+    }
+
+    std::cout << lastIndex << ".: Voltar\n\n";
+
+    //Escolhe qual medico excluir
+    int escolha = lerInteiro("Digite sua escolha: ", 1, lastIndex);
+    
+    if(escolha == lastIndex){
+        std::cout << "\nVoltando para o menu anterior\n";
+        return;
+    }
+    else if(escolha != lastIndex){
+        std::cout << "\nVoce deseja realmente excluir?\n1.Sim\n2.Nao\n\n";
+        int confirmacao = lerInteiro("Digite o que voce deseja fazer: ", 1, 2);
+        if(confirmacao == 2){
+            std::cout << "\nVoltando para o menu anterior\n";
+            return;
+        }
+    }
+
+    //Exclui o medico
+    try{
+        clinica->removerServico(servicos[escolha-1].get());
+        std::cout << "\nServiço removido com sucesso.\n";
+    }
+    catch(std::invalid_argument &e){
+        std::cout << e.what() << std::endl;
+    }
+}
