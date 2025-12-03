@@ -172,7 +172,7 @@ void exibirMenuAtendente(){
     std::cout << " 2.: Visualizar Agendamentos\n";
     std::cout << " 3.: Visualizar Pacientes\n";
     std::cout << " 4.: Visualizar Médicos\n";
-    std::cout << " 5.: Visualzar Serviços\n";
+    std::cout << " 5.: Visualizar Serviços\n";
     std::cout << " 6.: Visualizar Planos\n";
     std::cout << " 7.: Marcar Agendamento para Paciente\n";
     std::cout << " 8.: Cadastrar Novo Paciente\n";
