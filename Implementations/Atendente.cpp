@@ -359,6 +359,20 @@ void Atendente::CadastrarPaciente(Clinica* clinica){
             enterParaContinuar();
             continue;
         }
+
+        bool duplicada = false;
+
+        for(long unsigned int i = 0; i < clinica->getPacientes().size(); i++){
+            if(clinica->getPacientes()[i]->getCpf() == cpf){
+                std::cout << "\nEssa pessoa já está registrada no sistema. Tente novamente\n";
+                duplicada = true;
+                enterParaContinuar();
+                break;
+            }
+        }
+
+        if(duplicada) continue;
+
         break;
     }
 
@@ -499,6 +513,21 @@ void Atendente::CadastrarMedico(Clinica* clinica) {
             enterParaContinuar();
             continue;
         }
+
+        bool duplicado = false;
+
+        for(long unsigned int i = 0; i < clinica->getMedicos().size(); i++){
+            if(clinica->getMedicos()[i]->getCpf() == cpf){
+                std::cout << "\nCPF invalido, este cpf já está cadastrado no sistema. Tente novamente\n";
+                duplicado = true;
+                enterParaContinuar();
+                break;
+            }
+        }
+
+        if(duplicado){
+            continue;
+        }
         break;
     }
 
@@ -547,6 +576,22 @@ void Atendente::CadastrarMedico(Clinica* clinica) {
             enterParaContinuar();
             continue;
         }
+
+        bool duplicado = false;
+
+        for(long unsigned int i = 0; i < clinica->getMedicos().size(); i++){
+            if(clinica->getMedicos()[i]->getCrm() == crm){
+                std::cout << "\nCRM invalido, este crm já está cadastrado no sistema. Tente novamente\n";
+                duplicado = true;
+                enterParaContinuar();
+                break;
+            }
+        }
+
+        if(duplicado){
+            continue;
+        }
+
         break;
     }
 
@@ -1017,6 +1062,18 @@ void Atendente::adicionarPlanos(Clinica* clinica){
             enterParaContinuar();
             continue;
         }
+
+        bool duplicado = false;
+        for(long unsigned int i = 0; i < clinica->getPlanos().size(); i++){
+            if(nome == clinica->getPlanos()[i]->getNome()){
+                std::cout << "\nJá existe um plano com o mesmo nome registrado no sistema. Tente outro nome.\n";
+                duplicado = true;
+                enterParaContinuar();
+                continue;
+            }
+        }
+        if(duplicado) continue;
+
         break;
     }
 
