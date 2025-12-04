@@ -5,7 +5,7 @@
 #include "../Headers/Utils.h"
 
 int main(){
-    Clinica clinica("Centro Odontológico");
+    Clinica clinica("Clinica Odontologica");
     clinica.popularClinica("populacao.txt");
 
     Atendente atendente("Marcia", "111.111.111-11", "123", "(32) 99968-2006", "0001");

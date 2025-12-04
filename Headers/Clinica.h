@@ -17,6 +17,8 @@ class Clinica{
         double saldo;
         std::string nome;
 
+        std::vector<std::unique_ptr<Paciente>> pacientes_desativados;
+        std::vector<std::unique_ptr<Medico>> medicos_desativados;
         std::vector<std::unique_ptr<Paciente>> pacientes; //Vector que contém todos pacientes da clínica
         std::vector<std::unique_ptr<Medico>> medicos;  //Vector que contém todos os médicos da clínica
         std::vector<std::unique_ptr<Agendamento>> agendamentos; //Vector que contém todos agendamentos da clínica

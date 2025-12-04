@@ -69,6 +69,7 @@ void Clinica::removerPaciente(Paciente* paciente){
 
     for(long unsigned int i=0; i<pacientes.size(); i++){
         if(pacientes[i].get() == paciente){
+            //pacientes_desativados.push_back(std::move(pacientes[i]));
             pacientes.erase(pacientes.begin() + i);
             break;
         }
@@ -96,6 +97,7 @@ void Clinica::removerMedico(Medico* medico){
 
     for(long unsigned int i=0; i<medicos.size(); i++){
         if(medicos[i].get() == medico){
+            medicos_desativados.push_back(std::move(medicos[i]));
             medicos.erase(medicos.begin() + i);
             break;
         }
@@ -103,10 +105,18 @@ void Clinica::removerMedico(Medico* medico){
 
     //Remove tambem os agendamentos associados a ele
     for(long unsigned int i=0; i<agendamentos.size(); i++){
-        if(agendamentos[i].get()->getMedico() == medico){
-            agendamentos.erase(agendamentos.begin() + i);
-        }
+        if(comparaData(obterDataAtual(), agendamentos[i].get()->getData()) == -1 && agendamentos[i].get()->getMedico() == medico){ // Se o agendamento está no futuro, ele exclui
+                for(long unsigned int j = 0; j<transacoes.size(); j++) // remove todas transações futuras relacionadas ao médico excluido.
+                    if(transacoes[j].get()->getAgendamento() == agendamentos[i].get())
+                        this->removerTransacao(std::move(transacoes[j].get()));
+                
+                saldo -= 0.4 * agendamentos[i].get()->getServico()->getValor();
+                agendamentos.erase(agendamentos.begin() + i);
+            }
     }
+
+    std::cout << "\nTodas as transações e agendamentos futuros do médico foram excluídas do sistema.\n";
+
 }
 
 //Controle dos agendamentos
@@ -208,7 +218,7 @@ void Clinica::removerTransacao(Transacao* transacao){
 
     for(long unsigned int i=0; i<transacoes.size(); i++){
         if(transacoes[i].get() == transacao){
-            planos.erase(planos.begin() + i);
+            transacoes.erase(transacoes.begin() + i);
             break;
         }
     }
