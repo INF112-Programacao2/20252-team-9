@@ -31,7 +31,7 @@ class Atendente : public Pessoa{
         void VisualizaAgendamentos(Clinica* clinica) override; // Metodos herdados de pessoa
         void CadastrarPaciente(Clinica *clinica);
         void CadastrarMedico(Clinica* clinica);
-        void DesligarMedico(Clinica* clinica);
+        void desligarMedico(Clinica* clinica);
         void ConsultaSaldoDaClinica(Clinica* clinica);
         void CriarServico(Clinica* clinica);
         void AlterarServico(Clinica* clinica);
@@ -44,9 +44,10 @@ class Atendente : public Pessoa{
         void visulizarServicos(Clinica* clinica);
         void cadastrarServico(Clinica* clinica);
         void exibirHistoricoTransacoes(Clinica* clinica);
-        void removerServico(Clinica *clinica);
-        void removerPaciente(Clinica *clinica);
+        void desligarServico(Clinica *clinica);
+        void desligarPaciente(Clinica *clinica);
         void alterarPlano(Clinica *clinica);
+        void cancelarAgendamento(Clinica *clinica);
 };
 
 #endif // PROJETO_FINAL_INF_112_ATENDENTE

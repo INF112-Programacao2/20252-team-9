@@ -69,16 +69,24 @@ void Clinica::removerPaciente(Paciente* paciente){
 
     for(long unsigned int i=0; i<pacientes.size(); i++){
         if(pacientes[i].get() == paciente){
-            //pacientes_desativados.push_back(std::move(pacientes[i]));
+            pacientes_desativados.push_back(std::move(pacientes[i]));
             pacientes.erase(pacientes.begin() + i);
             break;
         }
     }
 
     //Remove tambem os agendamentos associados a ele
-    for(long unsigned int i=0; i<agendamentos.size(); i++){
-        if(agendamentos[i].get()->getPaciente() == paciente){
+    for(long unsigned int i=0; i<agendamentos.size();){
+        if(comparaData(obterDataAtual(), agendamentos[i].get()->getData()) == -1 && agendamentos[i].get()->getPaciente() == paciente){ // Se o agendamento está no futuro, ele exclui
+            for(long unsigned int j = 0; j<transacoes.size(); j++) // remove todas transações futuras relacionadas ao médico excluido.
+                if(transacoes[j].get()->getAgendamento() == agendamentos[i].get())
+                    this->removerTransacao(std::move(transacoes[j].get()));
+            
+            saldo -= 0.4 * agendamentos[i].get()->getServico()->getValor();
             agendamentos.erase(agendamentos.begin() + i);
+        }
+        else{
+            i++;
         }
     }
 }
@@ -104,7 +112,7 @@ void Clinica::removerMedico(Medico* medico){
     }
 
     //Remove tambem os agendamentos associados a ele
-    for(long unsigned int i=0; i<agendamentos.size(); i++){
+    for(long unsigned int i=0; i<agendamentos.size();){
         if(comparaData(obterDataAtual(), agendamentos[i].get()->getData()) == -1 && agendamentos[i].get()->getMedico() == medico){ // Se o agendamento está no futuro, ele exclui
                 for(long unsigned int j = 0; j<transacoes.size(); j++) // remove todas transações futuras relacionadas ao médico excluido.
                     if(transacoes[j].get()->getAgendamento() == agendamentos[i].get())
@@ -112,7 +120,10 @@ void Clinica::removerMedico(Medico* medico){
                 
                 saldo -= 0.4 * agendamentos[i].get()->getServico()->getValor();
                 agendamentos.erase(agendamentos.begin() + i);
-            }
+        }
+        else{
+            i++;
+        }
     }
 
     std::cout << "\nTodas as transações e agendamentos futuros do médico foram excluídas do sistema.\n";
@@ -165,15 +176,25 @@ void Clinica::removerServico(Servico* servico){
 
     for(long unsigned int i=0; i<servicos.size(); i++){
         if(servicos[i].get() == servico){
+            servicos_desativados.push_back(std::move(servicos[i]));
             servicos.erase(servicos.begin() + i);
             break;
         }
     }
 
     //Remove tambem os agendamentos associados a ele
-    for(long unsigned int i=0; i<agendamentos.size(); i++){
-        if(agendamentos[i].get()->getServico() == servico)
+    for(long unsigned int i=0; i<agendamentos.size();){
+        if(comparaData(obterDataAtual(), agendamentos[i].get()->getData()) == -1 && agendamentos[i].get()->getServico() == servico){ // Se o agendamento está no futuro, ele exclui
+            for(long unsigned int j = 0; j<transacoes.size(); j++) // remove todas transações futuras relacionadas ao médico excluido.
+                if(transacoes[j].get()->getAgendamento() == agendamentos[i].get())
+                    this->removerTransacao(std::move(transacoes[j].get()));
+            
+            saldo -= 0.4 * agendamentos[i].get()->getServico()->getValor();
             agendamentos.erase(agendamentos.begin() + i);
+        }
+        else{
+            i++;
+        }
     }
 }
 

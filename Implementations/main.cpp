@@ -397,22 +397,22 @@ int main(){
                     continue;
                 }
                 else if(escolha == 15){
-                    std::cout << "\nFunção ainda nao implementada\n";
+                    atendente.cancelarAgendamento(&clinica);
                     enterParaContinuar();
                     continue;
                 }
                 else if(escolha == 16){
-                    std::cout << "\nFunção ainda nao implementada\n";
+                    atendente.desligarPaciente(&clinica);
                     enterParaContinuar();
                     continue;
                 }
                 else if(escolha == 17){
-                    atendente.DesligarMedico(&clinica);
+                    atendente.desligarMedico(&clinica);
                     enterParaContinuar();
                     continue;
                 }
                 else if(escolha == 18){
-                    atendente.removerServico(&clinica);
+                    atendente.desligarServico(&clinica);
                     enterParaContinuar();
                     continue;
                 }

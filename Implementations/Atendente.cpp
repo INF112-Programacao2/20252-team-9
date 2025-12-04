@@ -635,7 +635,7 @@ void Atendente::CadastrarMedico(Clinica* clinica) {
     }
 }
 
-void Atendente::DesligarMedico(Clinica* clinica){
+void Atendente::desligarMedico(Clinica* clinica){
     //Recebe a lista de medicos
     limparTela();
     const std::vector<std::unique_ptr<Medico>>& medicos = clinica->getMedicos();
@@ -1264,7 +1264,7 @@ void Atendente::exibirHistoricoTransacoes(Clinica* clinica){
 
 }
 
-void Atendente::removerServico(Clinica *clinica){
+void Atendente::desligarServico(Clinica *clinica){
     //Recebe a lista de serviços
     limparTela();
     const std::vector<std::unique_ptr<Servico>>& servicos = clinica->getServicos();
@@ -1429,5 +1429,106 @@ void Atendente::alterarPlano(Clinica *clinica){
         }else{
             return;
         }
+    }
+}
+
+void Atendente::desligarPaciente(Clinica* clinica){
+    //Recebe a lista de pacientes
+    limparTela();
+    const std::vector<std::unique_ptr<Paciente>>& pacientes = clinica->getPacientes();
+
+    std::cout << "================================================\n";
+    std::cout << "                   PACIENTES                    \n";
+    std::cout << "================================================\n";
+    
+    if(pacientes.empty()){
+        std::cout << "\nNao há nenhum paciente cadastrado ainda. Cadastre pelo menos um antes de tentar excluir\n";
+        return;
+    }
+
+    //Imprime a lista de pacientes
+    std::cout << std::endl;
+    int lastIndex = 1;
+    for(long unsigned int i=0; i<pacientes.size(); i++){
+        std::cout << i+1 << ".: Nome: " << pacientes[i].get()->getNome() << " | CPF: " << pacientes[i].get()->getCpf() << " | Telefone: " << pacientes[i].get()->getTelefone() << std::endl;
+        lastIndex++;
+    }
+
+    std::cout << lastIndex << ".: Voltar\n\n";
+
+    //Escolhe qual paciente excluir
+    int escolha = lerInteiro("Digite sua escolha: ", 1, lastIndex);
+    
+    if(escolha == lastIndex){
+        std::cout << "\nVoltando para o menu anterior\n";
+        return;
+    }
+    else if(escolha != lastIndex){
+        std::cout << "\nVoce deseja realmente excluir?\n1.Sim\n2.Nao\n\n";
+        int confirmacao = lerInteiro("Digite sua escolha: ", 1, 2);
+        if(confirmacao == 2){
+            std::cout << "\nVoltando para o menu anterior\n";
+            return;
+        }
+    }
+
+    //Exclui o paciente
+    try{
+        clinica->removerPaciente(pacientes[escolha-1].get());
+        std::cout << "\nMedico removido com sucesso.\n";
+    }
+    catch(std::invalid_argument &e){
+        std::cout << e.what() << std::endl;
+    }
+}
+
+void Atendente::cancelarAgendamento(Clinica *clinica){
+    std::cout<<"================================================\n";
+    std::cout<<"             AGENDAMENTOS PENDENTES             \n";
+    std::cout<<"================================================\n\n";
+
+    const std::vector<std::unique_ptr<Agendamento>>& agendamentos = clinica->getAgendamentos();
+    int indexVisual=1;
+
+    for(long unsigned int i=0; i<agendamentos.size(); i++){
+        if(agendamentos[i].get()->isConcluido()){
+            std::cout << indexVisual << ".: ";
+            indexVisual++;
+            agendamentos[i].get()->imprimirResumido();
+        }
+    }
+
+    if(agendamentos.empty()){
+        std::cout << "A clínica nao possui nenhum agendamento\n";
+        return;
+    }
+
+    std::cout << indexVisual << ".: Voltar\n\n";
+
+    int escolha = lerInteiro("Digite a sua escolha: ", 1, indexVisual);
+
+    if(escolha == indexVisual){
+        std::cout << "\nVoltando ao menur anterior\n";
+        return;
+    }
+    else if(escolha != indexVisual){
+        std::cout << "\nVoce deseja realmente excluir?\n1.Sim\n2.Nao\n\n";
+        int confirmacao = lerInteiro("Digite sua escolha: ", 1, 2);
+        if(confirmacao == 2){
+            std::cout << "\nVoltando para o menu anterior\n";
+            return;
+        }
+    }
+
+    limparTela();
+
+    //Acha e exclui o agaendamento escolhido
+    try{
+        Agendamento* ptr = agendamentos[escolha-1].get();
+        clinica->removerAgendamento(ptr);
+        std::cout << "\nAgendamento excluido com sucesso\n";
+    }
+    catch(std::invalid_argument &e){
+        std::cout << e.what() << std::endl;
     }
 }
