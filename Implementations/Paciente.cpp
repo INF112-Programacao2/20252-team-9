@@ -25,7 +25,13 @@ Paciente::Paciente(std::string nome, std::string cpf, std::string senha, std::st
         this->plano = plano;
     }
 
-Paciente::~Paciente(){}
+Paciente::~Paciente(){
+    if(!notificacoes.empty()){
+        for(long unsigned int i=0; i<notificacoes.size(); i++){
+            delete notificacoes[i];
+        }
+    }
+}
         
 //Gets
 std::string Paciente::getDataDeNascimento() const {return dataDeNascimento;}
