@@ -947,25 +947,28 @@ void Atendente::agendarParaPaciente(Clinica* clinica){
     try{
         Agendamento* agendamento = new Agendamento(data, horarios[escolhaHorario-1], paciente , medico, servico);
         
-        for(auto &a : paciente->getNotificacoes()){
-            if(a->getPaciente()->getCpf() == agendamento->getPaciente()->getCpf() && a->getMedico()->getCpf() == agendamento->getMedico()->getCpf() && a->getData() == agendamento->getData() && a->getHorario() == agendamento->getHorario() && a->getServico()->getId() == agendamento->getServico()->getId()){
-                std::cout << "\nErro! Essa solicitação já foi realizada.\n";
-                delete agendamento;
-                return;
-            }
+        for(auto &p : clinica->getPacientes()){
+            for(auto &a : p->getNotificacoes()){
+                if(a->getPaciente()->getCpf() == agendamento->getPaciente()->getCpf() && a->getMedico()->getCpf() == agendamento->getMedico()->getCpf() && a->getData() == agendamento->getData() && a->getHorario() == agendamento->getHorario() && a->getServico()->getId() == agendamento->getServico()->getId()){
+                    std::cout << "\nErro! Essa solicitação já foi realizada.\n";
+                    delete agendamento;
+                    return;
+                }
+                if(a->getPaciente()->getCpf() == agendamento->getPaciente()->getCpf() && a->getData() == agendamento->getData() && a->getHorario() == agendamento->getHorario()){
+                    std::cout << "\nErro! O paciente já possui um agendamento nessa data e horário.\n";
+                    delete agendamento;
+                    return;
+                }
 
-            if(a->getPaciente()->getCpf() == agendamento->getPaciente()->getCpf() && a->getData() == agendamento->getData() && a->getHorario() == agendamento->getHorario()){
-                std::cout << "\nErro! O paciente já possui um agendamento nessa data e horário.\n";
-                delete agendamento;
-                return;
-            }
-
-            if(a->getMedico()->getCpf() == agendamento->getMedico()->getCpf() && a->getData() == agendamento->getData() && a->getHorario() == agendamento->getHorario()){
-                std::cout << "\nErro! O médico já possui um agendamento nessa data e horário.\n";
-                delete agendamento;
-                return;
+                if(a->getMedico()->getCpf() == agendamento->getMedico()->getCpf() && a->getData() == agendamento->getData() && a->getHorario() == agendamento->getHorario()){
+                    std::cout << "\nErro! O médico já possui um agendamento nessa data e horário.\n";
+                    delete agendamento;
+                    return;
+                }
             }
         }
+
+     
 
         std::cout << "\nVoce realmente deseja adicioar o agendamento: \n";
         agendamento->imprimirDetalhado();
