@@ -1372,7 +1372,7 @@ void Atendente::alterarPlano(Clinica *clinica){
                 std::cout << "================================================\n";
                 std::cout << "Informe o novo nome do plano: ";
                 getline(std::cin, novo_nome);
-                if(!stringVazia(novo_nome))
+                if(stringVazia(novo_nome))
                     break;
                 std::cout << "\nO nome não pode ser vazio, Tente novamente\n"; 
                 enterParaContinuar();
