@@ -22,7 +22,7 @@ Projeto final da disciplina **INF112 – Programação II**, desenvolvido em **C
 
 Este sistema realiza o gerenciamento completo de uma clínica médica, permitindo administrar **agendamentos, profissionais, serviços, planos e histórico de atendimentos**.
 
-O sistema contempla três tipos de usuários — **Atendente, Médico e Paciente** — cada um com permissões e funcionalidades específicas.
+O sistema contempla três tipos de usuários, sendo eles **Atendente, Médico e Paciente**, cada um com permissões e funcionalidades específicas.
 
 As operações principais incluem:
 
