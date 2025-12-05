@@ -36,7 +36,7 @@ As operações principais incluem:
 ## Integrantes
 
 - Ana Carolina Costa Pereira — *106355*  
-- Bruno Alexander Pinto Sette — *120562*  
+- Bruno Alexander Pinto Sette — *120565*  
 - Eduardo Magesti Santiago — *120568*  
 - Icaro Avelar Fernandes — *120551*  
 - Joao Pedro Monteiro Nunes Silva — *120552*
